@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Work — Decofy Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+
+  <style>
+    .work {
+      background: #EEEAE0;
+      color: #1a0f0c;
+      padding-top: 170px;
+    }
+
+    .work-hero-top {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 50px;
+      z-index: 2;
+    }
+
+    .work-hero-text {
+      position: relative;
+      z-index: 3;
+      max-width: 540px;
+    }
+
+    .work-hero-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(42px, 5.5vw, 76px);
+      font-weight: 400;
+      color: #201F1C;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .work-hero-desc {
+      font-size: clamp(15px, 1.3vw, 17px);
+      line-height: 1.6;
+      color: #56534A;
+      max-width: 480px;
+    }
+
+    .work-hero-art {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 480px;
+      max-height: 540px;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .bg-svg-item {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(0.96);
+      filter: blur(6px);
+      transition: opacity 0.8s cubic-bezier(.19, 1, .22, 1), transform 0.8s cubic-bezier(.19, 1, .22, 1), filter 0.8s ease;
+    }
+
+    .bg-svg-item.active {
+      opacity: 0.9;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+
+    .bg-svg-item img,
+    .bg-svg-item canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+    }
+
+    @keyframes intSubtleBreath {
+
+      0%,
+      100% {
+        transform: scale(1) translateY(0px);
+      }
+
+      50% {
+        transform: scale(1.015) translateY(-5px);
+      }
+    }
+
+    @keyframes landSubtleWave {
+
+      0%,
+      100% {
+        transform: scale(1) translateX(0px);
+      }
+
+      50% {
+        transform: scale(1.01) translateX(8px);
+      }
+    }
+
+    #plateInterior.active img {
+      animation: intSubtleBreath 7s ease-in-out infinite;
+    }
+
+    #plateLandscape.active img {
+      animation: landSubtleWave 9s ease-in-out infinite;
+    }
+
+    .work-bar-wrapper {
+      position: relative;
+      z-index: 4;
+      margin-bottom: 50px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .work-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(26, 15, 12, 0.06);
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      padding: 6px;
+      flex-wrap: wrap;
+    }
+
+    .work-tabs button {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+      color: #5C4335;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 12px 26px;
+      border-radius: 100px;
+      transition: background .35s ease, color .35s ease, transform .2s ease;
+      white-space: nowrap;
+    }
+
+    .work-tabs button:hover {
+      color: #1a0f0c;
+    }
+
+    .work-tabs button.active {
+      background: #8B4A34;
+      color: #EEEAE0;
+      animation: tabPulse .4s ease;
+    }
+
+    @keyframes tabPulse {
+      0% {
+        transform: scale(0.92);
+      }
+
+      60% {
+        transform: scale(1.04);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .work-hero-top {
+        min-height: auto;
+        margin-bottom: 40px;
+      }
+    }
+
+    #projectList {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .project {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      min-height: 320px;
+      background: var(--panel);
+      transition: transform 0.5s cubic-bezier(.19, 1, .22, 1), border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.5s ease;
+      opacity: 1;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+    }
+
+    .project-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin-bottom: 0;
+      border: none;
+      cursor: pointer;
+    }
+
+    .project-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.9s cubic-bezier(.19, 1, .22, 1), filter .6s ease;
+      filter: grayscale(20%) brightness(0.85);
+    }
+
+    .project:hover .project-frame img {
+      transform: scale(1.08);
+      filter: grayscale(0%) brightness(0.92);
+    }
+
+    .project-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(20, 10, 8, 0.1) 0%, rgba(20, 10, 8, 0.65) 100%);
+      pointer-events: none;
+    }
+
+    .project-card-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 26px;
+      z-index: 3;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    .project-card-footer .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: #FFF8EE !important;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+    }
+
+    .project:hover .project-card-footer {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .project-hover-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: linear-gradient(180deg, rgba(26, 15, 12, 0.45) 0%, rgba(26, 15, 12, 0.9) 100%);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.45s cubic-bezier(.19, 1, .22, 1), transform 0.45s cubic-bezier(.19, 1, .22, 1);
+      pointer-events: none;
+      border: 1px solid rgba(199, 154, 91, 0.4);
+      border-radius: 16px;
+    }
+
+    .project:hover .project-hover-overlay {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .hover-cat {
+      font-size: 10.5px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #EEEAE0;
+      background: #8B4A34;
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+
+    .hover-title {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      color: #FFF8EE !important;
+      margin-top: 12px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.95);
+    }
+
+    .hover-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--panel);
+      background: var(--cream);
+      padding: 12px 24px;
+      border-radius: 100px;
+      align-self: flex-start;
+      margin-top: 14px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .project:hover .hover-action {
+      background: var(--gold);
+      transform: translateX(4px);
+    }
+
+    footer {
+      padding: 34px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel);
+      border-top: 1px solid var(--line-soft);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 16px 20px;
+      }
+
+      #navbarDock,
+      .dock-panel {
+        display: none !important;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 90px 20px;
+      }
+
+      .work-hero-art {
+        top: 30px;
+        height: 350px;
+        opacity: 0.9;
+      }
+
+      .work-hero-top {
+        min-height: auto;
+        margin-bottom: 28px;
+        padding-top: 10px;
+      }
+
+      .work-hero-title {
+        font-size: clamp(34px, 7vw, 52px);
+        margin-bottom: 12px;
+      }
+
+      .work-hero-desc {
+        font-size: 14px;
+      }
+
+      .work-bar-wrapper {
+        margin-bottom: 28px;
+        padding-bottom: 14px;
+      }
+
+      #projectList {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .project {
+        min-height: 220px;
+        aspect-ratio: 16 / 10;
+        border-radius: 14px;
+      }
+
+      .project-card-footer {
+        padding: 18px 20px;
+      }
+
+      .project-card-footer .card-title {
+        font-size: clamp(18px, 4.5vw, 22px);
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px 20px;
+      }
+
+      .section-head {
+        margin-bottom: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .work-tabs {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 4px;
+        padding: 4px;
+      }
+
+      .work-tabs button {
+        flex: 1;
+        padding: 9px 8px;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .logo-text {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="logo">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+          <path d="M4 14 Q4 8 9 8" stroke="#C79A5B" stroke-width="1.6" stroke-linecap="round" />
+          <circle cx="9" cy="9.5" r="2.1" fill="#C79A5B" />
+          <line x1="9" y1="11.5" x2="9" y2="15" stroke="#C79A5B" stroke-width="1.2" />
+        </svg>
+        <div>
+          <span class="logo-text">Decofy</span>
+          <span class="logo-sub">STUDIOS</span>
+        </div>
+      </a>
+    </div>
+    <div class="dock-container" id="navbarDock"></div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6l12 12" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <a href="index.html" class="mobile-link">Home</a>
+    <a href="projects_category.html" class="mobile-link">Projects</a>
+    <a href="gallery.html" class="mobile-link">Gallery</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="about.html" class="mobile-link">About Us</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+  </div>
+
+  <section class="work" id="work">
+
+    <div class="work-hero-art">
+      <div class="bg-svg-item active" id="plateExterior">
+        <canvas id="archCanvas"></canvas>
+      </div>
+      <div class="bg-svg-item" id="plateInterior">
+        <canvas id="intCanvas"></canvas>
+      </div>
+      <div class="bg-svg-item" id="plateLandscape">
+        <canvas id="landCanvas"></canvas>
+      </div>
+    </div>
+
+    <div class="work-hero-top reveal">
+      <div class="work-hero-text">
+        <span class="eyebrow">Selected Work</span>
+        <h1 class="work-hero-title">Our Projects</h1>
+        <p class="work-hero-desc">
+          A curated index of commissions spanning architecture, interior environments, and landscape design.
+          Explore site plans, section drawings, and finished built spaces by discipline below.
+        </p>
+      </div>
+    </div>
+
+    <div class="work-bar-wrapper reveal">
+      <div class="work-tabs" id="workTabs">
+        <button data-filter="exterior" class="active">Architecture</button>
+        <button data-filter="interior">Interior</button>
+        <button data-filter="landscape">Landscape</button>
+      </div>
+    </div>
+
+    <div id="projectList">
+
+      <a class="project reveal" data-category="interior" href="project_insights.html?id=mr-lingesh-residence">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg"
+            alt="Mr. Lingesh Residence">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">Mr. Lingesh Residence</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Interior</span>
+            <h3 class="hover-title">Mr. Lingesh Residence</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="exterior" href="project_insights.html?id=fogwood-residence">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg" alt="Fogwood Residence">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">Fogwood Residence</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Architecture</span>
+            <h3 class="hover-title">Fogwood Residence</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="landscape" href="project_insights.html?id=north-ridge-garden">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg" alt="North Ridge Garden">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">North Ridge Garden</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Landscape</span>
+            <h3 class="hover-title">North Ridge Garden</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="interior" href="project_insights.html?id=the-long-room">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg" alt="The Long Room">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">The Long Room</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Interior</span>
+            <h3 class="hover-title">The Long Room</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="exterior" href="project_insights.html?id=courtyard-eleven">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg" alt="Courtyard Eleven">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">Courtyard Eleven</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Architecture</span>
+            <h3 class="hover-title">Courtyard Eleven</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="landscape" href="project_insights.html?id=terraced-grounds">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg" alt="Terraced Estate Grounds">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">Terraced Estate Grounds</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Landscape</span>
+            <h3 class="hover-title">Terraced Estate Grounds</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="exterior" href="project_insights.html?id=marbella-house">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg" alt="Marbella House">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">Marbella House</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Architecture</span>
+            <h3 class="hover-title">Marbella House</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+      <a class="project reveal" data-category="exterior" href="project_insights.html?id=timberline-lodge">
+        <div class="project-frame">
+          <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg" alt="Timberline Lodge">
+          <div class="line-grid"></div>
+        </div>
+        <div class="project-card-footer">
+          <div class="card-title">Timberline Lodge</div>
+        </div>
+        <div class="project-hover-overlay">
+          <div>
+            <span class="hover-cat">Architecture</span>
+            <h3 class="hover-title">Timberline Lodge</h3>
+          </div>
+          <span class="hover-action">View Project →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Decofy Studios. All rights reserved.</span>
+    <span>Shivamogga · Karnataka · India</span>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.work-tabs button');
+      const projectCards = document.querySelectorAll('.project');
+      const plateImgs = {
+        exterior: document.getElementById('plateExterior'),
+        interior: document.getElementById('plateInterior'),
+        landscape: document.getElementById('plateLandscape')
+      };
+
+      function setCategory(filter) {
+
+        filterBtns.forEach(btn => {
+          if (btn.getAttribute('data-filter') === filter) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        Object.keys(plateImgs).forEach(key => {
+          if (plateImgs[key]) {
+            if (key === filter) {
+              plateImgs[key].classList.add('active');
+              if (key === 'exterior' && window.resetArchAnimation) {
+                window.resetArchAnimation();
+              } else if (key === 'interior' && window.resetIntAnimation) {
+                window.resetIntAnimation();
+              } else if (key === 'landscape' && window.resetLandAnimation) {
+                window.resetLandAnimation();
+              }
+            } else {
+              plateImgs[key].classList.remove('active');
+            }
+          }
+        });
+
+        projectCards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          const show = (cat === filter);
+
+          if (show) {
+            card.style.display = 'block';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(24px)';
+            void card.offsetWidth;
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      setCategory('exterior');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+          setCategory(filter);
+        });
+      });
+    });
+  </script>
+  <script>
+
+    (function () {
+      const canvas = document.getElementById('archCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H;
+      let startTime = null;
+      const LOOP_DURATION = 8000;
+
+      function resize() {
+        const container = canvas.parentElement || canvas;
+        W = canvas.width = container.offsetWidth || window.innerWidth;
+        H = canvas.height = container.offsetHeight || 480;
+      }
+      window.addEventListener('resize', resize);
+      window.addEventListener('orientationchange', () => setTimeout(resize, 150));
+      resize();
+
+      window.resetArchAnimation = function () {
+        startTime = performance.now();
+        resize();
+      };
+
+      function drawLine(x1, y1, x2, y2, progress = 1) {
+        if (progress <= 0) return;
+        const curX = x1 + (x2 - x1) * Math.min(1, progress);
+        const curY = y1 + (y2 - y1) * Math.min(1, progress);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(curX, curY);
+        ctx.stroke();
+      }
+
+      function drawRect(x, y, w, h, progress = 1) {
+        if (progress <= 0) return;
+        const p = Math.min(1, progress);
+        const perimeter = 2 * (w + h);
+        const drawLen = perimeter * p;
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        let rem = drawLen;
+
+        const topL = Math.min(rem, w);
+        ctx.lineTo(x + topL, y);
+        rem -= topL;
+
+        if (rem > 0) {
+          const rightL = Math.min(rem, h);
+          ctx.lineTo(x + w, y + rightL);
+          rem -= rightL;
+        }
+
+        if (rem > 0) {
+          const botL = Math.min(rem, w);
+          ctx.lineTo(x + w - botL, y + h);
+          rem -= botL;
+        }
+
+        if (rem > 0) {
+          const leftL = Math.min(rem, h);
+          ctx.lineTo(x, y + h - leftL);
+        }
+        ctx.stroke();
+      }
+
+      function drawCircle(cx, cy, r, progress = 1) {
+        if (progress <= 0) return;
+        const p = Math.min(1, progress);
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p);
+        ctx.stroke();
+      }
+
+      function render(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime) % LOOP_DURATION;
+        const normTime = elapsed / LOOP_DURATION;
+
+        ctx.clearRect(0, 0, W, H);
+
+        let globalAlpha = 1;
+        if (normTime > 0.92) {
+          globalAlpha = 1 - (normTime - 0.92) / 0.08;
+        }
+        ctx.globalAlpha = Math.max(0, globalAlpha);
+
+        const INK = '#211F1A';
+        const INK_MUTED = '#56534A';
+        ctx.strokeStyle = INK;
+        ctx.lineWidth = 1.6;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        const groundY = Math.min(H * 0.86, H - 24);
+        const s = Math.min(W / 850, H / 380);
+        const baseX = Math.max(20, (W - 850 * s) / 2);
+
+        const p1 = Math.min(1, normTime / 0.08);
+        if (p1 > 0) {
+
+          drawLine(30, groundY, W - 30, groundY, p1);
+
+          ctx.lineWidth = 0.8;
+          for (let rx = 50; rx < W - 40; rx += 36 * s) {
+            const tickP = Math.max(0, Math.min(1, (p1 - 0.2) / 0.8));
+            drawLine(rx, groundY, rx, groundY + 8 * s, tickP);
+          }
+
+          ctx.font = `${Math.max(10, 12 * s)}px monospace`;
+          ctx.fillStyle = INK_MUTED;
+          ctx.globalAlpha = Math.max(0, globalAlpha * p1);
+          ctx.fillText('ELEVATION 01', 50, groundY + 34 * s);
+
+          ctx.setLineDash([2, 4]);
+          ctx.strokeStyle = INK_MUTED;
+          ctx.lineWidth = 0.8;
+          drawLine(50, groundY + 20 * s, 320 * s, groundY + 20 * s, p1);
+          ctx.setLineDash([]);
+          ctx.strokeStyle = INK;
+          ctx.lineWidth = 1.6;
+        }
+
+        const pGuide = Math.max(0, Math.min(1, (normTime - 0.05) / 0.12));
+        if (pGuide > 0) {
+          ctx.lineWidth = 0.7;
+          ctx.strokeStyle = '#8A8577';
+
+          drawLine(baseX + 70 * s, groundY, baseX + 70 * s, groundY - 220 * s, pGuide);
+          drawLine(baseX + 220 * s, groundY, baseX + 220 * s, groundY - 380 * s, pGuide);
+          drawLine(baseX + 410 * s, groundY, baseX + 410 * s, groundY - 280 * s, pGuide);
+          ctx.strokeStyle = INK;
+          ctx.lineWidth = 1.6;
+        }
+
+        const b1X = baseX + 40 * s;
+        const b1W = 150 * s;
+        const b1H_left = 220 * s;
+        const b1H_right = 290 * s;
+
+        const b2X = b1X + b1W;
+        const b2W = 180 * s;
+        const b2H = 380 * s;
+
+        const b3X = b2X + b2W;
+        const b3W = 160 * s;
+        const b3H_left = 320 * s;
+        const b3H_right = 240 * s;
+
+        const b4X = b3X + b3W;
+        const b4W = 190 * s;
+        const b4H = 430 * s;
+
+        const pBuild1 = Math.max(0, Math.min(1, (normTime - 0.14) / 0.22));
+        if (pBuild1 > 0) {
+
+          drawLine(b1X, groundY, b1X, groundY - b1H_left, Math.min(1, pBuild1 * 1.5));
+          drawLine(b1X, groundY - b1H_left, b1X + b1W, groundY - b1H_right, Math.max(0, (pBuild1 - 0.3) * 1.5));
+          drawLine(b1X + b1W, groundY - b1H_right, b1X + b1W, groundY, Math.max(0, (pBuild1 - 0.6) * 1.5));
+
+          drawLine(b2X, groundY - b1H_right, b2X, groundY - b2H, Math.min(1, pBuild1 * 1.4));
+          drawLine(b2X, groundY - b2H, b2X + b2W, groundY - b2H, Math.max(0, (pBuild1 - 0.3) * 1.4));
+          drawLine(b2X + b2W, groundY - b2H, b2X + b2W, groundY, Math.max(0, (pBuild1 - 0.6) * 1.4));
+        }
+
+        const pWin1 = Math.max(0, Math.min(1, (normTime - 0.35) / 0.20));
+        if (pWin1 > 0) {
+
+          const winW1 = 18 * s;
+          const winGap1 = (b1W - 20 * s - 5 * winW1) / 4;
+          for (let w = 0; w < 5; w++) {
+            const wx = b1X + 10 * s + w * (winW1 + winGap1);
+            const wy = groundY - b1H_left + 30 * s + w * 12 * s;
+            const wh = b1H_left - 50 * s - w * 10 * s;
+            drawRect(wx, wy, winW1, wh, Math.max(0, (pWin1 - w * 0.15) * 1.8));
+          }
+
+          const winW2 = 28 * s;
+          const winH2 = 90 * s;
+          drawRect(b2X + 25 * s, groundY - b2H + 40 * s, winW2, winH2, pWin1);
+          drawRect(b2X + 70 * s, groundY - b2H + 40 * s, winW2, winH2, Math.max(0, (pWin1 - 0.2) * 1.5));
+          drawRect(b2X + 115 * s, groundY - b2H + 40 * s, winW2, winH2, Math.max(0, (pWin1 - 0.4) * 1.5));
+
+          drawRect(b2X + 30 * s, groundY - b2H - 24 * s, 120 * s, 24 * s, Math.max(0, (pWin1 - 0.5) * 2));
+        }
+
+        const pBuild3 = Math.max(0, Math.min(1, (normTime - 0.48) / 0.22));
+        if (pBuild3 > 0) {
+
+          drawLine(b3X, groundY, b3X, groundY - b3H_left, Math.min(1, pBuild3 * 1.5));
+          drawLine(b3X, groundY - b3H_left, b3X + b3W, groundY - b3H_right, Math.max(0, (pBuild3 - 0.3) * 1.5));
+          drawLine(b3X + b3W, groundY - b3H_right, b3X + b3W, groundY, Math.max(0, (pBuild3 - 0.6) * 1.5));
+
+          drawLine(b4X, groundY - b3H_right, b4X, groundY - b4H, Math.min(1, pBuild3 * 1.4));
+          drawLine(b4X, groundY - b4H, b4X + b4W, groundY - b4H, Math.max(0, (pBuild3 - 0.3) * 1.4));
+          drawLine(b4X + b4W, groundY - b4H, b4X + b4W, groundY, Math.max(0, (pBuild3 - 0.6) * 1.4));
+
+          const spireP = Math.max(0, (pBuild3 - 0.7) * 3);
+          drawLine(b4X + b4W * 0.5, groundY - b4H, b4X + b4W * 0.5, groundY - b4H - 50 * s, spireP);
+        }
+
+        const pWin3 = Math.max(0, Math.min(1, (normTime - 0.65) / 0.18));
+        if (pWin3 > 0) {
+
+          for (let r = 0; r < 2; r++) {
+            for (let c = 0; c < 3; c++) {
+              const wx = b3X + 16 * s + c * 44 * s;
+              const wy = groundY - b3H_left + 40 * s + r * 55 * s + c * 8 * s;
+              drawRect(wx, wy, 32 * s, 40 * s, Math.max(0, (pWin3 - (r * 3 + c) * 0.12) * 2));
+            }
+          }
+
+          for (let w = 0; w < 4; w++) {
+            const wx = b4X + 22 * s + w * 38 * s;
+            drawRect(wx, groundY - b4H + 45 * s, 26 * s, 110 * s, Math.max(0, (pWin3 - w * 0.18) * 2));
+          }
+        }
+
+        const pTrees = Math.max(0, Math.min(1, (normTime - 0.80) / 0.12));
+        if (pTrees > 0) {
+          ctx.lineWidth = 1.4;
+
+          const t1X = b4X + b4W + 35 * s;
+          drawLine(t1X, groundY, t1X, groundY - 60 * s, Math.min(1, pTrees * 2));
+          drawCircle(t1X, groundY - 80 * s, 20 * s, Math.max(0, (pTrees - 0.4) * 2));
+
+          const t2X = b4X + b4W + 85 * s;
+          drawLine(t2X, groundY, t2X, groundY - 80 * s, Math.max(0, (pTrees - 0.2) * 2));
+          drawCircle(t2X, groundY - 110 * s, 28 * s, Math.max(0, (pTrees - 0.6) * 2));
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      requestAnimationFrame(render);
+    })();
+  </script>
+
+  <script>
+
+    (function () {
+      const canvas = document.getElementById('intCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H;
+      let startTime = null;
+      const LOOP_DURATION = 7000;
+
+      function resize() {
+        const container = canvas.parentElement || canvas;
+        W = canvas.width = container.offsetWidth || window.innerWidth;
+        H = canvas.height = container.offsetHeight || 480;
+      }
+      window.addEventListener('resize', resize);
+      window.addEventListener('orientationchange', () => setTimeout(resize, 150));
+      resize();
+
+      window.resetIntAnimation = function () {
+        startTime = performance.now();
+        resize();
+      };
+
+      function drawLine(x1, y1, x2, y2, progress = 1) {
+        if (progress <= 0) return;
+        const curX = x1 + (x2 - x1) * Math.min(1, progress);
+        const curY = y1 + (y2 - y1) * Math.min(1, progress);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(curX, curY);
+        ctx.stroke();
+      }
+
+      function drawRect(x, y, w, h, progress = 1) {
+        if (progress <= 0) return;
+        const p = Math.min(1, progress);
+        const perimeter = 2 * (w + h);
+        const drawLen = perimeter * p;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        let rem = drawLen;
+        const topL = Math.min(rem, w);
+        ctx.lineTo(x + topL, y);
+        rem -= topL;
+        if (rem > 0) {
+          const rightL = Math.min(rem, h);
+          ctx.lineTo(x + w, y + rightL);
+          rem -= rightL;
+        }
+        if (rem > 0) {
+          const botL = Math.min(rem, w);
+          ctx.lineTo(x + w - botL, y + h);
+          rem -= botL;
+        }
+        if (rem > 0) {
+          const leftL = Math.min(rem, h);
+          ctx.lineTo(x, y + h - leftL);
+        }
+        ctx.stroke();
+      }
+
+      function render(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime) % LOOP_DURATION;
+        const normTime = elapsed / LOOP_DURATION;
+
+        ctx.clearRect(0, 0, W, H);
+
+        let globalAlpha = 1;
+        if (normTime > 0.90) {
+          globalAlpha = 1 - (normTime - 0.90) / 0.10;
+        }
+        ctx.globalAlpha = Math.max(0, globalAlpha);
+
+        const INK = '#211F1A';
+        const INK_MUTED = '#56534A';
+        ctx.strokeStyle = INK;
+        ctx.lineWidth = 1.5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        const groundY = Math.min(H * 0.88, H - 20);
+        const s = Math.min(W / 850, H / 380);
+        const baseX = Math.max(20, (W - 850 * s) / 2);
+
+        const p1 = Math.min(1, normTime / 0.10);
+        if (p1 > 0) {
+          ctx.font = `${Math.max(10, 12 * s)}px monospace`;
+          ctx.fillStyle = INK_MUTED;
+          ctx.globalAlpha = Math.max(0, globalAlpha * p1);
+          ctx.fillText('SECTION 01', 50, groundY + 20 * s);
+
+          ctx.setLineDash([2, 4]);
+          ctx.strokeStyle = INK_MUTED;
+          ctx.lineWidth = 0.8;
+          drawLine(50, groundY, 400 * s, groundY, p1);
+          ctx.setLineDash([]);
+          ctx.strokeStyle = INK;
+          ctx.lineWidth = 1.5;
+        }
+
+        const ox = baseX + 260 * s;
+        const oy = H * 0.58;
+
+        const pGuide = Math.max(0, Math.min(1, (normTime - 0.04) / 0.16));
+        if (pGuide > 0) {
+          ctx.strokeStyle = '#8A8577';
+          ctx.lineWidth = 0.7;
+          drawLine(ox, oy, ox, oy - 280 * s, pGuide);
+          drawLine(ox, oy, ox - 200 * s, oy - 115 * s, pGuide);
+          drawLine(ox, oy, ox + 450 * s, oy + 260 * s, pGuide);
+          ctx.strokeStyle = INK;
+          ctx.lineWidth = 1.5;
+        }
+
+        const pFrame = Math.max(0, Math.min(1, (normTime - 0.18) / 0.24));
+        if (pFrame > 0) {
+
+          drawLine(ox - 200 * s, oy - 115 * s, ox - 200 * s, oy - 395 * s, Math.min(1, pFrame * 1.4));
+          drawLine(ox - 200 * s, oy - 395 * s, ox, oy - 280 * s, Math.max(0, (pFrame - 0.2) * 1.4));
+          drawLine(ox, oy - 280 * s, ox, oy, Math.max(0, (pFrame - 0.4) * 1.4));
+
+          drawLine(ox, oy - 280 * s, ox + 450 * s, oy - 20 * s, Math.max(0, (pFrame - 0.3) * 1.4));
+          drawLine(ox + 450 * s, oy - 20 * s, ox + 450 * s, oy + 260 * s, Math.max(0, (pFrame - 0.6) * 1.4));
+        }
+
+        const pPlanks = Math.max(0, Math.min(1, (normTime - 0.38) / 0.27));
+        if (pPlanks > 0) {
+          ctx.lineWidth = 0.9;
+          ctx.strokeStyle = INK_MUTED;
+          for (let i = 1; i <= 10; i++) {
+            const shiftY = i * 22 * s;
+            const shiftX = i * 38 * s;
+            const lineP = Math.max(0, Math.min(1, (pPlanks - (i * 0.08)) * 2));
+            drawLine(ox + shiftX, oy + shiftY, ox + shiftX - 180 * s, oy + shiftY - 104 * s, lineP);
+          }
+          ctx.strokeStyle = INK;
+          ctx.lineWidth = 1.5;
+        }
+
+        const pFurn = Math.max(0, Math.min(1, (normTime - 0.60) / 0.28));
+        if (pFurn > 0) {
+
+          const fx1 = ox + 80 * s;
+          const fy1 = oy + 46 * s;
+          const fw1 = 120 * s;
+          const fh1 = 60 * s;
+          const fd1 = 70 * s;
+
+          drawLine(fx1, fy1, fx1 + fw1, fy1 + fw1 * 0.58, pFurn);
+          drawLine(fx1 + fw1, fy1 + fw1 * 0.58, fx1 + fw1, fy1 + fw1 * 0.58 - fh1, Math.max(0, (pFurn - 0.2) * 1.5));
+          drawLine(fx1 + fw1, fy1 + fw1 * 0.58 - fh1, fx1, fy1 - fh1, Math.max(0, (pFurn - 0.4) * 1.5));
+          drawLine(fx1, fy1 - fh1, fx1, fy1, Math.max(0, (pFurn - 0.6) * 1.5));
+
+          drawLine(fx1, fy1 - fh1, fx1 - fd1, fy1 - fh1 - fd1 * 0.58, Math.max(0, (pFurn - 0.5) * 1.5));
+          drawLine(fx1 + fw1, fy1 + fw1 * 0.58 - fh1, fx1 + fw1 - fd1, fy1 + fw1 * 0.58 - fh1 - fd1 * 0.58, Math.max(0, (pFurn - 0.7) * 1.5));
+
+          const fx2 = ox + 220 * s;
+          const fy2 = oy + 126 * s;
+          const fw2 = 140 * s;
+          const fh2 = 80 * s;
+
+          drawLine(fx2, fy2, fx2 + fw2, fy2 + fw2 * 0.58, Math.max(0, (pFurn - 0.3) * 1.5));
+          drawLine(fx2 + fw2, fy2 + fw2 * 0.58, fx2 + fw2, fy2 + fw2 * 0.58 - fh2, Math.max(0, (pFurn - 0.5) * 1.5));
+          drawLine(fx2 + fw2, fy2 + fw2 * 0.58 - fh2, fx2, fy2 - fh2, Math.max(0, (pFurn - 0.7) * 1.5));
+          drawLine(fx2, fy2 - fh2, fx2, fy2, Math.max(0, (pFurn - 0.8) * 1.5));
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      requestAnimationFrame(render);
+    })();
+  </script>
+
+  <script>
+
+    (function () {
+      const canvas = document.getElementById('landCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H;
+      let startTime = null;
+
+      function resize() {
+        const container = canvas.parentElement || canvas;
+        W = canvas.width = container.offsetWidth || window.innerWidth;
+        H = canvas.height = container.offsetHeight || 480;
+      }
+      window.addEventListener('resize', resize);
+      window.addEventListener('orientationchange', () => setTimeout(resize, 150));
+      resize();
+
+      window.resetLandAnimation = function () {
+        startTime = performance.now();
+        resize();
+      };
+
+      function drawLine(x1, y1, x2, y2, progress = 1) {
+        if (progress <= 0) return;
+        const curX = x1 + (x2 - x1) * Math.min(1, progress);
+        const curY = y1 + (y2 - y1) * Math.min(1, progress);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(curX, curY);
+        ctx.stroke();
+      }
+
+      function render(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime);
+        const tSec = elapsed / 1000;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.globalAlpha = 1;
+
+        const INK = '#211F1A';
+        const INK_MUTED = '#56534A';
+        ctx.strokeStyle = INK;
+        ctx.lineWidth = 1.3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        const groundY = Math.min(H * 0.88, H - 20);
+        const s = Math.min(W / 850, H / 380);
+
+        ctx.font = `${Math.max(10, 12 * s)}px monospace`;
+        ctx.fillStyle = INK_MUTED;
+        ctx.fillText('SITE STUDY 01', 50, groundY + 20 * s);
+
+        ctx.setLineDash([2, 4]);
+        ctx.strokeStyle = INK_MUTED;
+        ctx.lineWidth = 0.8;
+        drawLine(50, groundY, 420 * s, groundY, 1);
+        ctx.setLineDash([]);
+        ctx.strokeStyle = INK;
+
+        const contourCount = 9;
+        const markers = [
+          { lineIdx: 1, normX: 0.28, label: '285.2m' },
+          { lineIdx: 2, normX: 0.58, label: '247.3m' },
+          { lineIdx: 4, normX: 0.48, label: '299.4m' },
+          { lineIdx: 5, normX: 0.40, label: '248.9m' },
+          { lineIdx: 7, normX: 0.72, label: '248.9m' },
+          { lineIdx: 0, normX: 0.18, label: '280.2m' }
+        ];
+
+        for (let l = 0; l < contourCount; l++) {
+          const baseY = H * 0.18 + l * (H * 0.58) / contourCount;
+          const amp = 24 * s + l * 4 * s;
+          const freq = 0.0035 / s;
+          const phase = l * 0.65;
+          const speed = tSec * (0.35 + l * 0.04);
+
+          ctx.beginPath();
+          ctx.lineWidth = (l === 1 || l === 4 || l === 7) ? 1.5 : 0.95;
+          ctx.strokeStyle = INK;
+
+          for (let x = 30; x <= W - 30; x += 4) {
+            const y = baseY
+              + Math.sin(x * freq + phase + speed) * amp
+              + Math.sin(x * freq * 2.2 + phase * 1.4 - speed * 0.7) * (amp * 0.35);
+
+            if (x === 30) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+
+          const lineMarkers = markers.filter(m => m.lineIdx === l);
+          for (const m of lineMarkers) {
+            const slideOffset = Math.sin(tSec * 0.4 + l) * 40 * s;
+            const dotX = Math.max(60, Math.min(W - 120, W * m.normX + slideOffset));
+            const dotY = baseY
+              + Math.sin(dotX * freq + phase + speed) * amp
+              + Math.sin(dotX * freq * 2.2 + phase * 1.4 - speed * 0.7) * (amp * 0.35);
+
+            ctx.fillStyle = INK;
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 3 * s, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.font = `${Math.max(9, 11 * s)}px monospace`;
+            ctx.fillStyle = INK_MUTED;
+            ctx.fillText(`• ${m.label}`, dotX + 8 * s, dotY + 4 * s);
+          }
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      requestAnimationFrame(render);
+    })();
+  </script>
+  <script src="global.js"></script>
+</body>
+
+</html>

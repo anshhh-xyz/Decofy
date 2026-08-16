@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Insights — Decofy Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .p-hero {
+      position: relative;
+      width: 100%;
+      height: 82vh;
+      min-height: 520px;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+
+    .p-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65) saturate(1.05);
+      transform: scale(1.1);
+      animation: slowZoom 16s ease-out forwards;
+    }
+
+    @keyframes slowZoom {
+      from {
+        transform: scale(1.14);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .p-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(26, 15, 12, 0.25) 0%, rgba(26, 15, 12, 0.15) 45%, rgba(26, 15, 12, 0.85) 100%);
+    }
+
+    .p-hero-content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 64px;
+      z-index: 2;
+      padding: 0 48px;
+    }
+
+    .p-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #EEEAE0;
+      background: #8B4A34;
+      padding: 8px 18px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    .p-title {
+      font-size: clamp(38px, 6vw, 74px);
+      max-width: 900px;
+      color: #EEEAE0;
+    }
+
+    .p-sub {
+      margin-top: 16px;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C7AF92;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: var(--bg-alt);
+    }
+
+    .fact {
+      padding: 38px 30px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: background .45s ease, color .45s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #1a0f0c;
+      transform: translateY(101%);
+      transition: transform .5s cubic-bezier(.65, 0, .35, 1);
+      z-index: 0;
+    }
+
+    .fact:hover::before {
+      transform: translateY(0);
+    }
+
+    .fact svg,
+    .fact .fact-label,
+    .fact .fact-value {
+      position: relative;
+      z-index: 1;
+    }
+
+    .fact svg {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 16px;
+      transition: transform .5s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .fact svg * {
+      transition: stroke .45s ease, fill .45s ease;
+    }
+
+    .fact:hover svg {
+      transform: rotate(-8deg) scale(1.12);
+    }
+
+    .fact:hover svg * {
+      stroke: #C79A5B;
+      fill: #C79A5B;
+    }
+
+    .fact .fact-label {
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7A4F3B;
+      margin-bottom: 8px;
+      transition: color .45s ease;
+    }
+
+    .fact:hover .fact-label {
+      color: #C79A5B;
+    }
+
+    .fact .fact-value {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: #1a0f0c;
+      transition: color .45s ease;
+    }
+
+    .fact:hover .fact-value {
+      color: #EEEAE0;
+    }
+
+    .filmstrip-section {
+      padding: 60px 0;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .filmstrip-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: filmScroll 38s linear infinite;
+      will-change: transform;
+    }
+
+    .filmstrip-track:hover {
+      animation-play-state: paused;
+    }
+
+    .film-frame {
+      width: 360px;
+      height: 240px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+
+    .film-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(15%) brightness(0.92);
+      transition: filter .5s ease, transform .6s ease;
+    }
+
+    .film-frame:hover img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.08);
+    }
+
+    @keyframes filmScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .showcase-section {
+      padding: 60px 48px 120px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .showcase-item {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      aspect-ratio: 16/10;
+      background: var(--panel);
+    }
+
+    .showcase-item.wide {
+      grid-column: span 2;
+      aspect-ratio: 21/9;
+    }
+
+    .showcase-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(10%) brightness(0.92);
+      transition: transform 0.9s cubic-bezier(.19, 1, .22, 1), filter 0.6s ease;
+    }
+
+    .showcase-item:hover img {
+      transform: scale(1.06);
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .p-cta {
+      text-align: center;
+      border-top: 1px solid var(--line-soft);
+      background: #EEEAE0;
+      padding: 120px 48px;
+    }
+
+    .p-cta h2 {
+      font-size: clamp(30px, 4.5vw, 48px);
+      max-width: 640px;
+      margin: 0 auto 30px;
+      color: #1a0f0c;
+    }
+
+    .p-cta-btn {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      background: #1a0f0c;
+      color: #EEEAE0;
+      padding: 17px 38px;
+      border-radius: 100px;
+      transition: transform .35s ease, background .35s ease;
+    }
+
+    .p-cta-btn:hover {
+      transform: translateY(-3px);
+      background: #8B4A34;
+      color: #EEEAE0;
+    }
+
+    .not-found {
+      padding: 220px 48px;
+      text-align: center;
+    }
+
+    .not-found h2 {
+      font-size: 38px;
+      margin-bottom: 20px;
+      color: #1a0f0c;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 16px 20px;
+      }
+
+      #navbarDock,
+      .dock-panel {
+        display: none !important;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .p-hero {
+        min-height: 55vh;
+      }
+
+      .p-hero-content {
+        padding: 0 20px;
+        bottom: 30px;
+      }
+
+      .p-title {
+        font-size: clamp(28px, 6.8vw, 44px);
+      }
+
+      .facts {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .fact {
+        padding: 24px 16px;
+      }
+
+      .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .showcase-item.wide {
+        grid-column: span 1;
+        aspect-ratio: 16/10;
+      }
+
+      .showcase-section {
+        padding: 40px 20px 60px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .p-hero {
+        min-height: 50vh;
+      }
+
+      .p-hero-content {
+        padding: 0 16px;
+        bottom: 24px;
+      }
+
+      .p-tag {
+        font-size: 10px;
+        padding: 6px 14px;
+        margin-bottom: 12px;
+      }
+
+      .facts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .fact {
+        padding: 18px 14px;
+      }
+
+      .fact .fact-label {
+        font-size: 9.5px;
+      }
+
+      .fact .fact-value {
+        font-size: 13px;
+      }
+
+      .film-frame {
+        width: 240px;
+        height: 160px;
+      }
+
+      .logo-text {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="logo">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+          <path d="M4 14 Q4 8 9 8" stroke="#C79A5B" stroke-width="1.6" stroke-linecap="round" />
+          <circle cx="9" cy="9.5" r="2.1" fill="#C79A5B" />
+          <line x1="9" y1="11.5" x2="9" y2="15" stroke="#C79A5B" stroke-width="1.2" />
+        </svg>
+        <div>
+          <span class="logo-text">Decofy</span>
+          <span class="logo-sub">STUDIOS</span>
+        </div>
+      </a>
+    </div>
+    <div class="dock-container" id="navbarDock"></div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6l12 12" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <a href="index.html" class="mobile-link">Home</a>
+    <a href="projects_category.html" class="mobile-link">Projects</a>
+    <a href="gallery.html" class="mobile-link">Gallery</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="about.html" class="mobile-link">About Us</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+  </div>
+
+  <main id="app"></main>
+
+  <footer>
+    <span>© 2026 Decofy Studios. All rights reserved.</span>
+    <span>Shivamogga · Karnataka · India</span>
+  </footer>
+
+  <script>
+
+    const PROJECTS = {
+      "mr-lingesh-residence": {
+        title: "Mr. Lingesh Residence",
+        category: "interior",
+        location: "Shivamogga, Karnataka",
+        plot: "0.5 Acres",
+        area: "4,800 sq ft",
+        duration: "12 Months",
+        slope: "Flat, under 2°",
+        year: "2024",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING TV UNIT.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING TABLE.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING POOJA.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER AND TV UNIT.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 3.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA INSIDE.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 6.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING TV UNIT.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING CEILING.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING TABLE.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING POOJA.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER AND TV UNIT.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER 2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 3.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 4.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_TV UNIT & KITCHEN.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA OUTSIDE.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA INSIDE.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 3.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 4.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S 1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S2.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 6.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 8.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom toilets_Scene 1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom_Scene 8.jpg"
+        ]
+      },
+      "fogwood-residence": {
+        title: "Fogwood Residence",
+        category: "exterior",
+        location: "Nainital, Uttarakhand",
+        plot: "1.1 Acres",
+        area: "4,200 sq ft",
+        duration: "14 Months",
+        slope: "Moderate, 12°",
+        year: "2024",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg"
+        ]
+      },
+      "marbella-house": {
+        title: "Marbella House",
+        category: "exterior",
+        location: "Alibaug, Maharashtra",
+        plot: "0.6 Acres",
+        area: "5,100 sq ft",
+        duration: "16 Months",
+        slope: "Flat, under 3°",
+        year: "2023",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg"
+        ]
+      },
+      "timberline-lodge": {
+        title: "Timberline Lodge",
+        category: "exterior",
+        location: "Manali, Himachal Pradesh",
+        plot: "0.9 Acres",
+        area: "3,800 sq ft",
+        duration: "18 Months",
+        slope: "Steep, 22°",
+        year: "2022",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg"
+        ]
+      },
+      "casa-blanca": {
+        title: "Casa Blanca",
+        category: "exterior",
+        location: "Jaipur, Rajasthan",
+        plot: "0.75 Acres",
+        area: "4,600 sq ft",
+        duration: "15 Months",
+        slope: "Flat, under 2°",
+        year: "2021",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg"
+        ]
+      },
+      "hearth-timber-interior": {
+        title: "Hearth & Timber Interior",
+        category: "interior",
+        location: "Lucknow, Uttar Pradesh",
+        plot: "—",
+        area: "3,100 sq ft (interior)",
+        duration: "9 Months",
+        slope: "N/A",
+        year: "2024",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-scene1.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-scene1.jpg", "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-scene2.jpg", "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-wardrobe.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-bathroom.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-scene1.jpg", "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-scene2.jpg", "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-wardrobe.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/bedroom/ff-bedroom-bathroom.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg"
+        ]
+      },
+      "sunlit-atrium-interior": {
+        title: "Sunlit Atrium Interior",
+        category: "interior",
+        location: "Bengaluru, Karnataka",
+        plot: "—",
+        area: "3,600 sq ft (interior)",
+        duration: "10 Months",
+        slope: "N/A",
+        year: "2023",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
+        ]
+      },
+      "meridian-estate": {
+        title: "The Meridian Estate",
+        category: "full",
+        location: "Gurugram, Haryana",
+        plot: "1.4 Acres",
+        area: "7,200 sq ft",
+        duration: "22 Months",
+        slope: "Gentle, 6°",
+        year: "2025",
+        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg",
+        stripImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
+        ],
+        allImages: [
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
+          "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
+        ]
+      }
+    };
+
+    const ICONS = {
+      location: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 19 14.5 19 9.5C19 5.4 15.9 2 12 2C8.1 2 5 5.4 5 9.5C5 14.5 12 21 12 21Z" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" stroke="#8B4A34" stroke-width="1.5"/></svg>`,
+      plot: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 8L12 3L21 8V17L12 21L3 17V8Z" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 8L12 12L21 8" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="12" x2="12" y2="21" stroke="#8B4A34" stroke-width="1.5"/></svg>`,
+      area: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="1" stroke="#8B4A34" stroke-width="1.5"/><path d="M4 9H9V4" stroke="#8B4A34" stroke-width="1.5"/><path d="M20 15H15V20" stroke="#8B4A34" stroke-width="1.5"/></svg>`,
+      duration: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#8B4A34" stroke-width="1.5"/><path d="M12 7.5V12L15 14" stroke="#8B4A34" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+      slope: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 19H21" stroke="#8B4A34" stroke-width="1.5" stroke-linecap="round"/><path d="M4 19L14 7L21 19" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+      year: `<svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="1.5" stroke="#8B4A34" stroke-width="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5" stroke="#8B4A34" stroke-width="1.5"/><line x1="8" y1="3" x2="8" y2="7" stroke="#8B4A34" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="3" x2="16" y2="7" stroke="#8B4A34" stroke-width="1.5" stroke-linecap="round"/></svg>`
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const project = PROJECTS[id];
+    const app = document.getElementById('app');
+
+    function filmstripSection(p) {
+      const images = p.stripImages || [
+        "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
+        "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg"
+      ];
+
+      const doubled = [...images, ...images];
+      const frames = doubled.map(img => `
+        <div class="film-frame">
+          <img src="${img}" alt="Project render frame" loading="lazy">
+        </div>
+      `).join('');
+
+      return `
+      <section class="filmstrip-section">
+        <div class="filmstrip-track">
+          ${frames}
+        </div>
+      </section>`;
+    }
+
+    function showcaseGridSection(p) {
+      const images = p.allImages || p.stripImages || [
+        "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg"
+      ];
+
+      const gridHtml = images.map((img, i) => `
+        <div class="showcase-item ${i % 5 === 0 ? 'wide' : ''} reveal">
+          <img src="${img}" alt="Showcase render ${i + 1}" loading="lazy">
+        </div>
+      `).join('');
+
+      return `
+      <section class="showcase-section">
+        <div class="showcase-grid">
+          ${gridHtml}
+        </div>
+      </section>`;
+    }
+
+    function render(p) {
+      document.title = `${p.title} — Decofy Studios`;
+
+      let html = `
+    <section class="p-hero" style="padding:0;">
+      <img src="${p.heroImg}" alt="${p.title}">
+      <div class="p-hero-content">
+        <span class="p-tag">${p.category === 'full' ? 'Full Project' : p.category === 'interior' ? 'Interior Work' : 'Exterior Work'}</span>
+        <h1 class="p-title">${p.title}</h1>
+        <div class="p-sub">${p.location} · ${p.year}</div>
+      </div>
+    </section>
+
+    <div class="facts">
+      <div class="fact">${ICONS.location}<div class="fact-label">Location</div><div class="fact-value">${p.location}</div></div>
+      <div class="fact">${ICONS.plot}<div class="fact-label">Plot Size</div><div class="fact-value">${p.plot}</div></div>
+      <div class="fact">${ICONS.area}<div class="fact-label">Built-up Area</div><div class="fact-value">${p.area}</div></div>
+      <div class="fact">${ICONS.duration}<div class="fact-label">Duration</div><div class="fact-value">${p.duration}</div></div>
+      <div class="fact">${ICONS.slope}<div class="fact-label">Site Slope</div><div class="fact-value">${p.slope}</div></div>
+      <div class="fact">${ICONS.year}<div class="fact-label">Completed</div><div class="fact-value">${p.year}</div></div>
+    </div>
+    `;
+
+      html += filmstripSection(p);
+
+      html += showcaseGridSection(p);
+
+      html += `
+    <section class="p-cta">
+      <h2>Have A Site In Mind?</h2>
+      <a href="contact.html" class="p-cta-btn">Get In Touch</a>
+    </section>`;
+
+      app.innerHTML = html;
+      initReveal();
+    }
+
+    function renderNotFound() {
+      app.innerHTML = `
+      <div class="not-found">
+        <h2>We couldn't find that project.</h2>
+        <a href="projects_category.html" class="p-cta-btn">← Back to All Projects</a>
+      </div>`;
+    }
+
+    function initReveal() {
+      const els = document.querySelectorAll('.reveal, .reveal-img');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('in'), i * 40);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      els.forEach(el => io.observe(el));
+    }
+
+    if (project) { render(project); } else { renderNotFound(); }
+  </script>
+
+  <script src="global.js"></script>
+</body>
+
+</html>

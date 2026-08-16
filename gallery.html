@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Decofy Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--gold);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition: width .35s cubic-bezier(.19, 1, .22, 1), height .35s cubic-bezier(.19, 1, .22, 1), background .35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cursor span {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--panel);
+      opacity: 0;
+      transition: opacity .25s ease;
+      white-space: nowrap;
+    }
+
+    .cursor.hover {
+      width: 64px;
+      height: 64px;
+      background: var(--cream);
+    }
+
+    .cursor.hover span {
+      opacity: 1;
+    }
+
+    @media (hover:none) {
+      .cursor {
+        display: none;
+      }
+    }
+
+    .g-hero {
+      padding: 180px 48px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-hero-art {
+      position: absolute;
+      top: 90px;
+      right: 9%;
+      width: 82%;
+      height: 68vh;
+      max-height: 640px;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .gallery-hero-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: right top;
+      mix-blend-mode: multiply;
+      opacity: 0.88;
+    }
+
+    .g-eyebrow,
+    .kinetic,
+    .g-sub,
+    .ticker-wrap {
+      position: relative;
+      z-index: 2;
+    }
+
+    .g-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .g-eyebrow .rule {
+      width: 34px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .g-eyebrow span {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .kinetic {
+      font-size: clamp(52px, 10vw, 150px);
+      line-height: 0.92;
+      color: var(--cream);
+      display: flex;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+
+    .kinetic .ch {
+      display: inline-block;
+      transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), color .4s ease;
+      animation: letterFloat 5s ease-in-out infinite;
+    }
+
+    .kinetic .ch:hover {
+      transform: translateY(-14px) scale(1.08) rotate(-4deg);
+      color: var(--gold);
+    }
+
+    @keyframes letterFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .g-sub {
+      margin-top: 30px;
+      max-width: 520px;
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: var(--tan);
+    }
+
+    .ticker-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 20px 0;
+      margin-top: 60px;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 40px;
+      width: max-content;
+      animation: tickerScroll 26s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker-track span {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .ticker-track span em {
+      font-style: normal;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    @keyframes tickerScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 200px;
+      gap: 14px;
+      padding: 60px 48px 40px;
+    }
+
+    .g-item {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      grid-column: span 1;
+      grid-row: span 1;
+      opacity: 0;
+      transform: scale(0.92) translateY(24px);
+      transition: opacity .6s cubic-bezier(.19, 1, .22, 1), transform .6s cubic-bezier(.19, 1, .22, 1);
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    .g-item.in {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .g-item.hide {
+      display: none;
+    }
+
+    .g-item.span-2x2 {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .g-item.span-2x1 {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .g-item.span-1x2 {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .g-item .tilt {
+      width: 100%;
+      height: 100%;
+      transition: transform .25s ease-out;
+      transform-style: preserve-3d;
+    }
+
+    .g-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(45%) brightness(0.72) saturate(1);
+      transform: scale(1.08);
+      transition: filter .6s ease, transform .8s cubic-bezier(.19, 1, .22, 1);
+    }
+
+    .g-item:hover img {
+      filter: grayscale(0%) brightness(0.92);
+      transform: scale(1.16);
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 16px 20px;
+      }
+
+      #navbarDock,
+      .dock-panel {
+        display: none !important;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .g-hero {
+        padding: 100px 20px 24px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 150px;
+        padding: 0 16px 40px;
+        gap: 12px;
+      }
+
+      .g-item {
+        border-radius: 12px;
+      }
+
+      .g-item.span-2x2 {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .g-item.span-2x1 {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+
+      .g-item.span-1x2 {
+        grid-column: span 1;
+        grid-row: span 2;
+      }
+
+      .g-item img {
+        filter: grayscale(0%) brightness(0.92);
+        transform: scale(1.03);
+      }
+
+      .filmstrip-head {
+        padding: 0 20px 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 130px;
+        padding: 0 10px 32px;
+        gap: 8px;
+      }
+
+      .g-item {
+        border-radius: 9px;
+      }
+
+      .film-frame {
+        width: 220px;
+        height: 150px;
+      }
+
+      .logo-text {
+        font-size: 18px;
+      }
+    }
+
+    .filmstrip-section {
+      padding: 100px 0;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      overflow: hidden;
+    }
+
+    .filmstrip-head {
+      padding: 0 48px 44px;
+      max-width: 640px;
+    }
+
+    .filmstrip-head span.g-eyebrow-text {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .filmstrip-head h2 {
+      font-size: clamp(28px, 3.6vw, 44px);
+      margin-top: 16px;
+      color: var(--cream);
+    }
+
+    .filmstrip-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: filmScroll 40s linear infinite;
+      will-change: transform;
+    }
+
+    .filmstrip-track:hover {
+      animation-play-state: paused;
+    }
+
+    .film-frame {
+      width: 320px;
+      height: 220px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+
+    .film-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%) brightness(0.82);
+      transition: filter .5s ease, transform .6s ease;
+    }
+
+    .film-frame:hover img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.08);
+    }
+
+    @keyframes filmScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(15, 8, 6, 0.97);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .45s ease, visibility 0s linear .45s;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .45s ease;
+    }
+
+    .lb-inner {
+      max-width: min(1100px, 88vw);
+      max-height: 82vh;
+      position: relative;
+      transform: scale(0.92);
+      transition: transform .5s cubic-bezier(.19, 1, .22, 1);
+    }
+
+    .lightbox.open .lb-inner {
+      transform: scale(1);
+    }
+
+    .lb-inner img {
+      max-width: 100%;
+      max-height: 82vh;
+      display: block;
+      border: 1px solid var(--line);
+    }
+
+    .lb-caption {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .lb-caption h3 {
+      font-size: 20px;
+      color: var(--cream);
+    }
+
+    .lb-caption span {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .lb-close,
+    .lb-prev,
+    .lb-next {
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(236, 223, 201, 0.06);
+      backdrop-filter: blur(6px);
+      transition: background .35s ease, transform .35s ease;
+      cursor: pointer;
+    }
+
+    .lb-close:hover,
+    .lb-prev:hover,
+    .lb-next:hover {
+      background: var(--gold);
+    }
+
+    .lb-close:hover svg *,
+    .lb-prev:hover svg *,
+    .lb-next:hover svg * {
+      stroke: var(--panel);
+    }
+
+    .lb-close {
+      top: 32px;
+      right: 32px;
+    }
+
+    .lb-prev {
+      left: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lb-next {
+      right: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lb-prev:hover {
+      transform: translateY(-50%) translateX(-4px);
+    }
+
+    .lb-next:hover {
+      transform: translateY(-50%) translateX(4px);
+    }
+
+    .lb-close svg,
+    .lb-prev svg,
+    .lb-next svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .lb-close svg *,
+    .lb-prev svg *,
+    .lb-next svg * {
+      transition: stroke .35s ease;
+    }
+
+    @media (max-width:700px) {
+
+      .lb-prev,
+      .lb-next {
+        width: 40px;
+        height: 40px;
+      }
+
+      .lb-prev {
+        left: 12px;
+      }
+
+      .lb-next {
+        right: 12px;
+      }
+
+      .lb-close {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .g-cta {
+      text-align: center;
+      padding: 150px 48px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .g-cta h2 {
+      font-size: clamp(30px, 4.5vw, 48px);
+      max-width: 640px;
+      margin: 0 auto 30px;
+    }
+
+    .g-cta-btn {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      background: var(--gold);
+      color: var(--panel);
+      padding: 17px 38px;
+      border-radius: 100px;
+      transition: transform .35s ease, background .35s ease;
+    }
+
+    .g-cta-btn:hover {
+      transform: translateY(-3px);
+      background: var(--cream);
+    }
+
+    footer {
+      padding: 30px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel);
+      border-top: 1px solid var(--line-soft);
+      font-size: 12px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor"><span>VIEW</span></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="logo">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+          <path d="M4 14 Q4 8 9 8" stroke="#C79A5B" stroke-width="1.6" stroke-linecap="round" />
+          <circle cx="9" cy="9.5" r="2.1" fill="#C79A5B" />
+          <line x1="9" y1="11.5" x2="9" y2="15" stroke="#C79A5B" stroke-width="1.2" />
+        </svg>
+        <div>
+          <span class="logo-text">Decofy</span>
+          <span class="logo-sub">STUDIOS</span>
+        </div>
+      </a>
+    </div>
+    <div class="dock-container" id="navbarDock"></div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6l12 12" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <a href="index.html" class="mobile-link">Home</a>
+    <a href="projects_category.html" class="mobile-link">Projects</a>
+    <a href="gallery.html" class="mobile-link">Gallery</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="about.html" class="mobile-link">About Us</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+  </div>
+
+  <header class="g-hero">
+
+    <div class="gallery-hero-art">
+      <img src="https://ik.imagekit.io/decofyexample/assets/svgs/gallery_svg.svg" alt="Gallery Blueprint Artwork">
+    </div>
+
+    <div class="g-eyebrow reveal">
+      <span class="rule"></span>
+      <span>· Visual Archive</span>
+    </div>
+    <h1 class="kinetic" id="kineticTitle"></h1>
+    <p class="g-sub reveal">Every frame below is pulled from real Decofy commissions — exteriors, interiors, and the
+      site plans behind them. Hover to look closer, click to open full-size.</p>
+
+    <div class="ticker-wrap reveal">
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+  </header>
+
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+  <section class="filmstrip-section">
+    <div class="filmstrip-head reveal">
+      <span class="g-eyebrow-text">Continuous Reel</span>
+      <h2>Drag your eye across the studio's recent frames.</h2>
+    </div>
+    <div class="filmstrip-track" id="filmstripTrack"></div>
+  </section>
+
+  <section class="g-cta reveal">
+    <span class="g-eyebrow-text"
+      style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); font-weight:600;">Like
+      What You See?</span>
+    <h2 style="margin-top:18px;">Let's put your site through the same process.</h2>
+    <a href="contact.html" class="g-cta-btn">Start A Project</a>
+  </section>
+
+  <footer>
+    <span>© 2026 Decofy Studios. All rights reserved.</span>
+    <span>Shivamogga · Karnataka · India</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose"><svg viewBox="0 0 24 24" fill="none">
+        <path d="M6 6L18 18" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M18 6L6 18" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" />
+      </svg></button>
+    <button class="lb-prev" id="lbPrev"><svg viewBox="0 0 24 24" fill="none">
+        <path d="M15 5L8 12L15 19" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg></button>
+    <button class="lb-next" id="lbNext"><svg viewBox="0 0 24 24" fill="none">
+        <path d="M9 5L16 12L9 19" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg></button>
+    <div class="lb-inner">
+      <img id="lbImg" src="" alt="">
+      <div class="lb-caption">
+        <h3 id="lbTitle"></h3>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    const SOURCE = [
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", title: "Fogwood Residence", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", title: "Marbella House", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", title: "Timberline Lodge", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", title: "Casa Blanca", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", title: "Hearth &amp; Timber Interior", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", title: "Sunlit Atrium Interior", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", title: "The Meridian Estate", cat: "exterior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/build/build.jpg", title: "Spatial Concept — Open Plan", cat: "interior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", title: "Primary Bedroom Detail", cat: "interior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", title: "Kitchen Detail", cat: "interior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", title: "Bathroom Detail", cat: "interior" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", title: "Full Site &amp; Master Plan", cat: "detail" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg", title: "Plan Detail — Access", cat: "detail" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg", title: "Plan Detail — Kitchen Layout", cat: "detail" },
+      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg", title: "Plan Detail — Beverage Area", cat: "detail" }
+    ];
+
+    const SUFFIXES = ["", " — Study 02", " — Alt Angle", " — Night", " — Detail View"];
+    const GALLERY = [];
+    for (let round = 0; round < 3; round++) {
+      SOURCE.forEach((item, i) => {
+        GALLERY.push({
+          img: item.img,
+          title: item.title + SUFFIXES[round % SUFFIXES.length],
+          cat: item.cat
+        });
+      });
+    }
+
+    const SPAN_PATTERN = ["span-2x2", "span-1x1", "span-1x1", "span-1x2", "span-1x1", "span-2x1", "span-1x1", "span-1x1", "span-1x2", "span-1x1", "span-2x1", "span-1x1"];
+
+    const grid = document.getElementById('galleryGrid');
+    GALLERY.forEach((item, i) => {
+      const el = document.createElement('div');
+      el.className = 'g-item ' + SPAN_PATTERN[i % SPAN_PATTERN.length];
+      el.dataset.index = i;
+      el.innerHTML = `
+    <div class="tilt">
+      <img src="${item.img}" alt="${item.title}" loading="lazy">
+    </div>
+  `;
+      grid.appendChild(el);
+    });
+
+    const kineticTitle = document.getElementById('kineticTitle');
+    const titleText = "THE GALLERY";
+    kineticTitle.innerHTML = titleText.split('').map((ch, i) =>
+      ch === ' ' ? '<span class="ch" style="width:0.35em;"> </span>'
+        : `<span class="ch" style="animation-delay:${i * 0.12}s">${ch}</span>`
+    ).join('');
+
+    const tickerWords = ["ARCHITECTURE", "INTERIOR DESIGN", "LANDSCAPE", "SITE PLANNING", "RENOVATION", "CONSULTATION"];
+    const tickerTrack = document.getElementById('tickerTrack');
+    function buildTicker() {
+      let html = '';
+      for (let r = 0; r < 2; r++) {
+        html += tickerWords.map(w => `<span>${w}<em>&#9670;</em></span>`).join('');
+      }
+      tickerTrack.innerHTML = html;
+    }
+    buildTicker();
+
+    const filmstripTrack = document.getElementById('filmstripTrack');
+    function buildFilmstrip() {
+      const doubled = [...SOURCE, ...SOURCE];
+      filmstripTrack.innerHTML = doubled.map(item => `
+    <div class="film-frame"><img src="${item.img}" alt="${item.title}" loading="lazy"></div>
+  `).join('');
+    }
+    buildFilmstrip();
+
+    const items = document.querySelectorAll('.g-item');
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('in'), i * 15);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.02, rootMargin: '60px 0px' });
+    document.querySelectorAll('.g-item').forEach(el => io.observe(el));
+
+    items.forEach(item => {
+      const tilt = item.querySelector('.tilt');
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        tilt.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+      });
+      item.addEventListener('mouseleave', () => {
+        tilt.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+      });
+    });
+
+    const cursor = document.getElementById('cursor');
+    if (window.matchMedia('(hover: hover)').matches && cursor) {
+      let cx = window.innerWidth / 2, cy = window.innerHeight / 2, tx = cx, ty = cy;
+      window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
+      function cursorLoop() {
+        cx += (tx - cx) * 0.18;
+        cy += (ty - cy) * 0.18;
+        cursor.style.left = cx + 'px';
+        cursor.style.top = cy + 'px';
+        requestAnimationFrame(cursorLoop);
+      }
+      cursorLoop();
+      document.querySelectorAll('.g-item, .film-frame, a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          if (el.classList.contains('g-item') || el.classList.contains('film-frame')) {
+            cursor.classList.add('hover');
+          }
+        });
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    let currentIndex = 0;
+
+    function openLightbox(i) {
+      currentIndex = i;
+      const item = GALLERY[i];
+      lbImg.src = item.img;
+      lbImg.alt = item.title;
+      lbTitle.innerHTML = item.title;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function showNext(dir) {
+      currentIndex = (currentIndex + dir + GALLERY.length) % GALLERY.length;
+      const item = GALLERY[currentIndex];
+      lbImg.src = item.img;
+      lbImg.alt = item.title;
+      lbTitle.innerHTML = item.title;
+    }
+
+    items.forEach(item => {
+      item.addEventListener('click', () => openLightbox(Number(item.dataset.index)));
+    });
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => showNext(-1));
+    document.getElementById('lbNext').addEventListener('click', () => showNext(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') showNext(1);
+      if (e.key === 'ArrowLeft') showNext(-1);
+    });
+  </script>
+
+  <script src="global.js"></script>
+</body>
+
+</html>

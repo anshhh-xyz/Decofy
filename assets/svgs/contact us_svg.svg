@@ -1,0 +1,59 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- background -->
+  <rect x="0" y="0" width="1000" height="700" fill="#EDE9DE"/>
+
+  <!-- ============ MAP/BLUEPRINT BOUNDARY & GRID ============ -->
+  <g opacity="0.75">
+    <!-- Outer dashed boundary frame -->
+    <rect x="25" y="25" width="950" height="650" fill="none" stroke="#8a8578" stroke-width="1.6" stroke-dasharray="10 6"/>
+    <!-- Inner hairline border -->
+    <rect x="33" y="33" width="934" height="634" fill="none" stroke="#2b2b28" stroke-width="0.8" opacity="0.4"/>
+    
+    <!-- Corner crosshairs -->
+    <path d="M 15 25 H 35 M 25 15 V 35" stroke="#2b2b28" stroke-width="1.2"/>
+    <path d="M 965 25 H 985 M 975 15 V 35" stroke="#2b2b28" stroke-width="1.2"/>
+    <path d="M 15 675 H 35 M 25 665 V 685" stroke="#2b2b28" stroke-width="1.2"/>
+    <path d="M 965 675 H 985 M 975 665 V 685" stroke="#2b2b28" stroke-width="1.2"/>
+
+    <!-- Map datum grid lines -->
+    <line x1="280" y1="25" x2="280" y2="675" stroke="#8a8578" stroke-width="1" stroke-dasharray="6 6"/>
+    <line x1="720" y1="25" x2="720" y2="675" stroke="#8a8578" stroke-width="1" stroke-dasharray="6 6"/>
+    <line x1="25" y1="350" x2="975" y2="350" stroke="#8a8578" stroke-width="1" stroke-dasharray="6 6"/>
+
+    <!-- Coordinate & datum markings -->
+    <text x="42" y="20" font-family="monospace" font-size="10" fill="#8a8578" letter-spacing="1.2">LAT 26° 50' 44" N</text>
+    <text x="830" y="20" font-family="monospace" font-size="10" fill="#8a8578" letter-spacing="1.2">LONG 80° 56' 51" E</text>
+    <text x="42" y="693" font-family="monospace" font-size="10" fill="#8a8578" letter-spacing="1.2">CONTACT MAP · SHEET C-01</text>
+  </g>
+
+  <!-- large speech bubble -->
+  <path d="
+    M 640 180
+    C 640 90, 500 20, 340 20
+    C 130 20, -30 120, -30 260
+    C -30 365, 55 455, 175 490
+    L 140 620
+    L 310 495
+    C 320 496, 330 497, 340 497
+    C 500 497, 640 427, 640 335
+    Z"
+    transform="translate(80,0)"
+    fill="none" stroke="#2b2b28" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- two horizontal lines inside the large bubble -->
+  <line x1="290" y1="200" x2="600" y2="200" stroke="#2b2b28" stroke-width="8" stroke-linecap="round"/>
+  <line x1="290" y1="280" x2="480" y2="280" stroke="#2b2b28" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- small speech bubble, overlapping bottom-right -->
+  <path d="
+    M 640 400
+    C 640 345, 715 305, 805 305
+    C 905 305, 985 355, 985 420
+    C 985 475, 930 520, 860 535
+    L 880 605
+    L 790 540
+    C 782 541, 774 541, 766 541
+    C 696 541, 640 496, 640 440
+    Z"
+    fill="none" stroke="#2b2b28" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>
