@@ -253,11 +253,584 @@
       filter: grayscale(0%) brightness(1);
     }
 
+    /* Accordion & Morph Slider Section (Exact match to video specs) */
+    .zones-section {
+      padding: 90px 48px 60px;
+      background: #EEEAE0;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Section Head Typography & Spacing */
+    .section-head {
+      margin-bottom: 36px;
+    }
+
+    .section-head .eyebrow {
+      font-size: 11.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8B4A34;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .section-head h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.2;
+      color: #1a0f0c;
+      margin: 0 0 14px 0;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      font-size: 15.5px;
+      color: #5C4335;
+      line-height: 1.65;
+      max-width: 620px;
+      margin: 0;
+    }
+
+    /* Accordion Gallery — Hover Responsive (matching rec1.mp4) */
+    .accordion-gallery-wrapper {
+      width: 100%;
+      margin-bottom: 44px;
+    }
+
+    .accordion-gallery {
+      display: flex;
+      gap: 12px;
+      height: 480px;
+      width: 100%;
+    }
+
+    .acc-card {
+      flex: 1;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #0f0806;
+      transition: flex 0.68s cubic-bezier(.22, 1, .36, 1), box-shadow 0.4s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .acc-card:hover,
+    .acc-card.active {
+      flex: 5.5;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .acc-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(85%) brightness(0.5);
+      transition: filter 0.6s ease, transform 0.8s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .acc-card:hover .acc-card-img,
+    .acc-card.active .acc-card-img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.05);
+    }
+
+    .acc-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.85) 100%);
+      pointer-events: none;
+    }
+
+    .acc-label-box {
+      position: absolute;
+      bottom: 28px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 3;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .acc-bar {
+      width: 3.5px;
+      height: 22px;
+      background: #FFF8EE;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .acc-label-text {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #FFF8EE;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+      opacity: 0.9;
+    }
+
+    .acc-card:hover .acc-label-text,
+    .acc-card.active .acc-label-text {
+      font-size: 24px;
+      opacity: 1;
+    }
+
+    /* Morph Slider (Dual-Layer GPU Crossfade for 120fps Silky Transitions) */
+    .morph-slider-container {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .morph-viewport {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9.2;
+      max-height: 600px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #0d0705;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(238, 234, 224, 0.12);
+      user-select: none;
+      touch-action: pan-y pinch-zoom;
+    }
+
+    .morph-slide-content {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .morph-slide-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transform: scale(1.02);
+      transition: opacity 0.4s cubic-bezier(.25, 1, .35, 1), transform 0.55s cubic-bezier(.25, 1, .35, 1);
+      will-change: opacity, transform;
+      pointer-events: none;
+    }
+
+    .morph-slide-img.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .morph-viewport:hover .morph-slide-img.active {
+      transform: scale(1.025);
+    }
+
+    /* Left & Right Circular Nav Buttons */
+    .morph-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(15, 8, 6, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #FFF8EE;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+      will-change: transform;
+    }
+
+    .morph-nav-btn.prev {
+      left: 20px;
+    }
+
+    .morph-nav-btn.next {
+      right: 20px;
+    }
+
+    .morph-nav-btn:hover {
+      background: rgba(139, 74, 52, 0.85);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .morph-nav-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Top Left Capsule Title Pill (Separated to eliminate overlap) */
+    .morph-title-pill {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: rgba(15, 8, 6, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #FFF8EE;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 9px 20px;
+      border-radius: 100px;
+      z-index: 10;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      max-width: calc(100% - 48px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Bottom Center Dots / Capsule Indicators */
+    .morph-dots-wrapper {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 8, 6, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 10;
+      max-width: 90%;
+      overflow-x: auto;
+    }
+
+    .morph-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      transition: width 0.35s cubic-bezier(.22, 1, .36, 1), background 0.35s ease, border-radius 0.35s ease;
+      flex-shrink: 0;
+    }
+
+    .morph-dot:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .morph-dot.active {
+      width: 24px;
+      height: 7px;
+      border-radius: 6px;
+      background: #FFFFFF;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+
+    /* Lightbox Modal */
+    .insights-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      background: rgba(15, 8, 6, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+    }
+
+    .insights-lightbox.open {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.4s ease;
+    }
+
+    .insights-lb-inner {
+      max-width: min(1200px, 90vw);
+      max-height: 85vh;
+      position: relative;
+      transform: scale(0.94);
+      transition: transform 0.4s cubic-bezier(.19, 1, .22, 1);
+    }
+
+    .insights-lightbox.open .insights-lb-inner {
+      transform: scale(1);
+    }
+
+    .insights-lb-inner img {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid rgba(238, 234, 224, 0.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .insights-lb-caption {
+      margin-top: 14px;
+      color: #EEEAE0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .insights-lb-caption h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .insights-lb-close {
+      position: fixed;
+      top: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(238, 234, 224, 0.1);
+      border: 1px solid rgba(238, 234, 224, 0.2);
+      color: #EEEAE0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      z-index: 610;
+    }
+
+    .insights-lb-close:hover {
+      background: #8B4A34;
+      transform: rotate(90deg) scale(1.08);
+    }
+
+    .insights-lb-close svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* VR Experience Section */
+    .vr-experience-section {
+      padding: 90px 48px 80px;
+      background: #EEEAE0;
+      border-top: 1px solid var(--line);
+    }
+
+    .vr-rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .vr-room-card {
+      position: relative;
+      height: 210px;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: #0f0806;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      transition: transform 0.4s cubic-bezier(.22, 1, .36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .vr-room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .vr-room-card.active {
+      border-color: #8B4A34;
+      box-shadow: 0 14px 36px rgba(139, 74, 52, 0.35);
+    }
+
+    .vr-room-thumb {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.65) saturate(1.05);
+      transition: transform 0.6s cubic-bezier(.22, 1, .36, 1), filter 0.4s ease;
+    }
+
+    .vr-room-card:hover .vr-room-thumb,
+    .vr-room-card.active .vr-room-thumb {
+      transform: scale(1.06);
+      filter: brightness(0.8) saturate(1.15);
+    }
+
+    .vr-room-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.9) 100%);
+      pointer-events: none;
+    }
+
+    .vr-room-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 8, 6, 0.72);
+      backdrop-filter: blur(8px);
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #C79A5B;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      z-index: 2;
+    }
+
+    .vr-room-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .vr-room-card.active .vr-room-badge {
+      background: rgba(139, 74, 52, 0.9);
+      color: #FFF8EE;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .vr-room-info {
+      position: absolute;
+      bottom: 16px;
+      left: 18px;
+      right: 18px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .vr-room-info h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 19px;
+      color: #FFF8EE;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .vr-tap-hint {
+      font-size: 11.5px;
+      color: #C7AF92;
+      font-weight: 500;
+      display: block;
+      opacity: 0.85;
+    }
+
+    /* VR Viewer Frame */
+    .vr-viewer-wrapper {
+      background: #110907;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(238, 234, 224, 0.15);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .vr-viewer-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(26, 15, 12, 0.95);
+      border-bottom: 1px solid rgba(238, 234, 224, 0.1);
+      color: #EEEAE0;
+    }
+
+    .vr-active-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #FFF8EE;
+    }
+
+    .vr-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 10px #2ecc71;
+      animation: vrPulse 2s infinite;
+    }
+
+    @keyframes vrPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .vr-fullscreen-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(238, 234, 224, 0.1);
+      border: 1px solid rgba(238, 234, 224, 0.2);
+      color: #EEEAE0;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .vr-fullscreen-btn:hover {
+      background: #8B4A34;
+      color: #FFF8EE;
+      transform: scale(1.04);
+    }
+
+    .vr-fullscreen-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .vr-iframe-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background: #000;
+    }
+
+    .vr-iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
     .p-cta {
       text-align: center;
       border-top: 1px solid var(--line-soft);
       background: #EEEAE0;
-      padding: 120px 48px;
+      padding: 110px 48px;
     }
 
     .p-cta h2 {
@@ -296,6 +869,7 @@
       color: #1a0f0c;
     }
 
+    /* Media Queries & Responsive Polish */
     @media (max-width: 900px) {
       .navbar {
         padding: 16px 20px;
@@ -315,8 +889,8 @@
       }
 
       .p-hero-content {
-        padding: 0 20px;
-        bottom: 30px;
+        padding: 0 24px;
+        bottom: 36px;
       }
 
       .p-title {
@@ -343,6 +917,75 @@
 
       .showcase-section {
         padding: 40px 20px 60px;
+      }
+
+      .zones-section {
+        padding: 60px 20px 40px;
+      }
+
+      .accordion-gallery {
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+      }
+
+      .acc-card {
+        height: 84px;
+        flex: none !important;
+        width: 100%;
+        border-radius: 16px;
+        transition: height 0.55s cubic-bezier(.22, 1, .36, 1), box-shadow 0.4s ease;
+      }
+
+      .acc-card.active {
+        height: 200px;
+      }
+
+      .acc-label-box {
+        bottom: 18px;
+        left: 18px;
+      }
+
+      .acc-label-text {
+        font-size: 18px;
+      }
+
+      .acc-card.active .acc-label-text {
+        font-size: 20px;
+      }
+
+      .morph-viewport {
+        aspect-ratio: 16 / 10;
+      }
+
+      .morph-nav-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .morph-nav-btn.prev {
+        left: 14px;
+      }
+
+      .morph-nav-btn.next {
+        right: 14px;
+      }
+
+      .vr-experience-section {
+        padding: 60px 20px 50px;
+      }
+
+      .vr-rooms-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .vr-room-card {
+        height: 180px;
+      }
+
+      .vr-iframe-container {
+        height: 480px;
       }
 
       footer {
@@ -392,6 +1035,125 @@
 
       .logo-text {
         font-size: 18px;
+      }
+
+      .zones-section {
+        padding: 48px 16px 30px;
+      }
+
+      .acc-card {
+        height: 74px;
+      }
+
+      .acc-card.active {
+        height: 180px;
+      }
+
+      .morph-viewport {
+        aspect-ratio: 16 / 11;
+        border-radius: 18px;
+      }
+
+      .morph-title-pill {
+        top: 14px;
+        left: 14px;
+        font-size: 12px;
+        padding: 6px 14px;
+        max-width: calc(100% - 28px);
+      }
+
+      .morph-dots-wrapper {
+        bottom: 14px;
+        padding: 5px 12px;
+        gap: 6px;
+      }
+
+      .morph-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .morph-dot.active {
+        width: 18px;
+        height: 6px;
+      }
+
+      .morph-nav-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .morph-nav-btn.prev {
+        left: 10px;
+      }
+
+      .morph-nav-btn.next {
+        right: 10px;
+      }
+
+      .morph-nav-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .vr-experience-section {
+        padding: 48px 16px 36px;
+      }
+
+      .vr-rooms-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .vr-room-card {
+        height: 150px;
+        border-radius: 14px;
+      }
+
+      .vr-room-badge {
+        top: 10px;
+        right: 10px;
+        padding: 3px 8px;
+        font-size: 9.5px;
+      }
+
+      .vr-room-info {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+      }
+
+      .vr-room-info h3 {
+        font-size: 15px;
+      }
+
+      .vr-tap-hint {
+        font-size: 10px;
+      }
+
+      .vr-viewer-wrapper {
+        border-radius: 18px;
+      }
+
+      .vr-viewer-topbar {
+        padding: 12px 16px;
+      }
+
+      .vr-active-tag {
+        font-size: 12px;
+      }
+
+      .vr-fullscreen-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+
+      .vr-iframe-container {
+        height: 380px;
+      }
+
+      .p-cta {
+        padding: 80px 20px;
       }
     }
   </style>
@@ -454,6 +1216,105 @@
         slope: "Flat, under 2°",
         year: "2024",
         heroImg: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
+        zones: [
+          {
+            id: "kitchen",
+            num: "01",
+            name: "Kitchen & Dining",
+            count: "9 Renders",
+            cover: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/kitchen.jpg",
+            images: [
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/kitchen.jpg", title: "Modular Island & Working Counters" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN.jpg", title: "Overhead Acrylic Cabinetry" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 2.jpg", title: "Cooking Hob & Fluted Backsplash" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 3.jpg", title: "Built-in Appliances & Tall Unit" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 4.jpg", title: "Sink Prep Area & Quartz Countertop" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/dining.jpg", title: "Formal Dining Suite Perspective" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING.jpg", title: "Dining Space & Cove Lighting" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING TABLE.jpg", title: "Italian Marble Dining Table & Chairs" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING POOJA.jpg", title: "Dining to Pooja Transition Foyer" }
+            ]
+          },
+          {
+            id: "living",
+            num: "02",
+            name: "Living & Foyer",
+            count: "10 Renders",
+            cover: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/living-sofa.jpg",
+            images: [
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/living-sofa.jpg", title: "Main Living Lounge & Plush Seating" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/living-tv.jpg", title: "Fluted Entertainment Media Wall" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg", title: "Bespoke Sectional Sofa & Accents" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING TV UNIT.jpg", title: "Custom TV Backdrop with Brass Inlays" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING CEILING.jpg", title: "Warm Architectural Ceiling & Chandelier" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/foyer.jpg", title: "Grand Entrance Foyer" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER.jpg", title: "Foyer Console, Mirror & Stone Wall" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER 2.jpg", title: "Shoe Cabinet & Ambient Profile Lights" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER AND TV UNIT.jpg", title: "Seamless Foyer to Living Flow" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_PARTITION & FOYER.jpg", title: "Louvered Wooden Screen & Partition" }
+            ]
+          },
+          {
+            id: "master_bedroom",
+            num: "03",
+            name: "Master Suite",
+            count: "6 Renders",
+            cover: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/master-bedroom.jpg",
+            images: [
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/master-bedroom.jpg", title: "Ground Floor Master Bedroom Suite" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 1.jpg", title: "Upholstered Headboard & Nightstands" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 2.jpg", title: "Tinted Glass Wardrobe & Vanity Nook" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 3.jpg", title: "Bay Window Seating & Daylight" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 4.jpg", title: "Bedroom Media Console & Floating Shelves" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 5.jpg", title: "Master Suite Full Perspective" }
+            ]
+          },
+          {
+            id: "bedrooms_study",
+            num: "04",
+            name: "Bedrooms & Study",
+            count: "9 Renders",
+            cover: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 1.jpg",
+            images: [
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 1.jpg", title: "First Floor Bedroom 1 — Feature Bed Wall" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 2.jpg", title: "FF Bedroom 1 — Integrated Study Desk" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 3.jpg", title: "FF Bedroom 1 — Wardrobe & Lighting" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom_Scene 1.jpg", title: "Bedroom 2 Cozy Layout" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom_Scene 8.jpg", title: "Bedroom 2 Storage & Dresser" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/study.jpg", title: "Executive Study & Workstation" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S 1.jpg", title: "Study Desk with Custom Bookshelves" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S2.jpg", title: "Study Storage & Task Profile Lights" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S3.jpg", title: "Study Room Ergonomic Environment" }
+            ]
+          },
+          {
+            id: "bathrooms",
+            num: "05",
+            name: "Bathrooms & Vanity",
+            count: "6 Renders",
+            cover: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/bathroom.jpg",
+            images: [
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/bathroom.jpg", title: "Master Ensuite Vanity & LED Mirror" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 6.jpg", title: "GF Bathroom Glass Shower Partition" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 8.jpg", title: "GF Powder Room Fixtures & Granite" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom toilets_Scene 1.jpg", title: "FF Ensuite Counter & Wall Tiles" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom 2_ REVISED_ff toilet 1.jpg", title: "FF Bathroom 2 Floating Vanity" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom 2_ REVISED_ff toilet  2.jpg", title: "FF Bathroom 2 Wet & Dry Zoning" }
+            ]
+          },
+          {
+            id: "pooja",
+            num: "06",
+            name: "Pooja Room",
+            count: "3 Renders",
+            cover: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/pooja.jpg",
+            images: [
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/pooja.jpg", title: "Traditional Mandir Sanctum" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA OUTSIDE.jpg", title: "Pooja Teakwood Enclosure External" },
+              { src: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA INSIDE.jpg", title: "Intricate CNC Backlit Panel & Idols" }
+            ]
+          }
+        ],
         stripImages: [
           "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
           "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING TV UNIT.jpg",
@@ -648,6 +1509,140 @@
     const project = PROJECTS[id];
     const app = document.getElementById('app');
 
+    function accordionZonesSection(p) {
+      if (!p.zones || p.zones.length === 0) return '';
+
+      const accordionItems = p.zones.map((zone, idx) => `
+        <div class="acc-card ${idx === 0 ? 'active' : ''}" data-zone="${idx}">
+          <img class="acc-card-img" src="${zone.cover}" alt="${zone.name}" loading="lazy">
+          <div class="acc-card-overlay"></div>
+          <div class="acc-label-box">
+            <span class="acc-bar"></span>
+            <span class="acc-label-text">${zone.name}</span>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+      <section class="zones-section" id="zonesSection">
+        <div class="section-head reveal">
+          <span class="eyebrow">Spatial Breakdown</span>
+          <h2>Interior Zones & Renders</h2>
+          <p class="section-desc">Hover over any room card below to seamlessly expand its collection and morph through all angle perspectives.</p>
+        </div>
+
+        <div class="accordion-gallery-wrapper reveal">
+          <div class="accordion-gallery" id="accordionGallery">
+            ${accordionItems}
+          </div>
+        </div>
+
+        <div class="morph-slider-container reveal" id="morphSliderContainer">
+          <div class="morph-viewport" id="morphViewport" title="Click to view full screen">
+            <div class="morph-slide-content" id="morphSlideContent">
+              <img class="morph-slide-img layer-a active" id="morphImgA" src="${p.zones[0].images[0].src}" alt="${p.zones[0].images[0].title}">
+              <img class="morph-slide-img layer-b" id="morphImgB" src="" alt="">
+            </div>
+            <button class="morph-nav-btn prev" id="morphPrevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="morph-nav-btn next" id="morphNextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="morph-title-pill" id="morphTitlePill">${p.zones[0].images[0].title}</div>
+            <div class="morph-dots-wrapper" id="morphDotsWrapper"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="insights-lightbox" id="insightsLightbox">
+        <button class="insights-lb-close" id="insightsLbClose" aria-label="Close Lightbox">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="insights-lb-inner">
+          <img id="insightsLbImg" src="" alt="Enlarged View">
+          <div class="insights-lb-caption">
+            <h4 id="insightsLbTitle"></h4>
+            <span id="insightsLbZone" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#C79A5B;"></span>
+          </div>
+        </div>
+      </div>
+      `;
+    }
+
+    function vrExperienceSection(p) {
+      const vrRooms = [
+        {
+          id: "bedroom",
+          name: "Master Bedroom",
+          thumb: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 1.jpg",
+          vrUrl: "https://panoraven.com/en/embed/RdJaToZd29"
+        },
+        {
+          id: "kitchen",
+          name: "Kitchen & Dining",
+          thumb: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN.jpg",
+          vrUrl: "https://panoraven.com/en/embed/RdJaToZd29"
+        },
+        {
+          id: "living",
+          name: "Living Room",
+          thumb: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER AND TV UNIT.jpg",
+          vrUrl: "https://panoraven.com/en/embed/RdJaToZd29"
+        },
+        {
+          id: "bathroom",
+          name: "Luxury Bathroom",
+          thumb: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom toilets_Scene 1.jpg",
+          vrUrl: "https://panoraven.com/en/embed/RdJaToZd29"
+        }
+      ];
+
+      const cardsHtml = vrRooms.map((room, idx) => `
+        <div class="vr-room-card ${idx === 0 ? 'active' : ''}" data-vr="${room.vrUrl}" data-name="${room.name}">
+          <div class="vr-room-thumb" style="background-image: url('${room.thumb}');"></div>
+          <div class="vr-room-overlay"></div>
+          <div class="vr-room-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 9a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h4l3 3 3-3h4a2 2 0 002-2V9z" stroke="currentColor" stroke-width="1.8"/><circle cx="8" cy="12" r="2" stroke="currentColor" stroke-width="1.8"/><circle cx="16" cy="12" r="2" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span>360° VR</span>
+          </div>
+          <div class="vr-room-info">
+            <h3>${room.name}</h3>
+            <span class="vr-tap-hint">Tap to explore VR →</span>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+      <section class="vr-experience-section" id="vrSection">
+        <div class="section-head reveal">
+          <span class="eyebrow">360° IMMERSIVE WALKTHROUGH</span>
+          <h2>Experience in VR</h2>
+          <p class="section-desc">Step inside the residence with full 360° spatial immersion. Tap any room below to explore and look around in panoramic virtual reality.</p>
+        </div>
+
+        <div class="vr-rooms-grid reveal">
+          ${cardsHtml}
+        </div>
+
+        <div class="vr-viewer-wrapper reveal" id="vrViewerWrapper">
+          <div class="vr-viewer-topbar">
+            <div class="vr-active-tag">
+              <span class="vr-pulse-dot"></span>
+              <span id="vrActiveRoomTitle">Master Bedroom · 360° VR View</span>
+            </div>
+            <button class="vr-fullscreen-btn" id="vrFullscreenBtn" title="Launch Fullscreen VR">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Fullscreen VR</span>
+            </button>
+          </div>
+          <div class="vr-iframe-container" id="vrIframeContainer">
+            <iframe id="vrIframe" src="https://panoraven.com/en/embed/RdJaToZd29" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; gyroscope; magnetometer; vr"></iframe>
+          </div>
+        </div>
+      </section>`;
+    }
+
     function filmstripSection(p) {
       const images = p.stripImages || [
         "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
@@ -711,10 +1706,17 @@
     </div>
     `;
 
-      html += filmstripSection(p);
+      // 1. If project has spatial zones, display Spatial Breakdown & Experience in VR
+      if (p.zones && p.zones.length > 0) {
+        html += accordionZonesSection(p);
+        html += vrExperienceSection(p);
+      } else {
+        // Fallback for standard exterior projects
+        html += showcaseGridSection(p);
+        html += filmstripSection(p);
+      }
 
-      html += showcaseGridSection(p);
-
+      // 2. CTA Section
       html += `
     <section class="p-cta">
       <h2>Have A Site In Mind?</h2>
@@ -723,6 +1725,263 @@
 
       app.innerHTML = html;
       initReveal();
+
+      if (p.zones && p.zones.length > 0) {
+        initAccordionAndSlider(p);
+        initVRExperience();
+      }
+    }
+
+    function initAccordionAndSlider(p) {
+      let activeZoneIndex = 0;
+      let activeSlideIndex = 0;
+      let currentLayer = 'A';
+
+      // Preload images into memory so all switches are instantaneous
+      p.zones.forEach(z => {
+        z.images.forEach(img => {
+          const pre = new Image();
+          pre.src = img.src;
+        });
+      });
+
+      const accCards = document.querySelectorAll('.acc-card');
+      const morphImgA = document.getElementById('morphImgA');
+      const morphImgB = document.getElementById('morphImgB');
+      const morphTitlePill = document.getElementById('morphTitlePill');
+      const morphDotsWrapper = document.getElementById('morphDotsWrapper');
+      const morphPrevBtn = document.getElementById('morphPrevBtn');
+      const morphNextBtn = document.getElementById('morphNextBtn');
+      const morphViewport = document.getElementById('morphViewport');
+
+      const lightbox = document.getElementById('insightsLightbox');
+      const lbImg = document.getElementById('insightsLbImg');
+      const lbTitle = document.getElementById('insightsLbTitle');
+      const lbZone = document.getElementById('insightsLbZone');
+      const lbClose = document.getElementById('insightsLbClose');
+
+      function updateSlide(zoneIdx, slideIdx, animate = true) {
+        const zone = p.zones[zoneIdx];
+        if (!zone || !zone.images[slideIdx]) return;
+
+        const imgData = zone.images[slideIdx];
+        activeZoneIndex = zoneIdx;
+        activeSlideIndex = slideIdx;
+
+        morphTitlePill.textContent = imgData.title;
+
+        if (animate) {
+          const nextLayer = currentLayer === 'A' ? 'B' : 'A';
+          const nextImg = nextLayer === 'A' ? morphImgA : morphImgB;
+          const currImg = currentLayer === 'A' ? morphImgA : morphImgB;
+
+          nextImg.src = imgData.src;
+          nextImg.alt = imgData.title;
+
+          nextImg.classList.add('active');
+          currImg.classList.remove('active');
+          currentLayer = nextLayer;
+        } else {
+          const currImg = currentLayer === 'A' ? morphImgA : morphImgB;
+          currImg.src = imgData.src;
+          currImg.alt = imgData.title;
+        }
+
+        // Update dots
+        document.querySelectorAll('.morph-dot').forEach((d, i) => {
+          if (i === slideIdx) d.classList.add('active');
+          else d.classList.remove('active');
+        });
+      }
+
+      function loadZone(zoneIdx) {
+        const zone = p.zones[zoneIdx];
+        if (!zone) return;
+
+        accCards.forEach((card, idx) => {
+          if (idx === zoneIdx) card.classList.add('active');
+          else card.classList.remove('active');
+        });
+
+        // Build dots
+        morphDotsWrapper.innerHTML = zone.images.map((img, i) => `
+          <div class="morph-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
+        `).join('');
+
+        // Attach dot click listeners
+        document.querySelectorAll('.morph-dot').forEach(dot => {
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const idx = parseInt(dot.dataset.index, 10);
+            updateSlide(zoneIdx, idx, true);
+          });
+        });
+
+        updateSlide(zoneIdx, 0, true);
+      }
+
+      // Hover-responsive accordion as requested in user prompt
+      accCards.forEach((card, idx) => {
+        card.addEventListener('mouseenter', () => {
+          if (activeZoneIndex !== idx) {
+            loadZone(idx);
+          }
+        });
+        card.addEventListener('click', () => {
+          if (activeZoneIndex !== idx) {
+            loadZone(idx);
+          }
+        });
+      });
+
+      if (morphPrevBtn) {
+        morphPrevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const zone = p.zones[activeZoneIndex];
+          const prevIdx = (activeSlideIndex - 1 + zone.images.length) % zone.images.length;
+          updateSlide(activeZoneIndex, prevIdx, true);
+        });
+      }
+
+      if (morphNextBtn) {
+        morphNextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const zone = p.zones[activeZoneIndex];
+          const nextIdx = (activeSlideIndex + 1) % zone.images.length;
+          updateSlide(activeZoneIndex, nextIdx, true);
+        });
+      }
+
+      // Mobile touch swipe gestures
+      let touchStartX = 0;
+      let touchEndX = 0;
+      if (morphViewport) {
+        morphViewport.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        morphViewport.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          const diff = touchStartX - touchEndX;
+          if (Math.abs(diff) > 40) {
+            const zone = p.zones[activeZoneIndex];
+            if (diff > 0) {
+              // Swipe left -> next
+              const nextIdx = (activeSlideIndex + 1) % zone.images.length;
+              updateSlide(activeZoneIndex, nextIdx, true);
+            } else {
+              // Swipe right -> prev
+              const prevIdx = (activeSlideIndex - 1 + zone.images.length) % zone.images.length;
+              updateSlide(activeZoneIndex, prevIdx, true);
+            }
+          }
+        }, { passive: true });
+      }
+
+      // Lightbox open on click
+      if (morphViewport && lightbox) {
+        morphViewport.addEventListener('click', () => {
+          const zone = p.zones[activeZoneIndex];
+          const imgData = zone.images[activeSlideIndex];
+          lbImg.src = imgData.src;
+          lbTitle.textContent = imgData.title;
+          lbZone.textContent = `${zone.name} — Render ${activeSlideIndex + 1} of ${zone.images.length}`;
+          lightbox.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      }
+
+      function closeLb() {
+        if (lightbox) {
+          lightbox.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      }
+
+      if (lbClose) lbClose.addEventListener('click', closeLb);
+      if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) closeLb();
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox && lightbox.classList.contains('open')) {
+          if (e.key === 'Escape') closeLb();
+          if (e.key === 'ArrowRight') {
+            const zone = p.zones[activeZoneIndex];
+            const nextIdx = (activeSlideIndex + 1) % zone.images.length;
+            updateSlide(activeZoneIndex, nextIdx, false);
+            const imgData = zone.images[nextIdx];
+            lbImg.src = imgData.src;
+            lbTitle.textContent = imgData.title;
+            lbZone.textContent = `${zone.name} — Render ${nextIdx + 1} of ${zone.images.length}`;
+          }
+          if (e.key === 'ArrowLeft') {
+            const zone = p.zones[activeZoneIndex];
+            const prevIdx = (activeSlideIndex - 1 + zone.images.length) % zone.images.length;
+            updateSlide(activeZoneIndex, prevIdx, false);
+            const imgData = zone.images[prevIdx];
+            lbImg.src = imgData.src;
+            lbTitle.textContent = imgData.title;
+            lbZone.textContent = `${zone.name} — Render ${prevIdx + 1} of ${zone.images.length}`;
+          }
+        } else {
+          if (e.key === 'ArrowRight' && morphNextBtn) {
+            const zone = p.zones[activeZoneIndex];
+            const nextIdx = (activeSlideIndex + 1) % zone.images.length;
+            updateSlide(activeZoneIndex, nextIdx, true);
+          }
+          if (e.key === 'ArrowLeft' && morphPrevBtn) {
+            const zone = p.zones[activeZoneIndex];
+            const prevIdx = (activeSlideIndex - 1 + zone.images.length) % zone.images.length;
+            updateSlide(activeZoneIndex, prevIdx, true);
+          }
+        }
+      });
+
+      // Initial load
+      loadZone(0);
+    }
+
+    function initVRExperience() {
+      const cards = document.querySelectorAll('.vr-room-card');
+      const iframe = document.getElementById('vrIframe');
+      const titleEl = document.getElementById('vrActiveRoomTitle');
+      const fullscreenBtn = document.getElementById('vrFullscreenBtn');
+      const container = document.getElementById('vrIframeContainer');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          cards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+
+          const vrUrl = card.dataset.vr;
+          const roomName = card.dataset.name;
+
+          if (titleEl) titleEl.textContent = `${roomName} · 360° VR View`;
+          if (iframe && iframe.src !== vrUrl) {
+            iframe.src = vrUrl;
+          }
+
+          // Smooth scroll to the viewer frame on smaller screens so the user sees the VR view
+          const wrapper = document.getElementById('vrViewerWrapper');
+          if (wrapper && window.innerWidth < 900) {
+            wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      });
+
+      if (fullscreenBtn && container) {
+        fullscreenBtn.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            container.requestFullscreen().catch(err => {
+              window.open('https://panoraven.com/en/embed/RdJaToZd29', '_blank');
+            });
+          } else {
+            document.exitFullscreen();
+          }
+        });
+      }
     }
 
     function renderNotFound() {
