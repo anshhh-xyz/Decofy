@@ -2,23 +2,22 @@
   "cleanUrls": true,
   "headers": [
     {
-      "source": "/(.*\\.(css|js|svg|jpg|jpeg|png|woff2|ico))",
+      "source": "/(.*\\.(woff2|jpg|jpeg|png|webp|avif|ico|svg))",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
         }
       ]
-    }
-  ],
-  "routes": [
-    {
-      "handle": "filesystem"
     },
     {
-      "src": "/(.*)",
-      "status": 404,
-      "dest": "/404.html"
+      "source": "/(.*\\.(css|js))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ]
 }
