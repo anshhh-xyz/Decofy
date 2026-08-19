@@ -357,6 +357,20 @@ footer {
   }
 }
 
+@media (max-width: 480px) {
+  .navbar {
+    padding: 16px 18px;
+  }
+
+  .nav-logo-svg {
+    height: 32px;
+  }
+
+  .mobile-menu a {
+    font-size: 26px;
+  }
+}
+
 .dock-outer {
   display: flex;
   justify-content: center;
