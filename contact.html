@@ -23,11 +23,11 @@
   <meta property="og:title" content="Contact Us &amp; Studio Consultations — Decofy Studios">
   <meta property="og:description"
     content="Begin your architectural commission. Contact Decofy Studios in Shivamogga, Karnataka for luxury interior consultations and project inquiries.">
-  <meta property="og:image" content="https://decofydesignco.in/logo_main.jpg">
-  <meta property="og:image:secure_url" content="https://decofydesignco.in/logo_main.jpg">
+  <meta property="og:image" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
+  <meta property="og:image:secure_url" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://decofydesignco.in/contact.html">
 
   <!-- Twitter / X -->
@@ -35,7 +35,7 @@
   <meta name="twitter:title" content="Contact Us &amp; Studio Consultations — Decofy Studios">
   <meta name="twitter:description"
     content="Begin your architectural commission. Contact Decofy Studios in Shivamogga, Karnataka for luxury interior consultations and project inquiries.">
-  <meta name="twitter:image" content="https://decofydesignco.in/logo_main.jpg">
+  <meta name="twitter:image" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
 
   <!-- Schema.org Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -62,6 +62,7 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://ik.imagekit.io" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
@@ -523,7 +524,7 @@
     <div class="contact-grid">
       <div class="reveal">
         <span class="eyebrow">Get In Touch</span>
-        <h2>Let's Create Something Extraordinary</h2>
+        <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,5vw,62px);font-weight:500;line-height:1.05;margin-bottom:8px;">Let's Create Something Extraordinary</h1>
         <p class="contact-lead-sub">Scroll to fill the form below</p>
         <div class="contact-block-row">
           <div class="contact-icon">
@@ -718,9 +719,9 @@
         <textarea id="fMessage" placeholder=" " required></textarea>
         <label for="fMessage">Tell us about your project</label>
       </div>
-      <button type="submit" class="form-submit">Send Message</button>
-      <div class="form-note">This opens your email app with the message addressed to harshgofficial.1998@gmail.com.
-      </div>
+      <button type="submit" class="form-submit" id="submitBtn">Send Message</button>
+      <div id="formFeedback" style="display:none;margin-top:18px;padding:16px 20px;border-radius:14px;font-size:13.5px;line-height:1.6;text-align:center;background:rgba(139,74,52,0.1);border:1px solid rgba(139,74,52,0.25);color:#8B4A34;font-weight:500;"></div>
+      <div class="form-note" style="margin-top:14px;">Direct studio inquiries: <a href="mailto:harshgofficial.1998@gmail.com" style="color:inherit;text-decoration:underline;">harshgofficial.1998@gmail.com</a> · <a href="tel:+919872373331" style="color:inherit;text-decoration:underline;">+91 98723 73331</a></div>
     </form>
   </section>
 
@@ -733,9 +734,13 @@
     document.addEventListener('DOMContentLoaded', () => {
 
       const contactForm = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const feedback = document.getElementById('formFeedback');
+
       if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
           e.preventDefault();
+
           const name = (document.getElementById('fName') || {}).value || '';
           const phone = (document.getElementById('fPhone') || {}).value || '';
           const email = (document.getElementById('fEmail') || {}).value || 'Not provided';
@@ -747,6 +752,11 @@
           const message = (document.getElementById('fMessage') || {}).value || '';
 
           const locationDetails = locOther ? `${city}, ${state} (${locOther})` : `${city}, ${state}`;
+
+          if (submitBtn) {
+            submitBtn.textContent = 'Preparing inquiry...';
+            submitBtn.style.opacity = '0.7';
+          }
 
           const subject = encodeURIComponent(`Project inquiry from ${name} — ${service}`);
           const body = encodeURIComponent(
@@ -764,7 +774,19 @@ ${message}
 
 — ${name}`
           );
-          window.location.href = `mailto:harshgofficial.1998@gmail.com?subject=${subject}&body=${body}`;
+
+          if (feedback) {
+            feedback.style.display = 'block';
+            feedback.innerHTML = `<strong>Thank you, ${name}!</strong><br>Your project details have been recorded. Opening your mail client to send directly to Architect Harsh Gupta...`;
+          }
+
+          setTimeout(() => {
+            window.location.href = `mailto:harshgofficial.1998@gmail.com?subject=${subject}&body=${body}`;
+            if (submitBtn) {
+              submitBtn.textContent = 'Message Sent';
+              submitBtn.style.opacity = '1';
+            }
+          }, 600);
         });
       }
     });

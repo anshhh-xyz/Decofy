@@ -23,11 +23,11 @@
   <meta property="og:title" content="Visual Gallery &amp; 3D Architectural Renders — Decofy Studios">
   <meta property="og:description"
     content="Immerse yourself in high-resolution 3D renders, architectural details, and spatial perspectives crafted by Decofy Studios.">
-  <meta property="og:image" content="https://decofydesignco.in/logo_main.jpg">
-  <meta property="og:image:secure_url" content="https://decofydesignco.in/logo_main.jpg">
+  <meta property="og:image" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
+  <meta property="og:image:secure_url" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://decofydesignco.in/gallery.html">
 
   <!-- Twitter / X -->
@@ -35,7 +35,7 @@
   <meta name="twitter:title" content="Visual Gallery &amp; 3D Architectural Renders — Decofy Studios">
   <meta name="twitter:description"
     content="Immerse yourself in high-resolution 3D renders, architectural details, and spatial perspectives crafted by Decofy Studios.">
-  <meta name="twitter:image" content="https://decofydesignco.in/logo_main.jpg">
+  <meta name="twitter:image" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
 
   <!-- Schema.org Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -54,6 +54,7 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://ik.imagekit.io" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
@@ -707,7 +708,7 @@
       <span class="rule"></span>
       <span>· Visual Archive</span>
     </div>
-    <h1 class="kinetic" id="kineticTitle"></h1>
+    <h1 class="kinetic" id="kineticTitle">The Gallery</h1>
     <p class="g-sub reveal">Every frame below is pulled from real Decofy commissions — exteriors, interiors, and the
       site plans behind them. Hover to look closer, click to open full-size.</p>
 
@@ -760,23 +761,30 @@
 
   <script>
 
-    const SOURCE = [
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", title: "Fogwood Residence", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", title: "Marbella House", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", title: "Timberline Lodge", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", title: "Casa Blanca", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", title: "Hearth &amp; Timber Interior", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", title: "Sunlit Atrium Interior", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", title: "The Meridian Estate", cat: "exterior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/build/build.jpg", title: "Spatial Concept — Open Plan", cat: "interior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", title: "Primary Bedroom Detail", cat: "interior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", title: "Kitchen Detail", cat: "interior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", title: "Bathroom Detail", cat: "interior" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", title: "Full Site &amp; Master Plan", cat: "detail" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg", title: "Plan Detail — Access", cat: "detail" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg", title: "Plan Detail — Kitchen Layout", cat: "detail" },
-      { img: "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg", title: "Plan Detail — Beverage Area", cat: "detail" }
+    const RAW_SOURCE = [
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", title: "Fogwood Residence", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", title: "Marbella House", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", title: "Timberline Lodge", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", title: "Casa Blanca", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", title: "Hearth &amp; Timber Interior", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", title: "Sunlit Atrium Interior", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", title: "The Meridian Estate", cat: "exterior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/build/build.jpg", title: "Spatial Concept — Open Plan", cat: "interior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", title: "Primary Bedroom Detail", cat: "interior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", title: "Kitchen Detail", cat: "interior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", title: "Bathroom Detail", cat: "interior" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", title: "Full Site &amp; Master Plan", cat: "detail" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg", title: "Plan Detail — Access", cat: "detail" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg", title: "Plan Detail — Kitchen Layout", cat: "detail" },
+      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg", title: "Plan Detail — Beverage Area", cat: "detail" }
     ];
+
+    const SOURCE = RAW_SOURCE.map(item => ({
+      img: `${item.base}?tr=w-1800,q-85,f-auto`,
+      thumb: `${item.base}?tr=w-720,q-80,f-auto`,
+      title: item.title,
+      cat: item.cat
+    }));
 
     const SUFFIXES = ["", " — Study 02", " — Alt Angle", " — Night", " — Detail View"];
     const GALLERY = [];
@@ -784,6 +792,7 @@
       SOURCE.forEach((item, i) => {
         GALLERY.push({
           img: item.img,
+          thumb: item.thumb,
           title: item.title + SUFFIXES[round % SUFFIXES.length],
           cat: item.cat
         });
@@ -799,7 +808,7 @@
       el.dataset.index = i;
       el.innerHTML = `
     <div class="tilt">
-      <img src="${item.img}" alt="${item.title}" loading="lazy">
+      <img src="${item.thumb}" alt="${item.title}" loading="lazy" decoding="async" width="720" height="480">
     </div>
   `;
       grid.appendChild(el);
@@ -827,7 +836,7 @@
     function buildFilmstrip() {
       const doubled = [...SOURCE, ...SOURCE];
       filmstripTrack.innerHTML = doubled.map(item => `
-    <div class="film-frame"><img src="${item.img}" alt="${item.title}" loading="lazy"></div>
+    <div class="film-frame"><img src="${item.thumb}" alt="${item.title}" loading="lazy" decoding="async" width="480" height="320"></div>
   `).join('');
     }
     buildFilmstrip();

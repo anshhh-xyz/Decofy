@@ -74,21 +74,40 @@ class DockNavbar {
     panel.addEventListener('mousemove', (e) => {
       this.isHovered = true;
       this.mouseX = e.clientX;
+      this.startAnimation();
+    });
+
+    panel.addEventListener('mouseenter', () => {
+      this.isHovered = true;
+      this.startAnimation();
     });
 
     panel.addEventListener('mouseleave', () => {
       this.isHovered = false;
       this.mouseX = Infinity;
+      this.startAnimation();
     });
 
-    this.animate();
+    this.startAnimation();
+  }
+
+  startAnimation = () => {
+    if (!this.animating) {
+      this.animating = true;
+      requestAnimationFrame(this.animate);
+    }
   }
 
   animate = () => {
+    if (!this.animating) return;
+
     if (this.panel && this.panel.offsetParent === null) {
-      requestAnimationFrame(this.animate);
+      this.animating = false;
       return;
     }
+
+    let needsNextFrame = this.isHovered;
+
     this.dockItems.forEach(itemData => {
       const rect = itemData.el.getBoundingClientRect();
       const itemCenterX = rect.left + rect.width / 2;
@@ -105,13 +124,24 @@ class DockNavbar {
       }
 
       itemData.targetSize = target;
-      itemData.currentSize += (itemData.targetSize - itemData.currentSize) * 0.22;
+      const diff = itemData.targetSize - itemData.currentSize;
+
+      if (Math.abs(diff) > 0.05) {
+        itemData.currentSize += diff * 0.22;
+        needsNextFrame = true;
+      } else {
+        itemData.currentSize = itemData.targetSize;
+      }
 
       itemData.el.style.width = `${itemData.currentSize.toFixed(2)}px`;
       itemData.el.style.height = `${itemData.currentSize.toFixed(2)}px`;
     });
 
-    requestAnimationFrame(this.animate);
+    if (needsNextFrame) {
+      requestAnimationFrame(this.animate);
+    } else {
+      this.animating = false;
+    }
   }
 }
 

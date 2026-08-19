@@ -23,11 +23,11 @@
   <meta property="og:title" content="Project Insights &amp; 360° VR Tour — Decofy Studios">
   <meta property="og:description"
     content="Detailed architectural insights, spatial zone breakdowns, and panoramic 360° virtual reality walkthroughs of signature Decofy residences.">
-  <meta property="og:image" content="https://decofydesignco.in/logo_main.jpg">
-  <meta property="og:image:secure_url" content="https://decofydesignco.in/logo_main.jpg">
+  <meta property="og:image" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
+  <meta property="og:image:secure_url" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://decofydesignco.in/project_insights.html">
 
   <!-- Twitter / X -->
@@ -35,7 +35,7 @@
   <meta name="twitter:title" content="Project Insights &amp; 360° VR Tour — Decofy Studios">
   <meta name="twitter:description"
     content="Detailed architectural insights, spatial zone breakdowns, and panoramic 360° virtual reality walkthroughs of signature Decofy residences.">
-  <meta name="twitter:image" content="https://decofydesignco.in/logo_main.jpg">
+  <meta name="twitter:image" content="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,h-630,fo-auto,q-85,f-auto">
 
   <!-- Schema.org Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -54,6 +54,7 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://ik.imagekit.io" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
@@ -1487,12 +1488,18 @@
     const project = PROJECTS[id];
     const app = document.getElementById('app');
 
+    function ik(url, transforms = 'w-1600,q-80,f-auto') {
+      if (!url || typeof url !== 'string' || !url.includes('ik.imagekit.io')) return url;
+      if (url.includes('?tr=')) return url;
+      return `${url}?tr=${transforms}`;
+    }
+
     function accordionZonesSection(p) {
       if (!p.zones || p.zones.length === 0) return '';
 
       const accordionItems = p.zones.map((zone, idx) => `
         <div class="acc-card ${idx === 0 ? 'active' : ''}" data-zone="${idx}">
-          <img class="acc-card-img" src="${zone.cover}" alt="${zone.name}" loading="lazy">
+          <img class="acc-card-img" src="${ik(zone.cover, 'w-600,q-80,f-auto')}" alt="${zone.name}" loading="lazy" decoding="async" width="600" height="400">
           <div class="acc-card-overlay"></div>
           <div class="acc-label-box">
             <span class="acc-bar"></span>
@@ -1518,8 +1525,8 @@
         <div class="morph-slider-container reveal" id="morphSliderContainer">
           <div class="morph-viewport" id="morphViewport" title="Click to view full screen">
             <div class="morph-slide-content" id="morphSlideContent">
-              <img class="morph-slide-img layer-a active" id="morphImgA" src="${p.zones[0].images[0].src}" alt="${p.zones[0].images[0].title}">
-              <img class="morph-slide-img layer-b" id="morphImgB" src="" alt="">
+              <img class="morph-slide-img layer-a active" id="morphImgA" src="${ik(p.zones[0].images[0].src, 'w-1800,q-85,f-auto')}" alt="${p.zones[0].images[0].title}" width="1800" height="1100" loading="eager">
+              <img class="morph-slide-img layer-b" id="morphImgB" src="" alt="" width="1800" height="1100">
             </div>
             <button class="morph-nav-btn prev" id="morphPrevBtn" aria-label="Previous Slide">
               <svg viewBox="0 0 24 24" fill="none"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1577,7 +1584,7 @@
 
       const cardsHtml = vrRooms.map((room, idx) => `
         <div class="vr-room-card ${idx === 0 ? 'active' : ''}" data-vr="${room.vrUrl}" data-name="${room.name}">
-          <div class="vr-room-thumb" style="background-image: url('${room.thumb}');"></div>
+          <div class="vr-room-thumb" style="background-image: url('${ik(room.thumb, 'w-600,q-80,f-auto')}');"></div>
           <div class="vr-room-overlay"></div>
           <div class="vr-room-info">
             <h3>${room.name}</h3>
@@ -1625,7 +1632,7 @@
       const doubled = [...images, ...images];
       const frames = doubled.map(img => `
         <div class="film-frame">
-          <img src="${img}" alt="Project render frame" loading="lazy">
+          <img src="${ik(img, 'w-600,q-80,f-auto')}" alt="Project render frame" loading="lazy" decoding="async" width="600" height="400">
         </div>
       `).join('');
 
@@ -1644,7 +1651,7 @@
 
       const gridHtml = images.map((img, i) => `
         <div class="showcase-item ${i % 5 === 0 ? 'wide' : ''} reveal">
-          <img src="${img}" alt="Showcase render ${i + 1}" loading="lazy">
+          <img src="${ik(img, 'w-800,q-80,f-auto')}" alt="Showcase render ${i + 1}" loading="lazy" decoding="async" width="800" height="500">
         </div>
       `).join('');
 
@@ -1661,7 +1668,7 @@
 
       let html = `
     <section class="p-hero" style="padding:0;">
-      <img src="${p.heroImg}" alt="${p.title}">
+      <img src="${ik(p.heroImg, 'w-1920,q-85,f-auto')}" alt="${p.title}" loading="eager" fetchpriority="high" width="1920" height="1080">
       <div class="p-hero-content">
         <span class="p-tag">${p.category === 'full' ? 'Full Project' : p.category === 'interior' ? 'Interior Work' : 'Exterior Work'}</span>
         <h1 class="p-title">${p.title}</h1>
