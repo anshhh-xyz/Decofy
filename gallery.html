@@ -57,10 +57,15 @@
   <link rel="preconnect" href="https://ik.imagekit.io" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap">
+  </noscript>
   <link rel="stylesheet" href="global.css">
+  <script src="global.js" defer></script>
   <style>
     .cursor {
       position: fixed;
@@ -781,8 +786,10 @@
     ];
 
     const SOURCE = RAW_SOURCE.map(item => ({
-      img: `${item.base}?tr=w-1800,q-85,f-auto`,
-      thumb: `${item.base}?tr=w-720,q-80,f-auto`,
+      img: `${item.base}?tr=w-1600,q-75,f-auto`,
+      thumb: `${item.base}?tr=w-720,q-75,f-auto`,
+      thumbSm: `${item.base}?tr=w-400,q-75,f-auto`,
+      thumbMd: `${item.base}?tr=w-1000,q-75,f-auto`,
       title: item.title,
       cat: item.cat
     }));
@@ -794,6 +801,8 @@
         GALLERY.push({
           img: item.img,
           thumb: item.thumb,
+          thumbSm: item.thumbSm,
+          thumbMd: item.thumbMd,
           title: item.title + SUFFIXES[round % SUFFIXES.length],
           cat: item.cat
         });
@@ -809,7 +818,10 @@
       el.dataset.index = i;
       el.innerHTML = `
     <div class="tilt">
-      <img src="${item.thumb}" alt="${item.title}" loading="lazy" decoding="async" width="720" height="480">
+      <img src="${item.thumb}"
+        srcset="${item.thumbSm} 400w, ${item.thumb} 720w, ${item.thumbMd} 1000w"
+        sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        alt="${item.title}" loading="lazy" decoding="async" width="720" height="480">
     </div>
   `;
       grid.appendChild(el);
@@ -837,7 +849,7 @@
     function buildFilmstrip() {
       const doubled = [...SOURCE, ...SOURCE];
       filmstripTrack.innerHTML = doubled.map(item => `
-    <div class="film-frame"><img src="${item.thumb}" alt="${item.title}" loading="lazy" decoding="async" width="480" height="320"></div>
+    <div class="film-frame"><img src="${item.thumbSm}" alt="${item.title}" loading="lazy" decoding="async" width="400" height="267"></div>
   `).join('');
     }
     buildFilmstrip();
@@ -868,14 +880,18 @@
     });
 
     const cursor = document.getElementById('cursor');
-    if (window.matchMedia('(hover: hover)').matches && cursor) {
-      let cx = window.innerWidth / 2, cy = window.innerHeight / 2, tx = cx, ty = cy;
-      window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
+    if (cursor && window.matchMedia('(pointer: fine)').matches) {
+      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+      let curX = mouseX, curY = mouseY;
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
       function cursorLoop() {
-        cx += (tx - cx) * 0.18;
-        cy += (ty - cy) * 0.18;
-        cursor.style.left = cx + 'px';
-        cursor.style.top = cy + 'px';
+        curX += (mouseX - curX) * 0.18;
+        curY += (mouseY - curY) * 0.18;
+        cursor.style.left = curX + 'px';
+        cursor.style.top = curY + 'px';
         requestAnimationFrame(cursorLoop);
       }
       cursorLoop();
@@ -929,8 +945,6 @@
       if (e.key === 'ArrowLeft') showNext(-1);
     });
   </script>
-
-  <script src="global.js"></script>
 </body>
 
 </html>
