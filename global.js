@@ -33,8 +33,6 @@ class DockNavbar {
       itemEl.setAttribute('role', 'button');
       itemEl.setAttribute('tabindex', '0');
       itemEl.setAttribute('aria-label', item.label);
-      itemEl.style.width = `${this.baseItemSize}px`;
-      itemEl.style.height = `${this.baseItemSize}px`;
 
       itemEl.innerHTML = `
         <div class="dock-icon">${item.icon}</div>
@@ -60,88 +58,33 @@ class DockNavbar {
         }
       });
 
-      this.dockItems.push({
-        el: itemEl,
-        currentSize: this.baseItemSize,
-        targetSize: this.baseItemSize
-      });
-
+      this.dockItems.push(itemEl);
       panel.appendChild(itemEl);
     });
 
     this.container.appendChild(panel);
 
-    panel.addEventListener('mousemove', (e) => {
-      this.isHovered = true;
-      this.mouseX = e.clientX;
-      this.startAnimation();
-    });
+    const maxScale = this.magnification / this.baseItemSize;
 
-    panel.addEventListener('mouseenter', () => {
-      this.isHovered = true;
-      this.startAnimation();
+    panel.addEventListener('mousemove', (e) => {
+      this.dockItems.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const itemCenterX = rect.left + rect.width / 2;
+        const dist = Math.abs(e.clientX - itemCenterX);
+
+        const scale = dist < this.distance
+          ? 1 + (maxScale - 1) * Math.cos((dist / this.distance) * (Math.PI / 2))
+          : 1;
+
+        el.style.setProperty('--scale', scale.toFixed(3));
+      });
     });
 
     panel.addEventListener('mouseleave', () => {
-      this.isHovered = false;
-      this.mouseX = Infinity;
-      this.startAnimation();
+      this.dockItems.forEach(el => {
+        el.style.setProperty('--scale', '1');
+      });
     });
-
-    this.startAnimation();
-  }
-
-  startAnimation = () => {
-    if (!this.animating) {
-      this.animating = true;
-      requestAnimationFrame(this.animate);
-    }
-  }
-
-  animate = () => {
-    if (!this.animating) return;
-
-    if (this.panel && this.panel.offsetParent === null) {
-      this.animating = false;
-      return;
-    }
-
-    let needsNextFrame = this.isHovered;
-
-    this.dockItems.forEach(itemData => {
-      const rect = itemData.el.getBoundingClientRect();
-      const itemCenterX = rect.left + rect.width / 2;
-
-      let target = this.baseItemSize;
-
-      if (this.isHovered && this.mouseX !== Infinity) {
-        const dist = Math.abs(this.mouseX - itemCenterX);
-        if (dist < this.distance) {
-          const normDist = dist / this.distance;
-          const factor = Math.cos(normDist * (Math.PI / 2));
-          target = this.baseItemSize + (this.magnification - this.baseItemSize) * factor;
-        }
-      }
-
-      itemData.targetSize = target;
-      const diff = itemData.targetSize - itemData.currentSize;
-
-      if (Math.abs(diff) > 0.05) {
-        itemData.currentSize += diff * 0.22;
-        needsNextFrame = true;
-      } else {
-        itemData.currentSize = itemData.targetSize;
-      }
-
-      itemData.el.style.width = `${itemData.currentSize.toFixed(2)}px`;
-      itemData.el.style.height = `${itemData.currentSize.toFixed(2)}px`;
-    });
-
-    if (needsNextFrame) {
-      requestAnimationFrame(this.animate);
-    } else {
-      this.animating = false;
-    }
   }
 }
 

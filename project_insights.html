@@ -1494,7 +1494,7 @@
     const project = PROJECTS[id];
     const app = document.getElementById('app');
 
-    function ik(url, transforms = 'w-1600,q-75,f-auto') {
+    function ik(url, transforms = 'w-1600,q-65,f-auto') {
       if (!url || typeof url !== 'string' || !url.includes('ik.imagekit.io')) return url;
       if (url.includes('?tr=')) return url;
       return `${url}?tr=${transforms}`;
@@ -1503,7 +1503,7 @@
     function ikSrcset(url, widths = [480, 800, 1200, 1600]) {
       if (!url || typeof url !== 'string' || !url.includes('ik.imagekit.io')) return '';
       const base = url.split('?')[0];
-      return widths.map(w => `${base}?tr=w-${w},q-75,f-auto ${w}w`).join(', ');
+      return widths.map(w => `${base}?tr=w-${w},q-65,f-auto ${w}w`).join(', ');
     }
 
     function accordionZonesSection(p) {
@@ -1511,7 +1511,7 @@
 
       const accordionItems = p.zones.map((zone, idx) => `
         <div class="acc-card ${idx === 0 ? 'active' : ''}" data-zone="${idx}">
-          <img class="acc-card-img" src="${ik(zone.cover, 'w-600,q-75,f-auto')}"
+          <img class="acc-card-img" src="${ik(zone.cover, 'w-600,q-65,f-auto')}"
             srcset="${ikSrcset(zone.cover, [360, 600, 900])}"
             sizes="(max-width: 768px) 100vw, 33vw"
             alt="${zone.name}" loading="lazy" decoding="async" width="600" height="400">
@@ -1666,7 +1666,7 @@
 
       const gridHtml = images.map((img, i) => `
         <div class="showcase-item ${i % 5 === 0 ? 'wide' : ''} reveal">
-          <img src="${ik(img, 'w-800,q-75,f-auto')}"
+          <img src="${ik(img, 'w-800,q-65,f-auto')}"
             srcset="${ikSrcset(img, [480, 800, 1200])}"
             sizes="(max-width: 768px) 100vw, 50vw"
             alt="Showcase render ${i + 1}" loading="lazy" decoding="async" width="800" height="500">
@@ -1686,7 +1686,7 @@
 
       let html = `
     <section class="p-hero" style="padding:0;">
-      <img src="${ik(p.heroImg, 'w-1600,q-75,f-auto')}"
+      <img src="${ik(p.heroImg, 'w-1600,q-65,f-auto')}"
         srcset="${ikSrcset(p.heroImg, [480, 800, 1200, 1600, 1920])}"
         sizes="100vw"
         alt="${p.title}" loading="eager" fetchpriority="high" width="1920" height="1080">
