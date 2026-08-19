@@ -129,38 +129,29 @@ h3 {
   border-bottom: 1px solid var(--line-soft);
 }
 
-.navbar.scrolled .logo-text,
-.navbar.scrolled .logo-sub {
+.navbar .logo a {
+  display: flex;
+  align-items: center;
+  color: #3D261D;
+  text-decoration: none;
+  transition: color .4s ease;
+}
+
+.navbar.scrolled .logo a,
+.navbar.dark-theme .logo a {
   color: #EEEAE0;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo svg {
-  width: 22px;
-  height: 22px;
-}
-
-.logo-text {
-  font-family: 'Fraunces', serif;
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  font-weight: 600;
-  color: #3D261D;
-  transition: color .4s ease;
-}
-
-.logo-sub {
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  color: #3D261D;
+.nav-logo-svg {
   display: block;
-  margin-top: -2px;
-  transition: color .4s ease;
+  height: 38px;
+  width: auto;
+  max-width: 140px;
+  transition: transform .3s ease;
+}
+
+.navbar .logo a:hover .nav-logo-svg {
+  transform: scale(1.03);
 }
 
 .back-link {
@@ -396,8 +387,6 @@ footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
   border-radius: 50%;
   background-color: rgba(43, 24, 21, 0.85);
   border: 1px solid rgba(236, 223, 201, 0.15);
@@ -406,9 +395,7 @@ footer {
     0 2px 4px -1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   outline: none;
-  transform: scale(var(--scale, 1));
-  transition: transform 0.25s cubic-bezier(.34, 1.56, .64, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .dock-item:hover,
