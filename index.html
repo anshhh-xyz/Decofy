@@ -347,6 +347,8 @@
       }
     }
 
+    
+    
     @media (max-width: 768px) {
       .hero {
         padding: 140px 20px 28px;
@@ -359,31 +361,38 @@
 
       .hero-body {
         margin-bottom: 24px;
+        text-align: left !important;
+        width: 100%;
       }
 
       .hero-title {
         font-size: clamp(34px, 8.2vw, 56px);
         line-height: 1.12;
         gap: 0 8px;
+        justify-content: flex-start !important;
+        text-align: left !important;
       }
 
       .hero-sub {
         font-size: 11px;
         letter-spacing: 0.14em;
         margin-top: 14px;
-        text-align: left;
+        text-align: left !important;
         padding: 0;
       }
 
       .hero-bottom {
         flex-direction: column;
-        align-items: stretch;
-        gap: 18px;
-        padding-top: 18px;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 14px;
+        padding-top: 16px;
         position: relative;
         left: auto;
         transform: none;
         bottom: auto;
+        width: 100%;
+        border-top: 1px solid rgba(238, 234, 224, 0.15);
       }
 
       .hero-map {
@@ -394,67 +403,69 @@
         width: 100%;
         display: flex;
         align-items: center;
+        justify-content: center !important;
+        text-align: left;
         gap: 12px;
-      }
-
-      .hero-map svg {
-        width: 64px;
-        height: 44px;
-        flex-shrink: 0;
       }
 
       .hero-meta {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 6px;
       }
 
-      .meta-label {
-        font-size: 9px;
-      }
-
-      .meta-val {
-        font-size: 12px;
-        white-space: nowrap;
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
     }
 
     @media (max-width: 480px) {
       .hero {
-        padding: 90px 16px 24px;
+        padding: 110px 16px 20px;
+      }
+
+      .hero-body {
+        text-align: left !important;
       }
 
       .hero-title {
         font-size: clamp(28px, 8.5vw, 42px);
+        justify-content: flex-start !important;
+        text-align: left !important;
+      }
+
+      .hero-sub {
+        text-align: left !important;
+      }
+
+      .hero-map {
+        justify-content: center !important;
+      }
+
+      .hero-map svg {
+        width: 52px;
+        height: 36px;
       }
 
       .hero-meta {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        align-items: center !important;
+        text-align: center !important;
       }
 
       .meta-val {
-        font-size: 11px;
-      }
-
-      .hero-map-text .loc-title {
-        font-size: 11px;
-      }
-
-      .hero-map-text .loc-sub {
-        font-size: 10px;
-      }
-
-      .mobile-menu a {
-        font-size: 24px;
-      }
-
-      .logo-text {
-        font-size: 18px;
+        font-size: 11.5px;
+        text-align: center;
       }
     }
-  </style>
+
+    </style>
 </head>
 
 <body>
@@ -1480,73 +1491,49 @@
   <section class="hero">
     <div class="hero-slideshow" id="heroSlideshow">
       <div class="hero-slide active">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw"
-          alt="Fogwood Residence — Luxury contemporary villa architecture in Shivamogga by Decofy Studios" width="1600"
-          height="900" loading="eager" fetchpriority="high">
+        <img src="https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero1.jpg?tr=w-1600,q-65,f-auto" srcset="
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero1.jpg?tr=w-480,q-65,f-auto 480w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero1.jpg?tr=w-800,q-65,f-auto 800w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero1.jpg?tr=w-1200,q-65,f-auto 1200w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero1.jpg?tr=w-1600,q-65,f-auto 1600w
+          " sizes="100vw" alt="Decofy Studios — Luxury contemporary architectural and interior design" width="1600"
+          height="900" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero1.jpg';">
       </div>
       <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw"
-          alt="Marbella House — Modern residential exterior architecture and facade design by Decofy Studios"
-          width="1600" height="900" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero2.jpg?tr=w-1600,q-65,f-auto" srcset="
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero2.jpg?tr=w-480,q-65,f-auto 480w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero2.jpg?tr=w-800,q-65,f-auto 800w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero2.jpg?tr=w-1200,q-65,f-auto 1200w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero2.jpg?tr=w-1600,q-65,f-auto 1600w
+          " sizes="100vw" alt="Decofy Studios — Modern residential exterior architecture and facade design"
+          width="1600" height="900" loading="lazy" decoding="async" onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero2.jpg';">
       </div>
       <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw"
-          alt="Coppersmith House — Luxury interior architecture and bespoke spatial design by Decofy Studios"
-          width="1600" height="900" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero3.jpg?tr=w-1600,q-65,f-auto" srcset="
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero3.jpg?tr=w-480,q-65,f-auto 480w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero3.jpg?tr=w-800,q-65,f-auto 800w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero3.jpg?tr=w-1200,q-65,f-auto 1200w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero3.jpg?tr=w-1600,q-65,f-auto 1600w
+          " sizes="100vw" alt="Decofy Studios — Luxury interior architecture and bespoke spatial design" width="1600"
+          height="900" loading="lazy" decoding="async" onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero3.jpg';">
       </div>
       <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw"
-          alt="Redwood Screen House — Sustainable residential architecture in Karnataka by Decofy Studios" width="1600"
-          height="900" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero4.jpg?tr=w-1600,q-65,f-auto" srcset="
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero4.jpg?tr=w-480,q-65,f-auto 480w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero4.jpg?tr=w-800,q-65,f-auto 800w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero4.jpg?tr=w-1200,q-65,f-auto 1200w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero4.jpg?tr=w-1600,q-65,f-auto 1600w
+          " sizes="100vw" alt="Decofy Studios — Sustainable residential architecture and spatial planning" width="1600"
+          height="900" loading="lazy" decoding="async" onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero4.jpg';">
       </div>
       <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw"
-          alt="Angular Loft House — Minimalist spatial planning and 3D architectural visualization by Decofy Studios"
-          width="1600" height="900" loading="lazy" decoding="async">
-      </div>
-      <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw" alt="Reflection House — Modern luxury courtyard residence architecture by Decofy Studios"
-          width="1600" height="900" loading="lazy" decoding="async">
-      </div>
-      <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw"
-          alt="Poolside Pavilion — Luxury estate landscape architecture and outdoor living in Karnataka by Decofy Studios"
-          width="1600" height="900" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero5.jpg?tr=w-1600,q-65,f-auto" srcset="
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero5.jpg?tr=w-480,q-65,f-auto 480w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero5.jpg?tr=w-800,q-65,f-auto 800w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero5.jpg?tr=w-1200,q-65,f-auto 1200w,
+            https://ik.imagekit.io/decofyexample/assets/hero_imgs/hero5.jpg?tr=w-1600,q-65,f-auto 1600w
+          " sizes="100vw" alt="Decofy Studios — Minimalist spatial planning and 3D architectural visualization"
+          width="1600" height="900" loading="lazy" decoding="async" onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero5.jpg';">
       </div>
     </div>
     <div class="line-grid squares" id="heroGrid"></div>

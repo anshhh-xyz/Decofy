@@ -850,7 +850,7 @@
     function renderBatch() {
       const nextBatch = filteredItems.slice(displayedCount, displayedCount + PAGE_SIZE);
       if (!nextBatch.length && displayedCount === 0) {
-        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted); font-family:'Space Mono',monospace;">No archived frames found in this category.</div>';
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted); font-family:'Space Mono',monospace;">No archived frames found in this category.</div>`;
         loadMoreWrap.style.display = 'none';
         return;
       }
