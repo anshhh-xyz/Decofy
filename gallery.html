@@ -45,7 +45,7 @@
     "@context": "https://schema.org",
     "@type": "ImageGallery",
     "name": "Decofy Studios Visual Gallery",
-    "description": "Architectural renders, elevations, and luxury interior spaces crafted by Decofy Studios.",
+    "description": "Architectural renders, elevations, and luxury interior spaces crafted by Decofy Studios in Shivamogga, Karnataka.",
     "url": "https://decofydesignco.in/gallery.html",
     "provider": {
       "@type": "ArchitecturalFirm",
@@ -114,7 +114,7 @@
     }
 
     .g-hero {
-      padding: 180px 48px 60px;
+      padding: 180px 48px 40px;
       position: relative;
       overflow: hidden;
     }
@@ -190,15 +190,8 @@
     }
 
     @keyframes letterFloat {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-5px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .g-sub {
@@ -214,7 +207,7 @@
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
       padding: 20px 0;
-      margin-top: 60px;
+      margin-top: 50px;
     }
 
     .ticker-track {
@@ -243,13 +236,79 @@
     }
 
     @keyframes tickerScroll {
-      from {
-        transform: translateX(0);
-      }
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
 
-      to {
-        transform: translateX(-50%);
-      }
+    /* Gallery Filter Controls */
+    .gallery-controls {
+      display: flex;
+      justify-content: center;
+      padding: 24px 48px 24px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .filter-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      background: rgba(35, 25, 20, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 30px;
+      border: none;
+      background: transparent;
+      color: var(--tan);
+      font-family: 'Space Mono', monospace, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s cubic-bezier(.19, 1, .22, 1);
+    }
+
+    .filter-btn:hover {
+      color: var(--cream);
+      background: rgba(238, 234, 224, 0.08);
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      color: #1a0f0c;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(199, 154, 91, 0.35);
+    }
+
+    .filter-count {
+      font-size: 9.5px;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.24);
+      color: inherit;
+      transition: background 0.3s ease;
+    }
+
+    .filter-btn.active .filter-count {
+      background: rgba(26, 15, 12, 0.22);
     }
 
     .gallery-grid {
@@ -257,7 +316,8 @@
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 200px;
       gap: 14px;
-      padding: 60px 48px 40px;
+      padding: 20px 48px 40px;
+      min-height: 400px;
     }
 
     .g-item {
@@ -271,6 +331,7 @@
       transition: opacity .6s cubic-bezier(.19, 1, .22, 1), transform .6s cubic-bezier(.19, 1, .22, 1);
       transform-style: preserve-3d;
       perspective: 800px;
+      cursor: pointer;
     }
 
     .g-item.in {
@@ -278,24 +339,9 @@
       transform: scale(1) translateY(0);
     }
 
-    .g-item.hide {
-      display: none;
-    }
-
-    .g-item.span-2x2 {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-
-    .g-item.span-2x1 {
-      grid-column: span 2;
-      grid-row: span 1;
-    }
-
-    .g-item.span-1x2 {
-      grid-column: span 1;
-      grid-row: span 2;
-    }
+    .g-item.span-2x2 { grid-column: span 2; grid-row: span 2; }
+    .g-item.span-2x1 { grid-column: span 2; grid-row: span 1; }
+    .g-item.span-1x2 { grid-column: span 1; grid-row: span 2; }
 
     .g-item .tilt {
       width: 100%;
@@ -319,6 +365,218 @@
       transform: scale(1.16);
     }
 
+    .load-more-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 20px 48px 60px;
+    }
+
+    .load-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 34px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Space Mono', monospace, sans-serif;
+      font-size: 11.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(.19, 1, .22, 1);
+    }
+
+    .load-more-btn:hover {
+      background: var(--gold);
+      color: #1a0f0c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(199, 154, 91, 0.28);
+    }
+
+    .load-more-progress {
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    .filmstrip-section {
+      padding: 80px 0 100px;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .filmstrip-head {
+      padding: 0 48px 30px;
+    }
+
+    .filmstrip-head h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      color: var(--cream);
+      margin-top: 10px;
+    }
+
+    .filmstrip-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: filmScroll 40s linear infinite;
+      padding: 10px 0;
+    }
+
+    .filmstrip-track:hover {
+      animation-play-state: paused;
+    }
+
+    .film-frame {
+      width: 280px;
+      height: 185px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .film-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.85);
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .film-frame:hover img {
+      transform: scale(1.08);
+      filter: brightness(1);
+    }
+
+    @keyframes filmScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .g-cta {
+      padding: 120px 48px;
+      text-align: center;
+      position: relative;
+    }
+
+    .g-cta h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 400;
+      color: var(--cream);
+      max-width: 800px;
+      margin: 18px auto 40px;
+      line-height: 1.15;
+    }
+
+    .g-cta-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--gold);
+      color: #1a0f0c;
+      font-family: 'Space Mono', monospace, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border-radius: 2px;
+      transition: all 0.35s cubic-bezier(.19, 1, .22, 1);
+      box-shadow: 0 8px 30px rgba(199, 154, 91, 0.28);
+    }
+
+    .g-cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(199, 154, 91, 0.45);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 10, 8, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(.19, 1, .22, 1);
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lb-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lb-inner img {
+      max-width: 100%;
+      max-height: 76vh;
+      object-fit: contain;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--line);
+    }
+
+    .lb-caption {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .lb-caption h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+    }
+
+    .lb-close, .lb-prev, .lb-next {
+      position: absolute;
+      background: rgba(45, 34, 29, 0.6);
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10001;
+    }
+
+    .lb-close svg, .lb-prev svg, .lb-next svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .lb-close { top: 30px; right: 30px; }
+    .lb-prev { left: 30px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 30px; top: 50%; transform: translateY(-50%); }
+
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover {
+      background: var(--gold);
+    }
+
+    .lb-close:hover svg path, .lb-prev:hover svg path, .lb-next:hover svg path {
+      stroke: #1a0f0c;
+    }
+
     @media (max-width: 900px) {
       .navbar {
         padding: 16px 20px;
@@ -334,7 +592,17 @@
       }
 
       .g-hero {
-        padding: 100px 20px 24px;
+        padding: 110px 20px 24px;
+      }
+
+      .gallery-controls {
+        padding: 10px 16px 20px;
+        justify-content: flex-start;
+      }
+
+      .filter-btn {
+        padding: 7px 13px;
+        font-size: 10px;
       }
 
       .gallery-grid {
@@ -348,20 +616,9 @@
         border-radius: 12px;
       }
 
-      .g-item.span-2x2 {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
-
-      .g-item.span-2x1 {
-        grid-column: span 2;
-        grid-row: span 1;
-      }
-
-      .g-item.span-1x2 {
-        grid-column: span 1;
-        grid-row: span 2;
-      }
+      .g-item.span-2x2 { grid-column: span 2; grid-row: span 2; }
+      .g-item.span-2x1 { grid-column: span 2; grid-row: span 1; }
+      .g-item.span-1x2 { grid-column: span 1; grid-row: span 2; }
 
       .g-item img {
         filter: grayscale(0%) brightness(0.92);
@@ -378,297 +635,15 @@
         text-align: center;
         padding: 24px 20px;
       }
-    }
 
-    @media (max-width: 480px) {
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 130px;
-        padding: 0 10px 32px;
-        gap: 8px;
-      }
-
-      .g-item {
-        border-radius: 9px;
-      }
-
-      .film-frame {
-        width: 220px;
-        height: 150px;
-      }
-
-      .logo-text {
-        font-size: 18px;
-      }
-    }
-
-    .filmstrip-section {
-      padding: 100px 0;
-      background: var(--bg-alt);
-      border-top: 1px solid var(--line-soft);
-      border-bottom: 1px solid var(--line-soft);
-      overflow: hidden;
-    }
-
-    .filmstrip-head {
-      padding: 0 48px 44px;
-      max-width: 640px;
-    }
-
-    .filmstrip-head span.g-eyebrow-text {
-      font-size: 11px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .filmstrip-head h2 {
-      font-size: clamp(28px, 3.6vw, 44px);
-      margin-top: 16px;
-      color: var(--cream);
-    }
-
-    .filmstrip-track {
-      display: flex;
-      gap: 18px;
-      width: max-content;
-      animation: filmScroll 40s linear infinite;
-      will-change: transform;
-    }
-
-    .filmstrip-track:hover {
-      animation-play-state: paused;
-    }
-
-    .film-frame {
-      width: 320px;
-      height: 220px;
-      flex-shrink: 0;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      position: relative;
-    }
-
-    .film-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(30%) brightness(0.82);
-      transition: filter .5s ease, transform .6s ease;
-    }
-
-    .film-frame:hover img {
-      filter: grayscale(0%) brightness(1);
-      transform: scale(1.08);
-    }
-
-    @keyframes filmScroll {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      background: rgba(15, 8, 6, 0.97);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .45s ease, visibility 0s linear .45s;
-    }
-
-    .lightbox.open {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity .45s ease;
-    }
-
-    .lb-inner {
-      max-width: min(1100px, 88vw);
-      max-height: 82vh;
-      position: relative;
-      transform: scale(0.92);
-      transition: transform .5s cubic-bezier(.19, 1, .22, 1);
-    }
-
-    .lightbox.open .lb-inner {
-      transform: scale(1);
-    }
-
-    .lb-inner img {
-      max-width: 100%;
-      max-height: 82vh;
-      display: block;
-      border: 1px solid var(--line);
-    }
-
-    .lb-caption {
-      margin-top: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .lb-caption h3 {
-      font-size: 20px;
-      color: var(--cream);
-    }
-
-    .lb-caption span {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .lb-close,
-    .lb-prev,
-    .lb-next {
-      position: fixed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      background: rgba(236, 223, 201, 0.06);
-      backdrop-filter: blur(6px);
-      transition: background .35s ease, transform .35s ease;
-      cursor: pointer;
-    }
-
-    .lb-close:hover,
-    .lb-prev:hover,
-    .lb-next:hover {
-      background: var(--gold);
-    }
-
-    .lb-close:hover svg *,
-    .lb-prev:hover svg *,
-    .lb-next:hover svg * {
-      stroke: var(--panel);
-    }
-
-    .lb-close {
-      top: 32px;
-      right: 32px;
-    }
-
-    .lb-prev {
-      left: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .lb-next {
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .lb-prev:hover {
-      transform: translateY(-50%) translateX(-4px);
-    }
-
-    .lb-next:hover {
-      transform: translateY(-50%) translateX(4px);
-    }
-
-    .lb-close svg,
-    .lb-prev svg,
-    .lb-next svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .lb-close svg *,
-    .lb-prev svg *,
-    .lb-next svg * {
-      transition: stroke .35s ease;
-    }
-
-    @media (max-width:700px) {
-
-      .lb-prev,
-      .lb-next {
-        width: 40px;
-        height: 40px;
-      }
-
-      .lb-prev {
-        left: 12px;
-      }
-
-      .lb-next {
-        right: 12px;
-      }
-
-      .lb-close {
-        top: 16px;
-        right: 16px;
-        width: 40px;
-        height: 40px;
-      }
-    }
-
-    .g-cta {
-      text-align: center;
-      padding: 150px 48px;
-      border-top: 1px solid var(--line-soft);
-    }
-
-    .g-cta h2 {
-      font-size: clamp(30px, 4.5vw, 48px);
-      max-width: 640px;
-      margin: 0 auto 30px;
-    }
-
-    .g-cta-btn {
-      display: inline-block;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      background: var(--gold);
-      color: var(--panel);
-      padding: 17px 38px;
-      border-radius: 100px;
-      transition: transform .35s ease, background .35s ease;
-    }
-
-    .g-cta-btn:hover {
-      transform: translateY(-3px);
-      background: var(--cream);
-    }
-
-    footer {
-      padding: 30px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--panel);
-      border-top: 1px solid var(--line-soft);
-      font-size: 12px;
-      color: var(--muted);
-      flex-wrap: wrap;
-      gap: 10px;
+      .lb-prev { left: 12px; }
+      .lb-next { right: 12px; }
+      .lb-close { top: 16px; right: 16px; }
     }
   </style>
 </head>
 
 <body>
-
   <div class="cursor" id="cursor"><span>VIEW</span></div>
 
   <nav class="navbar" id="navbar">
@@ -686,8 +661,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" id="mobileClose" aria-label="Close menu">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 6L6 18M6 6l12 12" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round"
-          stroke-linejoin="round" />
+        <path d="M18 6L6 18M6 6l12 12" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </button>
     <a href="index.html" class="mobile-link">Home</a>
@@ -699,9 +673,8 @@
   </div>
 
   <header class="g-hero">
-
     <div class="gallery-hero-art">
-      <img src="https://ik.imagekit.io/decofyexample/assets/svgs/gallery_svg.svg" alt="Gallery Blueprint Artwork">
+      <img src="https://ik.imagekit.io/decofyexample/assets/svgs/gallery_svg.svg" alt="Decofy Studios — Architectural Gallery Blueprint Art in Shivamogga">
     </div>
 
     <div class="g-eyebrow reveal">
@@ -709,19 +682,46 @@
       <span>· Visual Archive</span>
     </div>
     <h1 class="kinetic" id="kineticTitle">The Gallery</h1>
-    <p class="g-sub reveal">Every frame below is pulled from real Decofy commissions — exteriors, interiors, and the
-      site plans behind them. Hover to look closer, click to open full-size.</p>
+    <p class="g-sub reveal">Every frame below is pulled from real Decofy commissions — exteriors, luxury interiors, and the master site plans behind them. Select categories to filter or click to view full-scale renders.</p>
 
     <div class="ticker-wrap reveal">
       <div class="ticker-track" id="tickerTrack"></div>
     </div>
   </header>
 
+  <div class="gallery-controls reveal">
+    <div class="filter-bar" id="filterBar" role="tablist" aria-label="Gallery Categories">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+        <span>ALL</span>
+        <span class="filter-count" id="countAll">0</span>
+      </button>
+      <button class="filter-btn" data-filter="architecture" role="tab" aria-selected="false">
+        <span>ARCHITECTURE</span>
+        <span class="filter-count" id="countArch">0</span>
+      </button>
+      <button class="filter-btn" data-filter="interior" role="tab" aria-selected="false">
+        <span>INTERIORS</span>
+        <span class="filter-count" id="countInt">0</span>
+      </button>
+      <button class="filter-btn" data-filter="detail" role="tab" aria-selected="false">
+        <span>DETAILS &amp; PLANS</span>
+        <span class="filter-count" id="countDet">0</span>
+      </button>
+    </div>
+  </div>
+
   <div class="gallery-grid" id="galleryGrid"></div>
+
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+    <button class="load-more-btn" id="loadMoreBtn" aria-label="Load more gallery items">
+      <span>LOAD MORE ARCHIVE</span>
+      <span class="load-more-progress" id="loadProgress"></span>
+    </button>
+  </div>
 
   <section class="filmstrip-section">
     <div class="filmstrip-head reveal">
-      <span class="g-eyebrow-text">Continuous Reel</span>
+      <span class="g-eyebrow-text" style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); font-weight:600;">Continuous Reel</span>
       <h2>Drag your eye across the studio's recent frames.</h2>
     </div>
     <div class="filmstrip-track" id="filmstripTrack"></div>
@@ -740,19 +740,19 @@
     <span>Shivamogga · Karnataka · India</span>
   </footer>
 
-  <div class="lightbox" id="lightbox">
-    <button class="lb-close" id="lbClose"><svg viewBox="0 0 24 24" fill="none">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="Close image lightbox"><svg viewBox="0 0 24 24" fill="none">
         <path d="M6 6L18 18" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" />
         <path d="M18 6L6 18" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" />
       </svg></button>
-    <button class="lb-prev" id="lbPrev"><svg viewBox="0 0 24 24" fill="none">
+    <button class="lb-prev" id="lbPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none">
         <path d="M15 5L8 12L15 19" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
       </svg></button>
-    <button class="lb-next" id="lbNext"><svg viewBox="0 0 24 24" fill="none">
+    <button class="lb-next" id="lbNext" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none">
         <path d="M9 5L16 12L9 19" stroke="#EEEAE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
       </svg></button>
     <div class="lb-inner">
-      <img id="lbImg" src="" alt="">
+      <img id="lbImg" src="" alt="Enlarged render view">
       <div class="lb-caption">
         <h3 id="lbTitle"></h3>
       </div>
@@ -760,119 +760,208 @@
   </div>
 
   <script>
-
-    const RAW_SOURCE = [
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", title: "Fogwood Residence", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", title: "Marbella House", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", title: "Timberline Lodge", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", title: "Casa Blanca", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", title: "Hearth &amp; Timber Interior", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", title: "Sunlit Atrium Interior", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", title: "The Meridian Estate", cat: "exterior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/build/build.jpg", title: "Spatial Concept — Open Plan", cat: "interior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", title: "Primary Bedroom Detail", cat: "interior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", title: "Kitchen Detail", cat: "interior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", title: "Bathroom Detail", cat: "interior" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", title: "Full Site &amp; Master Plan", cat: "detail" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg", title: "Plan Detail — Access", cat: "detail" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg", title: "Plan Detail — Kitchen Layout", cat: "detail" },
-      { base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg", title: "Plan Detail — Beverage Area", cat: "detail" }
+    // Embedded seed dataset for instant render & file:/// fallback
+    const SEED_DATA = [
+      { id: "fogwood-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg", title: "Fogwood Residence", project: "Fogwood Residence", cat: "architecture", alt: "Fogwood Residence — Contemporary villa front elevation in Shivamogga by Decofy Studios", featured: true },
+      { id: "marbella-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg", title: "Marbella House", project: "Marbella House", cat: "architecture", alt: "Marbella House — Modern residential exterior architecture by Decofy Studios", featured: true },
+      { id: "timberline-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", title: "Timberline Lodge", project: "Timberline Lodge", cat: "architecture", alt: "Timberline Lodge — Contemporary wood and stone architecture in Karnataka by Decofy Studios", featured: true },
+      { id: "casablanca-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", title: "Casa Blanca", project: "Casa Blanca", cat: "architecture", alt: "Casa Blanca — Minimalist white stucco spatial residence by Decofy Studios", featured: true },
+      { id: "hearth-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", title: "Hearth & Timber Living", project: "Coppersmith House", cat: "interior", alt: "Hearth & Timber Living — Warm architectural woodwork and custom interior lighting by Decofy Studios", featured: true },
+      { id: "atrium-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", title: "Sunlit Atrium Interior", project: "Redwood Screen House", cat: "interior", alt: "Sunlit Atrium Interior — Indoor courtyard and natural skylight interior architecture by Decofy Studios", featured: true },
+      { id: "meridian-01", base: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", title: "The Meridian Estate", project: "Meridian Estate", cat: "architecture", alt: "The Meridian Estate — Luxury estate landscape architecture and poolside pavilion by Decofy Studios", featured: true },
+      { id: "build-open-01", base: "https://ik.imagekit.io/decofyexample/assets/build/build.jpg", title: "Spatial Concept — Open Plan", project: "Mr. Lingesh Residence", cat: "interior", alt: "Spatial Concept — Luxury open-plan living room interior design in Shivamogga by Decofy Studios", featured: true },
+      { id: "build-bed-01", base: "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg", title: "Primary Bedroom Suite", project: "Mr. Lingesh Residence", cat: "interior", alt: "Primary Bedroom Suite — Bespoke headboard panelling and ambient lighting by Decofy Studios", featured: true },
+      { id: "build-kit-01", base: "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", title: "Modular Kitchen Detail", project: "Mr. Lingesh Residence", cat: "interior", alt: "Modular Kitchen Detail — Italian marble countertop and integrated cabinetry by Decofy Studios", featured: false },
+      { id: "build-bath-01", base: "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", title: "Master Bathroom Suite", project: "Mr. Lingesh Residence", cat: "interior", alt: "Master Bathroom Suite — Natural stone cladding and concealed sanitary fixtures by Decofy Studios", featured: false },
+      { id: "plan-master-01", base: "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg", title: "Full Site & Master Plan", project: "Fogwood Residence", cat: "detail", alt: "Full Site & Master Plan — Detailed architectural blueprint and zoning layout by Decofy Studios", featured: true },
+      { id: "plan-access-01", base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg", title: "Plan Detail — Vehicular Access", project: "Fogwood Residence", cat: "detail", alt: "Plan Detail — Site access circulation and driveway engineering blueprint by Decofy Studios", featured: false },
+      { id: "plan-kitchen-01", base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg", title: "Plan Detail — Kitchen Layout", project: "Fogwood Residence", cat: "detail", alt: "Plan Detail — Ergonomic kitchen work triangle and electrical schematic by Decofy Studios", featured: false },
+      { id: "plan-bar-01", base: "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg", title: "Plan Detail — Dining & Beverage Area", project: "Fogwood Residence", cat: "detail", alt: "Plan Detail — Custom dining credenza and bar cabinetry technical drawing by Decofy Studios", featured: false }
     ];
 
-    const SOURCE = RAW_SOURCE.map(item => ({
-      img: `${item.base}?tr=w-1600,q-65,f-auto`,
-      thumb: `${item.base}?tr=w-720,q-65,f-auto`,
-      thumbSm: `${item.base}?tr=w-400,q-65,f-auto`,
-      thumbMd: `${item.base}?tr=w-1000,q-65,f-auto`,
-      title: item.title,
-      cat: item.cat
-    }));
-
-    const SUFFIXES = ["", " — Study 02", " — Alt Angle", " — Night", " — Detail View"];
-    const GALLERY = [];
-    for (let round = 0; round < 3; round++) {
-      SOURCE.forEach((item, i) => {
-        GALLERY.push({
-          img: item.img,
-          thumb: item.thumb,
-          thumbSm: item.thumbSm,
-          thumbMd: item.thumbMd,
-          title: item.title + SUFFIXES[round % SUFFIXES.length],
-          cat: item.cat
-        });
-      });
-    }
-
+    let ALL_ITEMS = [];
+    let currentFilter = 'all';
+    let filteredItems = [];
+    let displayedCount = 0;
+    const PAGE_SIZE = 24;
     const SPAN_PATTERN = ["span-2x2", "span-1x1", "span-1x1", "span-1x2", "span-1x1", "span-2x1", "span-1x1", "span-1x1", "span-1x2", "span-1x1", "span-2x1", "span-1x1"];
 
     const grid = document.getElementById('galleryGrid');
-    GALLERY.forEach((item, i) => {
-      const el = document.createElement('div');
-      el.className = 'g-item ' + SPAN_PATTERN[i % SPAN_PATTERN.length];
-      el.dataset.index = i;
-      el.innerHTML = `
-    <div class="tilt">
-      <img src="${item.thumb}"
-        srcset="${item.thumbSm} 400w, ${item.thumb} 720w, ${item.thumbMd} 1000w"
-        sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        alt="${item.title}" loading="lazy" decoding="async" width="720" height="480">
-    </div>
-  `;
-      grid.appendChild(el);
+    const loadMoreWrap = document.getElementById('loadMoreWrap');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const loadProgress = document.getElementById('loadProgress');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.02, rootMargin: '80px 0px' });
+
+    function processItems(rawList) {
+      return rawList.map((item, idx) => ({
+        id: item.id || 'item-' + idx,
+        img: item.base + '?tr=w-1600,q-75,f-auto',
+        thumb: item.base + '?tr=w-720,q-65,f-auto',
+        thumbSm: item.base + '?tr=w-400,q-65,f-auto',
+        thumbMd: item.base + '?tr=w-1000,q-65,f-auto',
+        title: item.title,
+        project: item.project || item.title,
+        cat: item.cat || 'architecture',
+        alt: item.alt || item.title + ' — Decofy Studios',
+        featured: !!item.featured
+      }));
+    }
+
+    function updateCounts() {
+      const counts = {
+        all: ALL_ITEMS.length,
+        architecture: ALL_ITEMS.filter(x => x.cat === 'architecture').length,
+        interior: ALL_ITEMS.filter(x => x.cat === 'interior').length,
+        detail: ALL_ITEMS.filter(x => x.cat === 'detail').length
+      };
+      if (document.getElementById('countAll')) document.getElementById('countAll').textContent = counts.all;
+      if (document.getElementById('countArch')) document.getElementById('countArch').textContent = counts.architecture;
+      if (document.getElementById('countInt')) document.getElementById('countInt').textContent = counts.interior;
+      if (document.getElementById('countDet')) document.getElementById('countDet').textContent = counts.detail;
+    }
+
+    function applyFilter(cat, reset = true) {
+      currentFilter = cat;
+      filterButtons.forEach(btn => {
+        const isActive = btn.dataset.filter === cat;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive);
+      });
+
+      filteredItems = (cat === 'all')
+        ? ALL_ITEMS
+        : ALL_ITEMS.filter(item => item.cat === cat);
+
+      if (reset) {
+        grid.innerHTML = '';
+        displayedCount = 0;
+      }
+      renderBatch();
+    }
+
+    function renderBatch() {
+      const nextBatch = filteredItems.slice(displayedCount, displayedCount + PAGE_SIZE);
+      if (!nextBatch.length && displayedCount === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted); font-family:'Space Mono',monospace;">No archived frames found in this category.</div>';
+        loadMoreWrap.style.display = 'none';
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+      nextBatch.forEach((item, idx) => {
+        const globalIndex = displayedCount + idx;
+        const el = document.createElement('div');
+        el.className = 'g-item ' + SPAN_PATTERN[globalIndex % SPAN_PATTERN.length];
+        el.dataset.index = globalIndex;
+        el.innerHTML = `
+          <div class="tilt">
+            <img src="${item.thumb}"
+              srcset="${item.thumbSm} 400w, ${item.thumb} 720w, ${item.thumbMd} 1000w"
+              sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              alt="${item.alt}" loading="lazy" decoding="async" width="720" height="480">
+          </div>
+        `;
+        fragment.appendChild(el);
+        io.observe(el);
+      });
+
+      grid.appendChild(fragment);
+      displayedCount += nextBatch.length;
+
+      // Update Load More button
+      if (displayedCount < filteredItems.length) {
+        loadMoreWrap.style.display = 'flex';
+        loadProgress.textContent = '(' + displayedCount + ' / ' + filteredItems.length + ')';
+      } else {
+        loadMoreWrap.style.display = 'none';
+      }
+    }
+
+    // Interactive Filter Bar clicks
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyFilter(btn.dataset.filter, true);
+      });
     });
 
-    const kineticTitle = document.getElementById('kineticTitle');
-    const titleText = "THE GALLERY";
-    kineticTitle.innerHTML = titleText.split('').map((ch, i) =>
-      ch === ' ' ? '<span class="ch" style="width:0.35em;"> </span>'
-        : `<span class="ch" style="animation-delay:${i * 0.12}s">${ch}</span>`
-    ).join('');
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', () => renderBatch());
+    }
 
+    // Event delegation for gallery clicks (1 listener for all cards)
+    grid.addEventListener('click', (e) => {
+      const itemEl = e.target.closest('.g-item');
+      if (itemEl && itemEl.dataset.index !== undefined) {
+        openLightbox(Number(itemEl.dataset.index));
+      }
+    });
+
+    // 3D Tilt only for fine-pointer desktop devices
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      grid.addEventListener('mousemove', (e) => {
+        const item = e.target.closest('.g-item');
+        if (!item) return;
+        const tilt = item.querySelector('.tilt');
+        if (!tilt) return;
+        const rect = item.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        tilt.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+      });
+      grid.addEventListener('mouseleave', (e) => {
+        const item = e.target.closest('.g-item');
+        if (item) {
+          const tilt = item.querySelector('.tilt');
+          if (tilt) tilt.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+        }
+      }, true);
+    }
+
+    // Kinetic Title Animation
+    const kineticTitle = document.getElementById('kineticTitle');
+    if (kineticTitle) {
+      const titleText = "THE GALLERY";
+      kineticTitle.innerHTML = titleText.split('').map((ch, i) =>
+        ch === ' ' ? '<span class="ch" style="width:0.35em;"> </span>'
+          : `<span class="ch" style="animation-delay:${i * 0.12}s">${ch}</span>`
+      ).join('');
+    }
+
+    // Ticker Marquee
     const tickerWords = ["ARCHITECTURE", "INTERIOR DESIGN", "LANDSCAPE", "SITE PLANNING", "RENOVATION", "CONSULTATION"];
     const tickerTrack = document.getElementById('tickerTrack');
-    function buildTicker() {
+    if (tickerTrack) {
       let html = '';
       for (let r = 0; r < 2; r++) {
         html += tickerWords.map(w => `<span>${w}<em>&#9670;</em></span>`).join('');
       }
       tickerTrack.innerHTML = html;
     }
-    buildTicker();
 
+    // Curated Filmstrip (max 20 featured items, never 1000s)
     const filmstripTrack = document.getElementById('filmstripTrack');
-    function buildFilmstrip() {
-      const doubled = [...SOURCE, ...SOURCE];
-      filmstripTrack.innerHTML = doubled.map(item => `
-    <div class="film-frame"><img src="${item.thumbSm}" alt="${item.title}" loading="lazy" decoding="async" width="400" height="267"></div>
-  `).join('');
+    function buildFilmstrip(items) {
+      if (!filmstripTrack) return;
+      const featured = items.filter(x => x.featured).slice(0, 16);
+      const reelList = featured.length ? featured : items.slice(0, 16);
+      const loopData = [...reelList, ...reelList];
+      filmstripTrack.innerHTML = loopData.map(item => `
+        <div class="film-frame">
+          <img src="${item.thumbSm}" alt="${item.alt}" loading="lazy" decoding="async" width="400" height="267">
+        </div>
+      `).join('');
     }
-    buildFilmstrip();
 
-    const items = document.querySelectorAll('.g-item');
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('in'), i * 15);
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.02, rootMargin: '60px 0px' });
-    document.querySelectorAll('.g-item').forEach(el => io.observe(el));
-
-    items.forEach(item => {
-      const tilt = item.querySelector('.tilt');
-      item.addEventListener('mousemove', (e) => {
-        const rect = item.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        tilt.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
-      });
-      item.addEventListener('mouseleave', () => {
-        tilt.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
-      });
-    });
-
+    // Cursor Follower
     const cursor = document.getElementById('cursor');
     if (cursor && window.matchMedia('(pointer: fine)').matches) {
       let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
@@ -889,55 +978,89 @@
         requestAnimationFrame(cursorLoop);
       }
       cursorLoop();
-      document.querySelectorAll('.g-item, .film-frame, a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          if (el.classList.contains('g-item') || el.classList.contains('film-frame')) {
-            cursor.classList.add('hover');
-          }
-        });
+      document.querySelectorAll('.film-frame, a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
       });
     }
 
+    // Refined Lightbox with Accessibility & Keyboard Controls
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbTitle = document.getElementById('lbTitle');
     let currentIndex = 0;
 
     function openLightbox(i) {
+      if (!filteredItems[i]) return;
       currentIndex = i;
-      const item = GALLERY[i];
+      const item = filteredItems[i];
       lbImg.src = item.img;
-      lbImg.alt = item.title;
-      lbTitle.innerHTML = item.title;
+      lbImg.alt = item.alt;
+      lbTitle.textContent = item.title + (item.project ? ' · ' + item.project : '');
       lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     }
+
     function closeLightbox() {
       lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }
+
     function showNext(dir) {
-      currentIndex = (currentIndex + dir + GALLERY.length) % GALLERY.length;
-      const item = GALLERY[currentIndex];
+      if (!filteredItems.length) return;
+      currentIndex = (currentIndex + dir + filteredItems.length) % filteredItems.length;
+      const item = filteredItems[currentIndex];
       lbImg.src = item.img;
-      lbImg.alt = item.title;
-      lbTitle.innerHTML = item.title;
+      lbImg.alt = item.alt;
+      lbTitle.textContent = item.title + (item.project ? ' · ' + item.project : '');
     }
 
-    items.forEach(item => {
-      item.addEventListener('click', () => openLightbox(Number(item.dataset.index)));
-    });
-    document.getElementById('lbClose').addEventListener('click', closeLightbox);
-    document.getElementById('lbPrev').addEventListener('click', () => showNext(-1));
-    document.getElementById('lbNext').addEventListener('click', () => showNext(1));
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lbPrev) lbPrev.addEventListener('click', () => showNext(-1));
+    if (lbNext) lbNext.addEventListener('click', () => showNext(1));
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lb-inner')) closeLightbox();
+      });
+    }
+
     document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
+      if (!lightbox || !lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') showNext(1);
       if (e.key === 'ArrowLeft') showNext(-1);
     });
+
+    // Initialize: Try fetching data/gallery.json with fallback to SEED_DATA
+    async function initGallery() {
+      try {
+        const res = await fetch('data/gallery.json');
+        if (res.ok) {
+          const json = await res.json();
+          if (Array.isArray(json) && json.length) {
+            ALL_ITEMS = processItems(json);
+          } else {
+            ALL_ITEMS = processItems(SEED_DATA);
+          }
+        } else {
+          ALL_ITEMS = processItems(SEED_DATA);
+        }
+      } catch (err) {
+        // Fallback for file:/// local previews
+        ALL_ITEMS = processItems(SEED_DATA);
+      }
+
+      updateCounts();
+      buildFilmstrip(ALL_ITEMS);
+      applyFilter('all', true);
+    }
+
+    initGallery();
   </script>
 </body>
 
