@@ -393,13 +393,23 @@
     }
 
     .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
+      column-count: 2;
+      column-gap: 24px;
       margin-top: 36px;
     }
 
+    @media (min-width: 1400px) {
+      .bento-grid {
+        column-count: 3;
+        column-gap: 24px;
+      }
+    }
+
     .bento-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      margin-bottom: 24px;
       position: relative;
       border-radius: 0;
       overflow: hidden;
@@ -408,6 +418,7 @@
       cursor: pointer;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
       transition: transform 0.5s cubic-bezier(.22, 1, .36, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+      display: block;
     }
 
     .bento-card:hover {
@@ -416,40 +427,74 @@
       border-color: #8B4A34;
     }
 
-    .bento-card.span-8 {
-      grid-column: span 8;
-      min-height: 420px;
-    }
-
-    .bento-card.span-4 {
-      grid-column: span 4;
-      min-height: 420px;
-    }
-
-    .bento-card.span-6 {
-      grid-column: span 6;
-      min-height: 380px;
-    }
-
-    .bento-card.span-12 {
-      grid-column: span 12;
-      min-height: 480px;
-    }
-
     .bento-card-img {
-      position: absolute;
-      inset: 0;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      display: block;
+      object-fit: contain;
       border-radius: 0;
-      filter: brightness(0.96);
+      filter: brightness(0.97);
       transition: transform 0.8s cubic-bezier(.19, 1, .22, 1), filter 0.5s ease;
     }
 
     .bento-card:hover .bento-card-img {
-      transform: scale(1.04);
+      transform: scale(1.03);
       filter: brightness(1.02);
+    }
+
+    .bento-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 8, 6, 0.4) 0%, transparent 35%, transparent 65%, rgba(15, 8, 6, 0.7) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 18px;
+    }
+
+    .bento-card:hover .bento-card-overlay {
+      opacity: 1;
+    }
+
+    .bento-card-idx {
+      font-family: 'Fraunces', serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: #EEEAE0;
+      background: rgba(15, 8, 6, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 4px 10px;
+      border: 1px solid rgba(238, 234, 224, 0.15);
+      width: fit-content;
+      text-transform: uppercase;
+    }
+
+    .bento-card-zoom {
+      align-self: flex-end;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #8B4A34;
+      color: #EEEAE0;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      transform: translateY(8px);
+      transition: transform 0.4s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .bento-card:hover .bento-card-zoom {
+      transform: translateY(0);
+    }
+
+    .bento-card-zoom svg {
+      width: 16px;
+      height: 16px;
     }
 
     /* Lightbox Modal — Sharp Corners */
@@ -527,16 +572,24 @@
       }
 
       .bento-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        column-count: 2;
+        column-gap: 16px;
+        margin-top: 24px;
       }
 
-      .bento-card.span-8,
-      .bento-card.span-4,
-      .bento-card.span-6,
-      .bento-card.span-12 {
-        grid-column: span 1;
-        min-height: 260px;
+      .bento-card {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .bento-grid {
+        column-count: 1;
+        column-gap: 0;
+      }
+
+      .bento-card {
+        margin-bottom: 16px;
       }
     }
 
@@ -1224,8 +1277,6 @@
       return widths.map(w => `${base}?tr=w-${w},q-65,f-auto ${w}w`).join(', ');
     }
 
-    const SPAN_PATTERN = ['span-8', 'span-4', 'span-4', 'span-4', 'span-4', 'span-6', 'span-6', 'span-12', 'span-6', 'span-6', 'span-4', 'span-4', 'span-4'];
-
     function bentoGridSection(p) {
       // Gather all images (flatten zones if present or use allImages / stripImages)
       let images = [];
@@ -1241,16 +1292,20 @@
 
       const cardsHtml = images.map((item, idx) => {
         const src = typeof item === 'string' ? item : item.src;
-        const title = typeof item === 'string' ? `${p.title} — Study ${idx + 1}` : item.title || `${p.title} — Study ${idx + 1}`;
-        const spanClass = SPAN_PATTERN[idx % SPAN_PATTERN.length];
         const fallback = getFallbackUrl(src);
 
         return `
-          <div class="bento-card ${spanClass} reveal" data-src="${src}" onclick="openInsightsLightbox('${src}', '')">
-            <img class="bento-card-img" src="${ik(src, 'w-1000,q-70,f-auto')}"
-              srcset="${ikSrcset(src, [480, 800, 1200])}"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              alt="${p.title} architectural render ${idx + 1}" onerror="this.onerror=null;this.srcset='';this.src='${fallback}';" loading="lazy" decoding="async" width="1000" height="700">
+          <div class="bento-card reveal" data-src="${src}" onclick="openInsightsLightbox('${src}', '')">
+            <img class="bento-card-img" src="${ik(src, 'w-1200,q-75,f-auto')}"
+              srcset="${ikSrcset(src, [480, 800, 1200, 1600])}"
+              sizes="(max-width: 600px) 100vw, (max-width: 1400px) 50vw, 33vw"
+              alt="${p.title} architectural study ${idx + 1}" onerror="this.onerror=null;this.srcset='';this.src='${fallback}';" loading="lazy" decoding="async">
+            <div class="bento-card-overlay">
+              <span class="bento-card-idx">Study ${String(idx + 1).padStart(2, '0')}</span>
+              <span class="bento-card-zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
           </div>
         `;
       }).join('');
