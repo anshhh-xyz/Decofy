@@ -117,6 +117,53 @@
       padding: 0 48px;
     }
 
+    .p-hero-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .p-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #EEEAE0;
+      background: rgba(26, 15, 12, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(238, 234, 224, 0.25);
+      padding: 8px 18px 8px 14px;
+      border-radius: 100px;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .p-back-btn .p-back-icon {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .p-back-btn:hover {
+      background: #8B4A34;
+      border-color: #8B4A34;
+      color: #FFFFFF;
+      transform: translateX(-4px);
+      box-shadow: 0 8px 24px rgba(139, 74, 52, 0.35);
+    }
+
+    .p-back-btn:hover .p-back-icon {
+      transform: translateX(-3px);
+    }
+
     .p-tag {
       display: inline-block;
       font-size: 11px;
@@ -126,7 +173,6 @@
       background: #8B4A34;
       padding: 8px 18px;
       border-radius: 100px;
-      margin-bottom: 22px;
       font-weight: 600;
     }
 
@@ -136,13 +182,6 @@
       color: #EEEAE0;
     }
 
-    .p-sub {
-      margin-top: 16px;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #C7AF92;
-    }
 
     .facts {
       display: grid;
@@ -568,6 +607,22 @@
         bottom: 36px;
       }
 
+      .p-hero-nav {
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .p-back-btn {
+        font-size: 10px;
+        padding: 6px 14px 6px 10px;
+        letter-spacing: 0.1em;
+      }
+
+      .p-tag {
+        font-size: 10px;
+        padding: 6px 14px;
+      }
+
       .p-title {
         font-size: clamp(28px, 6.8vw, 44px);
       }
@@ -578,6 +633,24 @@
 
       .fact {
         padding: 24px 16px;
+      }
+
+      @media (max-width: 600px) {
+        .facts {
+          grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        }
+        .fact {
+          padding: 18px 14px;
+        }
+        .fact .fact-value {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .facts {
+          grid-template-columns: 1fr;
+        }
       }
 
       .showcase-grid {
@@ -662,296 +735,448 @@
   <script>
 
     const PROJECTS = {
-      // --- ARCHITECTURE CATEGORY (9 PROJECTS) ---
+  "mr-farzan-interior": {
+    "title": "Mr. Farzan Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-farzan/render-07.jpg"
+    ]
+  },
+  "mr-karthik-interior": {
+    "title": "Mr. Karthik Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-karthik/render-09.jpg"
+    ]
+  },
+  "mr-lingesh-interior": {
+    "title": "Mr. Lingesh Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-09.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-10.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-11.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-12.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-13.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-14.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-15.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-16.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-17.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-18.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-19.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-20.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-21.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-22.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-23.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-24.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-25.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-lingesh/render-26.jpg"
+    ]
+  },
+  "mr-noor-interior": {
+    "title": "Mr. Noor Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-09.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-10.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-11.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-12.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-noor/render-13.jpg"
+    ]
+  },
+  "mr-prashanth-interior": {
+    "title": "Mr. Prashanth Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-09.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-prashanth/render-10.jpg"
+    ]
+  },
+  "mr-shanmukappa-interior": {
+    "title": "Mr. Shanmukappa Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-09.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-10.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-11.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-12.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-13.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-14.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-15.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-16.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-17.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-18.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-19.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-shanmukappa/render-20.jpg"
+    ]
+  },
+  "mr-sunil-interior": {
+    "title": "Mr. Sunil Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-09.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/mr-sunil/render-10.jpg"
+    ]
+  },
+  "veda-priya-interior": {
+    "title": "Veda Priya Residence",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "Custom Layout",
+    "duration": "12 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-03.png",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-04.png",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-05.png",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-08.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-09.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-10.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-11.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-12.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-13.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-14.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-15.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-16.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-17.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-18.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-19.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-20.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-21.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-22.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-23.jpg",
+      "https://ik.imagekit.io/decofydataspace/interior/veda-priya/render-24.jpg"
+    ]
+  },
+  "mr-aditya": {
+    "title": "Mr. Aditya Residence",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "0.65 Acres",
+    "area": "4,400 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-aditya/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-aditya/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-aditya/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-aditya/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-aditya/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-aditya/render-05.jpg"
+    ]
+  },
+  "mr-john": {
+    "title": "Mr. John Residence",
+    "category": "exterior",
+    "location": "Bengaluru, Karnataka",
+    "plot": "0.8 Acres",
+    "area": "5,400 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-john/render-08.jpg"
+    ]
+  },
+  "mr-lingesh-arch": {
+    "title": "Mr. Lingesh Residence",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "0.5 Acres",
+    "area": "4,800 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-03.jpg"
+    ]
+  },
+  "mr-naveen-aduru": {
+    "title": "Mr. Naveen Residence",
+    "category": "exterior",
+    "location": "Aduru, Karnataka",
+    "plot": "0.7 Acres",
+    "area": "5,100 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-aduru/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-aduru/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-aduru/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-aduru/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-aduru/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-aduru/render-05.jpg"
+    ]
+  },
+  "mr-naveen-blr": {
+    "title": "Mr. Naveen Residence",
+    "category": "exterior",
+    "location": "Bengaluru, Karnataka",
+    "plot": "0.6 Acres",
+    "area": "4,600 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-07.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-naveen-blr/render-08.jpg"
+    ]
+  },
+  "mr-sandesh": {
+    "title": "Mr. Sandesh Residence",
+    "category": "exterior",
+    "location": "Tarikere, Karnataka",
+    "plot": "0.55 Acres",
+    "area": "4,200 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-05.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-06.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sandesh/render-07.jpg"
+    ]
+  },
+  "mr-sumanth": {
+    "title": "Mr. Sumanth Residence",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "0.45 Acres",
+    "area": "3,800 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-sumanth/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sumanth/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-sumanth/render-02.jpg"
+    ]
+  },
+  "mr-vinay": {
+    "title": "Mr. Vinay Residence",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "0.5 Acres",
+    "area": "4,100 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-vinay/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-vinay/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-vinay/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-vinay/render-03.jpg"
+    ]
+  },
+  "samudaya-bhavan": {
+    "title": "Samudaya Bhavan",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "1.2 Acres",
+    "area": "8,500 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/samudaya-bhavan/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/samudaya-bhavan/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/samudaya-bhavan/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/samudaya-bhavan/render-03.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/samudaya-bhavan/render-04.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/samudaya-bhavan/render-05.jpg"
+    ]
+  },
+  "north-ridge-garden": {
+    "title": "North Ridge Garden",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "1.2 Acres",
+    "area": "3,500 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero8.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero8.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero7.jpg"
+    ]
+  },
+  "terraced-grounds": {
+    "title": "Terraced Estate Grounds",
+    "category": "exterior",
+    "location": "Shivamogga, Karnataka",
+    "plot": "1.5 Acres",
+    "area": "6,200 sq ft",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero7.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero7.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero8.jpg"
+    ]
+  },
+  "mr-lingesh-residence": {
+    "title": "Mr. Lingesh Residence",
+    "category": "full",
+    "location": "Shivamogga, Karnataka",
+    "plot": "0.5 Acres",
+    "area": "4,800 sq ft",
+    "duration": "18 Months",
+    "slope": "Flat, 0°",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-01.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-01.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-02.jpg",
+      "https://ik.imagekit.io/decofydataspace/architecture/mr-lingesh/render-03.jpg"
+    ]
+  },
+  "sunlit-atrium-interior": {
+    "title": "Sunlit Atrium Interior",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "2,400 sq ft",
+    "duration": "8 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg"
+    ]
+  },
+  "the-long-room": {
+    "title": "The Long Room",
+    "category": "interior",
+    "type": "Luxury Residence Interior",
+    "area": "1,800 sq ft",
+    "duration": "6 Months",
+    "year": "2024",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg"
+    ]
+  },
+  "meridian-estate": {
+    "title": "The Meridian Estate",
+    "category": "full",
+    "location": "Gurugram, Haryana",
+    "plot": "1.4 Acres",
+    "area": "7,200 sq ft",
+    "duration": "22 Months",
+    "slope": "Gentle, 6°",
+    "year": "2025",
+    "heroImg": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero7.jpg",
+    "allImages": [
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero7.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero8.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg",
+      "https://ik.imagekit.io/decofydataspace/hero_imgs/hero6.jpg",
+      "https://ik.imagekit.io/decofydataspace/build/build.jpg"
+    ]
+  }
+};
 
-      "mr-aditya": {
-        title: "Mr. Aditya Residence",
-        category: "exterior",
-        location: "Shivamogga, Karnataka",
-        plot: "0.65 Acres",
-        area: "4,400 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-aditya/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-aditya/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-aditya/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-aditya/render-03.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-aditya/render-04.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-aditya/render-05.jpg"
-]
-      },
-
-      "mr-john": {
-        title: "Mr. John Residence",
-        category: "exterior",
-        location: "Bengaluru, Karnataka",
-        plot: "0.8 Acres",
-        area: "5,400 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-03.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-04.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-05.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-06.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-07.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-john/render-08.jpg"
-]
-      },
-
-      "mr-lingesh-arch": {
-        title: "Mr. Lingesh Residence",
-        category: "exterior",
-        location: "Shivamogga, Karnataka",
-        plot: "0.5 Acres",
-        area: "4,800 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-lingesh/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-lingesh/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-lingesh/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-lingesh/render-03.jpg"
-]
-      },
-
-      "mr-naveen-aduru": {
-        title: "Mr. Naveen Residence",
-        category: "exterior",
-        location: "Aduru, Karnataka",
-        plot: "1.4 Acres",
-        area: "5,800 sq ft",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-aduru/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-aduru/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-aduru/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-aduru/render-03.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-aduru/render-04.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-aduru/render-05.jpg"
-]
-      },
-
-      "mr-naveen-blr": {
-        title: "Mr. Naveen Residence",
-        category: "exterior",
-        location: "Bengaluru, Karnataka",
-        plot: "0.6 Acres",
-        area: "4,200 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-03.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-04.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-05.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-06.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-07.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-naveen-blr/render-08.jpg"
-]
-      },
-
-      "mr-sandesh": {
-        title: "Mr. Sandesh Residence",
-        category: "exterior",
-        location: "Tarikere, Karnataka",
-        plot: "1.1 Acres",
-        area: "4,900 sq ft",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-03.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-04.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-05.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-06.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sandesh/render-07.jpg"
-]
-      },
-
-      "mr-sumanth": {
-        title: "Mr. Sumanth Residence",
-        category: "exterior",
-        location: "Shivamogga, Karnataka",
-        plot: "0.5 Acres",
-        area: "3,800 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sumanth/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sumanth/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-sumanth/render-02.jpg"
-]
-      },
-
-      "mr-vinay": {
-        title: "Mr. Vinay Residence",
-        category: "exterior",
-        location: "Shivamogga, Karnataka",
-        plot: "0.7 Acres",
-        area: "4,600 sq ft",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/mr-vinay/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-vinay/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-vinay/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/mr-vinay/render-03.jpg"
-]
-      },
-
-      "samudaya-bhavan": {
-        title: "Samudaya Bhavan",
-        category: "exterior",
-        location: "Shivamogga, Karnataka",
-        plot: "1.8 Acres",
-        area: "15,000 sq ft",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/architecture/samudaya-bhavan/render-01.jpg",
-        allImages: [
-        "https://ik.imagekit.io/decofyexample/assets/architecture/samudaya-bhavan/render-01.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/samudaya-bhavan/render-02.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/samudaya-bhavan/render-03.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/samudaya-bhavan/render-04.jpg",
-        "https://ik.imagekit.io/decofyexample/assets/architecture/samudaya-bhavan/render-05.jpg"
-]
-      },
-
-      "mr-lingesh-residence": {
-        title: "Mr. Lingesh Residence",
-        category: "interior",
-        type: "Luxury Residence Interior",
-        area: "4,800 sq ft",
-        duration: "12 Months",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
-        allImages: [
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING TV UNIT.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVING CEILING.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING TABLE.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_DINING POOJA.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER AND TV UNIT.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER 2.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_FOYER.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 2.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 3.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_KITCHEN 4.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_TV UNIT & KITCHEN.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA OUTSIDE.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_POOJA INSIDE.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 2.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 3.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/RE GF MBR_Scene 4.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF BEDROOM 1 03.09.2024_Scene 2.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S 1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/FF STUDY_S2.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 6.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/GF TOILET_Scene 8.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom toilets_Scene 1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/ff bedroom_Scene 8.jpg"
-        ]
-      },
-
-      "sunlit-atrium-interior": {
-        title: "Sunlit Atrium Interior",
-        category: "interior",
-        location: "Bengaluru, Karnataka",
-        plot: "—",
-        area: "3,600 sq ft (interior)",
-        duration: "10 Months",
-        slope: "N/A",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg",
-        stripImages: [
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
-        ],
-        allImages: [
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
-        ]
-      },
-      
-      "the-long-room": {
-        title: "The Long Room",
-        category: "interior",
-        type: "Modern Interior Architecture",
-        area: "3,400 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
-        stripImages: [
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg"
-        ],
-        allImages: [
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/mr-lingesh/LIVING RENDERS_LIVIING SOFA.jpg"
-        ]
-      },
-      "courtyard-eleven": {
-        title: "Courtyard Eleven",
-        category: "exterior",
-        location: "Bengaluru, Karnataka",
-        plot: "0.8 Acres",
-        area: "4,900 sq ft",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg",
-        stripImages: ["https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg"],
-        allImages: ["https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg"]
-      },
-      "north-ridge-garden": {
-        title: "North Ridge Garden",
-        category: "exterior",
-        location: "Shimla, Himachal Pradesh",
-        plot: "1.2 Acres",
-        area: "3,500 sq ft",
-        year: "2024",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg",
-        stripImages: ["https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg"],
-        allImages: ["https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg"]
-      },
-      "terraced-grounds": {
-        title: "Terraced Estate Grounds",
-        category: "exterior",
-        location: "Mysuru, Karnataka",
-        plot: "1.5 Acres",
-        area: "6,200 sq ft",
-        year: "2023",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg",
-        stripImages: ["https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg"],
-        allImages: ["https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg"]
-      },
-    
-      "meridian-estate": {
-        title: "The Meridian Estate",
-        category: "full",
-        location: "Gurugram, Haryana",
-        plot: "1.4 Acres",
-        area: "7,200 sq ft",
-        duration: "22 Months",
-        slope: "Gentle, 6°",
-        year: "2025",
-        heroImg: "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg",
-        stripImages: [
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
-        ],
-        allImages: [
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero8.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
-          "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg", "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg", "https://ik.imagekit.io/decofyexample/assets/build/build.jpg"
-        ]
-      }
-    };
-
-        const ICONS = {
+    const ICONS = {
       type: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="#8B4A34" stroke-width="1.5"/></svg>`,
       location: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 19 14.5 19 9.5C19 5.4 15.9 2 12 2C8.1 2 5 5.4 5 9.5C5 14.5 12 21 12 21Z" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" stroke="#8B4A34" stroke-width="1.5"/></svg>`,
       plot: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 8L12 3L21 8V17L12 21L3 17V8Z" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 8L12 12L21 8" stroke="#8B4A34" stroke-width="1.5" stroke-linejoin="round"/><line x1="12" y1="12" x2="12" y2="21" stroke="#8B4A34" stroke-width="1.5"/></svg>`,
@@ -966,21 +1191,40 @@
     const project = PROJECTS[id];
     const app = document.getElementById('app');
 
+    function resolveIkUrl(url) {
+      if (!url || typeof url !== 'string') return '';
+      if (url.startsWith('https://ik.imagekit.io/')) return url.split('?')[0];
+      if (url.startsWith('assets/')) {
+        return 'https://ik.imagekit.io/decofydataspace/' + url.replace(/^assets\//, '');
+      }
+      if (url.startsWith('/assets/')) {
+        return 'https://ik.imagekit.io/decofydataspace/' + url.replace(/^\/assets\//, '');
+      }
+      return url;
+    }
+
+    function getFallbackUrl(url) {
+      if (!url || typeof url !== 'string') return '';
+      if (url.startsWith('assets/')) return url;
+      if (url.startsWith('/assets/')) return url.substring(1);
+      return 'assets/' + url.replace(/^.*ik\.imagekit\.io\/[^\/]+\//, '').split('?')[0];
+    }
+
     function ik(url, transforms = 'w-1600,q-65,f-auto') {
-      if (!url || typeof url !== 'string' || !url.includes('ik.imagekit.io')) return url;
-      if (url.includes('?tr=')) return url;
-      return `${url}?tr=${transforms}`;
+      const fullUrl = resolveIkUrl(url);
+      if (!fullUrl || !fullUrl.includes('ik.imagekit.io')) return url;
+      if (fullUrl.includes('?tr=')) return fullUrl;
+      return `${fullUrl}?tr=${transforms}`;
     }
 
     function ikSrcset(url, widths = [480, 800, 1200, 1600]) {
-      if (!url || typeof url !== 'string' || !url.includes('ik.imagekit.io')) return '';
-      const base = url.split('?')[0];
+      const fullUrl = resolveIkUrl(url);
+      if (!fullUrl || !fullUrl.includes('ik.imagekit.io')) return '';
+      const base = fullUrl.split('?')[0];
       return widths.map(w => `${base}?tr=w-${w},q-65,f-auto ${w}w`).join(', ');
     }
 
-    
-    
-        const SPAN_PATTERN = ['span-8', 'span-4', 'span-4', 'span-4', 'span-4', 'span-6', 'span-6', 'span-12', 'span-6', 'span-6', 'span-4', 'span-4', 'span-4'];
+    const SPAN_PATTERN = ['span-8', 'span-4', 'span-4', 'span-4', 'span-4', 'span-6', 'span-6', 'span-12', 'span-6', 'span-6', 'span-4', 'span-4', 'span-4'];
 
     function bentoGridSection(p) {
       // Gather all images (flatten zones if present or use allImages / stripImages)
@@ -999,13 +1243,14 @@
         const src = typeof item === 'string' ? item : item.src;
         const title = typeof item === 'string' ? `${p.title} — Study ${idx + 1}` : item.title || `${p.title} — Study ${idx + 1}`;
         const spanClass = SPAN_PATTERN[idx % SPAN_PATTERN.length];
+        const fallback = getFallbackUrl(src);
 
         return `
           <div class="bento-card ${spanClass} reveal" data-src="${src}" onclick="openInsightsLightbox('${src}', '')">
             <img class="bento-card-img" src="${ik(src, 'w-1000,q-70,f-auto')}"
               srcset="${ikSrcset(src, [480, 800, 1200])}"
               sizes="(max-width: 768px) 100vw, 50vw"
-              alt="${p.title} architectural render ${idx + 1}" onerror="this.onerror=null;this.srcset='';if(this.src.includes('/architecture/')){this.src=this.src.replace(/.*\/architecture\//, 'assets/architecture/').split('?')[0];}" loading="lazy" decoding="async" width="1000" height="700">
+              alt="${p.title} architectural render ${idx + 1}" onerror="this.onerror=null;this.srcset='';this.src='${fallback}';" loading="lazy" decoding="async" width="1000" height="700">
           </div>
         `;
       }).join('');
@@ -1037,6 +1282,11 @@
       const lb = document.getElementById('insightsLightbox');
       const img = document.getElementById('insightsLbImg');
       if (lb && img) {
+        const fallback = getFallbackUrl(src);
+        img.onerror = function() {
+          this.onerror = null;
+          this.src = fallback;
+        };
         img.src = ik(src, 'w-1600,q-85,f-auto');
         lb.classList.add('open');
         document.body.style.overflow = 'hidden';
@@ -1051,31 +1301,35 @@
       }
     }
 
-
-    
     function render(p) {
       document.title = `${p.title} — Decofy Studios`;
+      const heroFallback = getFallbackUrl(p.heroImg);
 
       let html = `
     <section class="p-hero" style="padding:0;">
       <img src="${ik(p.heroImg, 'w-1600,q-65,f-auto')}"
         srcset="${ikSrcset(p.heroImg, [480, 800, 1200, 1600, 1920])}"
         sizes="100vw"
-        alt="${p.title}" onerror="this.onerror=null;this.srcset='';if(this.src.includes('/architecture/')){this.src=this.src.replace(/.*\/architecture\//, 'assets/architecture/').split('?')[0];}" loading="eager" fetchpriority="high" width="1920" height="1080">
+        alt="${p.title}" onerror="this.onerror=null;this.srcset='';this.src='${heroFallback}';" loading="eager" fetchpriority="high" width="1920" height="1080">
       <div class="p-hero-content">
-        <span class="p-tag">${p.category === 'full' ? 'Full Project' : p.category === 'interior' ? 'Interior Work' : 'Exterior Work'}</span>
+        <div class="p-hero-nav">
+          <a class="p-back-btn" href="projects_category.html?cat=${p.category === 'full' ? 'exterior' : p.category}">
+            <svg class="p-back-icon" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            All ${p.category === 'interior' ? 'Interiors' : p.category === 'full' ? 'Projects' : 'Architecture'}
+          </a>
+          <span class="p-tag">${p.category === 'interior' ? 'Interior Work' : 'Exterior Work'}</span>
+        </div>
         <h1 class="p-title">${p.title}</h1>
-        <div class="p-sub">${p.category === "interior" ? `${p.type || "Interior Architecture"} · ${p.year}` : `${p.location} · ${p.year}`}</div>
       </div>
     </section>
 
     ${
         p.category === 'interior'
-          ? `<div class="facts" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+          ? `<div class="facts">
               <div class="fact">${ICONS.type}<div class="fact-label">Project Type</div><div class="fact-value">${p.type || 'Luxury Residence Interior'}</div></div>
               <div class="fact">${ICONS.area}<div class="fact-label">Built-up Area</div><div class="fact-value">${p.area}</div></div>
             </div>`
-          : `<div class="facts" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+          : `<div class="facts">
               <div class="fact">${ICONS.plot}<div class="fact-label">Plot Size</div><div class="fact-value">${p.plot || '—'}</div></div>
               <div class="fact">${ICONS.location}<div class="fact-label">Location</div><div class="fact-value">${p.location || '—'}</div></div>
               <div class="fact">${ICONS.area}<div class="fact-label">Built-up Area</div><div class="fact-value">${p.area || '—'}</div></div>

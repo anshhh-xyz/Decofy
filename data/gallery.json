@@ -1,7 +1,7 @@
 [
   {
     "id": "fogwood-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero1.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg",
     "title": "Fogwood Residence",
     "project": "Fogwood Residence",
     "cat": "architecture",
@@ -13,7 +13,7 @@
   },
   {
     "id": "marbella-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero2.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero2.jpg",
     "title": "Marbella House",
     "project": "Marbella House",
     "cat": "architecture",
@@ -25,7 +25,7 @@
   },
   {
     "id": "timberline-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero6.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero6.jpg",
     "title": "Timberline Lodge",
     "project": "Timberline Lodge",
     "cat": "architecture",
@@ -37,7 +37,7 @@
   },
   {
     "id": "casablanca-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero5.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg",
     "title": "Casa Blanca",
     "project": "Casa Blanca",
     "cat": "architecture",
@@ -49,7 +49,7 @@
   },
   {
     "id": "hearth-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero3.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg",
     "title": "Hearth & Timber Living",
     "project": "Coppersmith House",
     "cat": "interior",
@@ -61,7 +61,7 @@
   },
   {
     "id": "atrium-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero4.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg",
     "title": "Sunlit Atrium Interior",
     "project": "Redwood Screen House",
     "cat": "interior",
@@ -73,7 +73,7 @@
   },
   {
     "id": "meridian-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/hero/hero7.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/hero_imgs/hero7.jpg",
     "title": "The Meridian Estate",
     "project": "Meridian Estate",
     "cat": "architecture",
@@ -85,7 +85,7 @@
   },
   {
     "id": "build-open-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/build/build.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/build/build.jpg",
     "title": "Spatial Concept — Open Plan",
     "project": "Mr. Lingesh Residence",
     "cat": "interior",
@@ -97,7 +97,7 @@
   },
   {
     "id": "build-bed-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/build/build1_1.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/build/build1_1.jpg",
     "title": "Primary Bedroom Suite",
     "project": "Mr. Lingesh Residence",
     "cat": "interior",
@@ -109,7 +109,7 @@
   },
   {
     "id": "build-kit-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/build/build1_2.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/build/build1_2.jpg",
     "title": "Modular Kitchen Detail",
     "project": "Mr. Lingesh Residence",
     "cat": "interior",
@@ -121,7 +121,7 @@
   },
   {
     "id": "build-bath-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/build/build1_3.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/build/build1_3.jpg",
     "title": "Master Bathroom Suite",
     "project": "Mr. Lingesh Residence",
     "cat": "interior",
@@ -133,7 +133,7 @@
   },
   {
     "id": "plan-master-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/maps/map1.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/maps/map1.jpg",
     "title": "Full Site & Master Plan",
     "project": "Fogwood Residence",
     "cat": "detail",
@@ -145,7 +145,7 @@
   },
   {
     "id": "plan-access-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/maps/map1_1.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/maps/map1_1.jpg",
     "title": "Plan Detail — Vehicular Access",
     "project": "Fogwood Residence",
     "cat": "detail",
@@ -157,7 +157,7 @@
   },
   {
     "id": "plan-kitchen-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/maps/map1_2.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/maps/map1_2.jpg",
     "title": "Plan Detail — Kitchen Layout",
     "project": "Fogwood Residence",
     "cat": "detail",
@@ -169,7 +169,7 @@
   },
   {
     "id": "plan-bar-01",
-    "base": "https://ik.imagekit.io/decofyexample/assets/maps/map1_3.jpg",
+    "base": "https://ik.imagekit.io/decofydataspace/maps/map1_3.jpg",
     "title": "Plan Detail — Dining & Beverage Area",
     "project": "Fogwood Residence",
     "cat": "detail",

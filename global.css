@@ -32,6 +32,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+img, picture, video, canvas {
+  max-width: 100%;
+}
+
 section {
   position: relative;
   z-index: 10;
@@ -502,6 +506,7 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -510,6 +515,7 @@ footer {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
   .reveal,
   .reveal-line {
     opacity: 1 !important;
@@ -517,6 +523,7 @@ footer {
     transition: none !important;
   }
 }
+
 @media (max-width: 900px) {
   .navbar {
     padding: 16px 20px;
