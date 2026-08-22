@@ -75,8 +75,9 @@
     .p-hero {
       position: relative;
       width: 100%;
-      height: 85vh;
-      min-height: 540px;
+      height: 75vh;
+      min-height: 500px;
+      max-height: 780px;
       overflow: hidden;
       margin-top: 0;
     }
@@ -85,8 +86,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 40%;
       filter: brightness(0.65) saturate(1.05);
-      transform: scale(1.1);
+      transform: scale(1.06);
       animation: slowZoom 16s ease-out forwards;
     }
 
@@ -445,13 +447,13 @@
     .bento-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(15, 8, 6, 0.4) 0%, transparent 35%, transparent 65%, rgba(15, 8, 6, 0.7) 100%);
+      background: linear-gradient(180deg, transparent 60%, rgba(15, 8, 6, 0.5) 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
       pointer-events: none;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      align-items: flex-end;
+      justify-content: flex-end;
       padding: 16px 18px;
     }
 
@@ -459,22 +461,7 @@
       opacity: 1;
     }
 
-    .bento-card-idx {
-      font-family: 'Fraunces', serif;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      color: #EEEAE0;
-      background: rgba(15, 8, 6, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 4px 10px;
-      border: 1px solid rgba(238, 234, 224, 0.15);
-      width: fit-content;
-      text-transform: uppercase;
-    }
-
     .bento-card-zoom {
-      align-self: flex-end;
       width: 36px;
       height: 36px;
       display: flex;
@@ -652,17 +639,25 @@
       }
 
       .p-hero {
-        min-height: 55vh;
+        height: auto;
+        min-height: 380px;
+        aspect-ratio: 16 / 10;
+      }
+
+      .p-hero img {
+        animation: none;
+        transform: scale(1.02);
+        object-position: center 35%;
       }
 
       .p-hero-content {
         padding: 0 24px;
-        bottom: 36px;
+        bottom: 28px;
       }
 
       .p-hero-nav {
         gap: 8px;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
       }
 
       .p-back-btn {
@@ -677,7 +672,7 @@
       }
 
       .p-title {
-        font-size: clamp(28px, 6.8vw, 44px);
+        font-size: clamp(26px, 6.5vw, 42px);
       }
 
       .facts {
@@ -689,6 +684,36 @@
       }
 
       @media (max-width: 600px) {
+        .p-hero {
+          height: auto;
+          min-height: 320px;
+          aspect-ratio: 4 / 3;
+        }
+
+        .p-hero-content {
+          padding: 0 20px;
+          bottom: 20px;
+        }
+
+        .p-hero-nav {
+          gap: 6px;
+          margin-bottom: 10px;
+        }
+
+        .p-back-btn {
+          font-size: 9.5px;
+          padding: 6px 12px 6px 8px;
+        }
+
+        .p-tag {
+          font-size: 9.5px;
+          padding: 6px 12px;
+        }
+
+        .p-title {
+          font-size: clamp(22px, 6.2vw, 32px);
+          line-height: 1.15;
+        }
         .facts {
           grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         }
@@ -1299,9 +1324,8 @@
             <img class="bento-card-img" src="${ik(src, 'w-1200,q-75,f-auto')}"
               srcset="${ikSrcset(src, [480, 800, 1200, 1600])}"
               sizes="(max-width: 600px) 100vw, (max-width: 1400px) 50vw, 33vw"
-              alt="${p.title} architectural study ${idx + 1}" onerror="this.onerror=null;this.srcset='';this.src='${fallback}';" loading="lazy" decoding="async">
+              alt="${p.title} architectural view ${idx + 1}" onerror="this.onerror=null;this.srcset='';this.src='${fallback}';" loading="lazy" decoding="async">
             <div class="bento-card-overlay">
-              <span class="bento-card-idx">Study ${String(idx + 1).padStart(2, '0')}</span>
               <span class="bento-card-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
