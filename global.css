@@ -728,3 +728,64 @@ footer {
     height: 46px;
   }
 }
+
+/* ═══════════ Architectural Custom Cursor ═══════════ */
+@media (hover: hover) and (pointer: fine) {
+  .decofy-cursor-dot,
+  .decofy-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    border-radius: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    transition: opacity 0.3s ease, width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+    opacity: 0;
+  }
+
+  .decofy-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #8B4A34;
+  }
+
+  .decofy-cursor-ring {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(139, 74, 52, 0.45);
+    background-color: transparent;
+  }
+
+  .decofy-cursor-ring.cursor-hover {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(139, 74, 52, 0.75);
+    background-color: rgba(139, 74, 52, 0.08);
+    backdrop-filter: blur(0.5px);
+  }
+
+  .decofy-cursor-dot.cursor-hover {
+    transform: translate3d(-50%, -50%, 0) scale(1.3);
+    background-color: #8B4A34;
+  }
+
+  .decofy-cursor-ring.cursor-active {
+    width: 22px;
+    height: 22px;
+    border-color: #8B4A34;
+    background-color: rgba(139, 74, 52, 0.18);
+  }
+
+  .decofy-cursor-visible {
+    opacity: 1 !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .decofy-cursor-dot,
+  .decofy-cursor-ring {
+    display: none !important;
+  }
+}

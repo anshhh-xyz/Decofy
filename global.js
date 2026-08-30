@@ -275,4 +275,85 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     });
   }
+
+  // ── Architectural Precision Cursor ──
+  (function initDecofyCursor() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const dot = document.createElement('div');
+    dot.className = 'decofy-cursor-dot';
+    dot.setAttribute('aria-hidden', 'true');
+    const ring = document.createElement('div');
+    ring.className = 'decofy-cursor-ring';
+    ring.setAttribute('aria-hidden', 'true');
+
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+    let isVisible = false;
+    let rafId = null;
+
+    function renderCursor() {
+      ringX += (mouseX - ringX) * 0.22;
+      ringY += (mouseY - ringY) * 0.22;
+
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      ring.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
+
+      rafId = requestAnimationFrame(renderCursor);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (!isVisible) {
+        isVisible = true;
+        ringX = mouseX;
+        ringY = mouseY;
+        dot.classList.add('decofy-cursor-visible');
+        ring.classList.add('decofy-cursor-visible');
+        if (!rafId) rafId = requestAnimationFrame(renderCursor);
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+      isVisible = false;
+      dot.classList.remove('decofy-cursor-visible');
+      ring.classList.remove('decofy-cursor-visible');
+    });
+
+    document.addEventListener('mouseenter', () => {
+      isVisible = true;
+      dot.classList.add('decofy-cursor-visible');
+      ring.classList.add('decofy-cursor-visible');
+    });
+
+    document.addEventListener('mousedown', () => {
+      ring.classList.add('cursor-active');
+    });
+
+    document.addEventListener('mouseup', () => {
+      ring.classList.remove('cursor-active');
+    });
+
+    // Delegate hover detection for clickable elements
+    document.addEventListener('mouseover', (e) => {
+      const target = e.target.closest('a, button, .dock-item, .abt-value-card, .abt-process-step, .abt-service-box, .film-frame, [role="button"], input, select, textarea');
+      if (target) {
+        dot.classList.add('cursor-hover');
+        ring.classList.add('cursor-hover');
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const target = e.target.closest('a, button, .dock-item, .abt-value-card, .abt-process-step, .abt-service-box, .film-frame, [role="button"], input, select, textarea');
+      if (target) {
+        dot.classList.remove('cursor-hover');
+        ring.classList.remove('cursor-hover');
+      }
+    });
+  })();
 });
