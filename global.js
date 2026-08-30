@@ -276,3 +276,82 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================
+// ELEGANT ARCHITECTURAL CURSOR TRAILING LINE
+// ==========================================
+function initCursorTrail() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'cursorTrailCanvas';
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;';
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let points = [];
+  let isRunning = false;
+  let dpr = window.devicePixelRatio || 1;
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.scale(dpr, dpr);
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function addPoint(x, y) {
+    const now = performance.now();
+    points.push({ x, y, time: now });
+    if (!isRunning) {
+      isRunning = true;
+      requestAnimationFrame(renderTrail);
+    }
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    addPoint(e.clientX, e.clientY);
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', () => {
+    points = [];
+  }, { passive: true });
+
+  function renderTrail(now) {
+    // Keep points for 280ms
+    const maxAge = 280;
+    points = points.filter(p => now - p.time < maxAge);
+
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+    if (points.length >= 2) {
+      for (let i = 1; i < points.length; i++) {
+        const p0 = points[i - 1];
+        const p1 = points[i];
+        const age = (now - p1.time) / maxAge; // 0 (new) to 1 (old)
+        const alpha = Math.max(0, (1 - age) * 0.75);
+        const lineWidth = Math.max(0.4, (1 - age) * 2.2);
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(p1.x, p1.y);
+        ctx.strokeStyle = `rgba(199, 154, 91, ${alpha.toFixed(3)})`;
+        ctx.lineWidth = lineWidth;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+      }
+      requestAnimationFrame(renderTrail);
+    } else {
+      isRunning = false;
+    }
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCursorTrail);
+} else {
+  initCursorTrail();
+}

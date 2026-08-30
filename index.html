@@ -598,58 +598,7 @@
   </div>
 
   <section class="hero">
-    <div class="hero-slideshow" id="heroSlideshow">
-      <div class="hero-slide active">
-        <img src="https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero1.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw" alt="Decofy Studios — Luxury contemporary architectural and interior design" width="1600"
-          height="900" loading="eager" fetchpriority="high"
-          onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero1.jpg';">
-      </div>
-      <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofydataspace/hero_imgs/hero2.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero2.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero2.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero2.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero2.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw" alt="Decofy Studios — Modern residential exterior architecture and facade design"
-          width="1600" height="900" loading="lazy" decoding="async"
-          onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero2.jpg';">
-      </div>
-      <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero3.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw" alt="Decofy Studios — Luxury interior architecture and bespoke spatial design" width="1600"
-          height="900" loading="lazy" decoding="async"
-          onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero3.jpg';">
-      </div>
-      <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero4.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw" alt="Decofy Studios — Sustainable residential architecture and spatial planning" width="1600"
-          height="900" loading="lazy" decoding="async"
-          onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero4.jpg';">
-      </div>
-      <div class="hero-slide">
-        <img src="https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg?tr=w-1600,q-65,f-auto" srcset="
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg?tr=w-480,q-65,f-auto 480w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg?tr=w-800,q-65,f-auto 800w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg?tr=w-1200,q-65,f-auto 1200w,
-            https://ik.imagekit.io/decofydataspace/hero_imgs/hero5.jpg?tr=w-1600,q-65,f-auto 1600w
-          " sizes="100vw" alt="Decofy Studios — Minimalist spatial planning and 3D architectural visualization"
-          width="1600" height="900" loading="lazy" decoding="async"
-          onerror="this.onerror=null;this.srcset='';this.src='assets/hero_imgs/hero5.jpg';">
-      </div>
-    </div>
+    <div class="hero-slideshow" id="heroSlideshow"></div>
     <div class="line-grid squares" id="heroGrid"></div>
 
     <div class="hero-body">
@@ -691,25 +640,72 @@
   <script>
 
     document.addEventListener('DOMContentLoaded', () => {
-      const slides = document.querySelectorAll('.hero-slide');
-      if (slides.length > 0) {
-        let currentSlide = 0;
-        setInterval(() => {
-          slides[currentSlide].classList.remove('active');
-          currentSlide = (currentSlide + 1) % slides.length;
-          slides[currentSlide].classList.add('active');
+      const slideshow = document.getElementById('heroSlideshow');
+      const MAX_HERO_SLIDES = 15;
+      const validSlides = [];
+      let currentSlide = 0;
+      let slideInterval = null;
+
+      function startSlideshow() {
+        if (slideInterval) clearInterval(slideInterval);
+        if (validSlides.length <= 1) return;
+        slideInterval = setInterval(() => {
+          validSlides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % validSlides.length;
+          validSlides[currentSlide].classList.add('active');
         }, 3500);
       }
 
+      window.handleHeroSlideError = function(imgEl) {
+        imgEl.onerror = null;
+        const slide = imgEl.closest('.hero-slide');
+        if (!slide) return;
+        
+        const idx = validSlides.indexOf(slide);
+        if (idx !== -1) {
+          validSlides.splice(idx, 1);
+        }
+        const wasActive = slide.classList.contains('active');
+        slide.remove();
+        
+        if (wasActive && validSlides.length > 0) {
+          currentSlide = currentSlide % validSlides.length;
+          validSlides[currentSlide].classList.add('active');
+        }
+        startSlideshow();
+      };
+
+      if (slideshow) {
+        for (let i = 1; i <= MAX_HERO_SLIDES; i++) {
+          const slide = document.createElement('div');
+          slide.className = 'hero-slide' + (i === 1 ? ' active' : '');
+          const base = `https://ik.imagekit.io/decofydataspace/hero_imgs/hero${i}.jpg`;
+          const fallback = `assets/hero_imgs/hero${i}.jpg`;
+
+          slide.innerHTML = `
+            <img src="${base}?tr=w-1600,q-65,f-auto"
+              srcset="${base}?tr=w-480,q-65,f-auto 480w, ${base}?tr=w-800,q-65,f-auto 800w, ${base}?tr=w-1200,q-65,f-auto 1200w, ${base}?tr=w-1600,q-65,f-auto 1600w"
+              sizes="100vw" alt="Decofy Studios — Luxury contemporary architecture and spatial design" width="1600" height="900"
+              ${i === 1 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"'}
+              onerror="handleHeroSlideError(this)">
+          `;
+          slideshow.appendChild(slide);
+          validSlides.push(slide);
+        }
+        startSlideshow();
+      }
+
       const heroTitle = document.getElementById('heroTitle');
-      const text = "Welcome to Decofy Design Co.";
-      const words = text.split(' ');
-      let delay = 0.15;
-      heroTitle.innerHTML = words.map(w => {
-        const el = `<span class="word"><span style="animation-delay:${delay}s">${w}</span></span>`;
-        delay += 0.12;
-        return el;
-      }).join(' ');
+      if (heroTitle) {
+        const text = "Welcome to Decofy Design Co.";
+        const words = text.split(' ');
+        let delay = 0.15;
+        heroTitle.innerHTML = words.map(w => {
+          const el = `<span class="word"><span style="animation-delay:${delay}s">${w}</span></span>`;
+          delay += 0.12;
+          return el;
+        }).join(' ');
+      }
     });
   </script>
 </body>
