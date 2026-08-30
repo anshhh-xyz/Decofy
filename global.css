@@ -729,63 +729,38 @@ footer {
   }
 }
 
-/* ═══════════ Architectural Custom Cursor ═══════════ */
+/* ═══════════ Native Architectural System Cursor ═══════════ */
 @media (hover: hover) and (pointer: fine) {
-  .decofy-cursor-dot,
-  .decofy-cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 99999;
-    border-radius: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    transition: opacity 0.3s ease, width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, border-color 0.3s ease;
-    will-change: transform;
-    opacity: 0;
+  html,
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cline%20x1='12'%20y1='1'%20x2='12'%20y2='5'%20stroke='%238B4A34'%20stroke-width='1.5'%20stroke-linecap='round'/%3E%3Cline%20x1='12'%20y1='19'%20x2='12'%20y2='23'%20stroke='%238B4A34'%20stroke-width='1.5'%20stroke-linecap='round'/%3E%3Cline%20x1='1'%20y1='12'%20x2='5'%20y2='12'%20stroke='%238B4A34'%20stroke-width='1.5'%20stroke-linecap='round'/%3E%3Cline%20x1='19'%20y1='12'%20x2='23'%20y2='12'%20stroke='%238B4A34'%20stroke-width='1.5'%20stroke-linecap='round'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='6.5'%20stroke='%238B4A34'%20stroke-width='1.2'%20fill='none'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='2'%20fill='%238B4A34'/%3E%3C/svg%3E") 12 12, auto;
   }
 
-  .decofy-cursor-dot {
-    width: 6px;
-    height: 6px;
-    background-color: #8B4A34;
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  select,
+  .film-frame,
+  .abt-value-card,
+  .abt-process-step,
+  .abt-service-box,
+  .dock-item,
+  .hamburger,
+  .filter-btn,
+  .g-item,
+  .card,
+  .project-card,
+  .btn,
+  .faq-question {
+    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%20viewBox='0%200%2028%2028'%3E%3Cline%20x1='14'%20y1='1'%20x2='14'%20y2='5'%20stroke='%238B4A34'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cline%20x1='14'%20y1='23'%20x2='14'%20y2='27'%20stroke='%238B4A34'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cline%20x1='1'%20y1='14'%20x2='5'%20y2='14'%20stroke='%238B4A34'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cline%20x1='23'%20y1='14'%20x2='27'%20y2='14'%20stroke='%238B4A34'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Ccircle%20cx='14'%20cy='14'%20r='9'%20stroke='%238B4A34'%20stroke-width='1.5'%20fill='%238B4A34'%20fill-opacity='0.2'/%3E%3Ccircle%20cx='14'%20cy='14'%20r='2.8'%20fill='%238B4A34'/%3E%3C/svg%3E") 14 14, pointer !important;
   }
 
-  .decofy-cursor-ring {
-    width: 28px;
-    height: 28px;
-    border: 1px solid rgba(139, 74, 52, 0.45);
-    background-color: transparent;
-  }
-
-  .decofy-cursor-ring.cursor-hover {
-    width: 48px;
-    height: 48px;
-    border-color: rgba(139, 74, 52, 0.75);
-    background-color: rgba(139, 74, 52, 0.08);
-    backdrop-filter: blur(0.5px);
-  }
-
-  .decofy-cursor-dot.cursor-hover {
-    transform: translate3d(-50%, -50%, 0) scale(1.3);
-    background-color: #8B4A34;
-  }
-
-  .decofy-cursor-ring.cursor-active {
-    width: 22px;
-    height: 22px;
-    border-color: #8B4A34;
-    background-color: rgba(139, 74, 52, 0.18);
-  }
-
-  .decofy-cursor-visible {
-    opacity: 1 !important;
-  }
-}
-
-@media (hover: none), (pointer: coarse) {
-  .decofy-cursor-dot,
-  .decofy-cursor-ring {
-    display: none !important;
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='24'%20viewBox='0%200%2016%2024'%3E%3Cline%20x1='4'%20y1='2'%20x2='12'%20y2='2'%20stroke='%238B4A34'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cline%20x1='8'%20y1='2'%20x2='8'%20y2='22'%20stroke='%238B4A34'%20stroke-width='1.6'/%3E%3Cline%20x1='4'%20y1='22'%20x2='12'%20y2='22'%20stroke='%238B4A34'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3C/svg%3E") 8 12, text !important;
   }
 }
