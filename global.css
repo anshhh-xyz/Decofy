@@ -728,39 +728,3 @@ footer {
     height: 46px;
   }
 }
-
-/* ═══════════ Hollow Velvet System Cursor ═══════════ */
-@media (hover: hover) and (pointer: fine) {
-  html,
-  body {
-    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M%201.5,1.5%20L%201.5,18.5%20L%206.2,13.8%20L%2010.5,22.2%20L%2013.2,20.8%20L%208.8,12.5%20L%2015.5,12.5%20Z'%20fill='none'%20stroke='%236B1724'%20stroke-width='1.8'%20stroke-linejoin='round'/%3E%3C/svg%3E") 1 1, auto;
-  }
-
-  a,
-  button,
-  [role="button"],
-  input[type="submit"],
-  input[type="button"],
-  select,
-  .film-frame,
-  .abt-value-card,
-  .abt-process-step,
-  .abt-service-box,
-  .dock-item,
-  .hamburger,
-  .filter-btn,
-  .g-item,
-  .card,
-  .project-card,
-  .btn,
-  .faq-question {
-    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M%201.5,1.5%20L%201.5,19%20L%206.5,14%20L%2011,23%20L%2014,21.5%20L%209.5,12.5%20L%2017,12.5%20Z'%20fill='rgba(107,23,36,0.14)'%20stroke='%236B1724'%20stroke-width='2'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='6'%20cy='6'%20r='1.8'%20fill='%236B1724'/%3E%3C/svg%3E") 1 1, pointer !important;
-  }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  textarea {
-    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='24'%20viewBox='0%200%2016%2024'%3E%3Cline%20x1='3'%20y1='2'%20x2='13'%20y2='2'%20stroke='%236B1724'%20stroke-width='1.8'%20stroke-linecap='round'/%3E%3Cline%20x1='8'%20y1='2'%20x2='8'%20y2='22'%20stroke='%236B1724'%20stroke-width='1.8'/%3E%3Cline%20x1='3'%20y1='22'%20x2='13'%20y2='22'%20stroke='%236B1724'%20stroke-width='1.8'%20stroke-linecap='round'/%3E%3C/svg%3E") 8 12, text !important;
-  }
-}
