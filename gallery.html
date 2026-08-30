@@ -72,49 +72,6 @@
   <link rel="stylesheet" href="global.css?v=20260820_v3">
   <script src="global.js?v=20260820_v3" defer></script>
   <style>
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--gold);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: difference;
-      transition: width .35s cubic-bezier(.19, 1, .22, 1), height .35s cubic-bezier(.19, 1, .22, 1), background .35s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cursor span {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--panel);
-      opacity: 0;
-      transition: opacity .25s ease;
-      white-space: nowrap;
-    }
-
-    .cursor.hover {
-      width: 64px;
-      height: 64px;
-      background: var(--cream);
-    }
-
-    .cursor.hover span {
-      opacity: 1;
-    }
-
-    @media (hover:none) {
-      .cursor {
-        display: none;
-      }
-    }
 
     .g-hero {
       padding: 180px 48px 40px;
@@ -647,7 +604,6 @@
 </head>
 
 <body>
-  <div class="cursor" id="cursor"><span>VIEW</span></div>
 
   <nav class="navbar" id="navbar">
     <div class="logo">
@@ -972,29 +928,6 @@
           <img src="${item.thumbSm}" alt="${item.alt}" loading="lazy" decoding="async" width="400" height="267" onerror="this.onerror=null;this.src='${getFallbackUrl(item.base)}';">
         </div>
       `).join('');
-    }
-
-    // Cursor Follower
-    const cursor = document.getElementById('cursor');
-    if (cursor && window.matchMedia('(pointer: fine)').matches) {
-      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-      let curX = mouseX, curY = mouseY;
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-      function cursorLoop() {
-        curX += (mouseX - curX) * 0.18;
-        curY += (mouseY - curY) * 0.18;
-        cursor.style.left = curX + 'px';
-        cursor.style.top = curY + 'px';
-        requestAnimationFrame(cursorLoop);
-      }
-      cursorLoop();
-      document.querySelectorAll('.film-frame, a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-      });
     }
 
     // Refined Lightbox with Accessibility & Keyboard Controls
