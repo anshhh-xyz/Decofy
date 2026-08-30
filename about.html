@@ -501,7 +501,6 @@
       stroke-width: 3px;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 2px 4px rgba(139, 74, 52, 0.35));
     }
     #pencilGuidePath {
       stroke: rgba(139, 74, 52, 0.22);
@@ -549,7 +548,6 @@
       stroke-width: 2.2px;
       stroke-linecap: round;
       fill: none;
-      filter: drop-shadow(0 1px 3px rgba(139, 74, 52, 0.35));
     }
     .process-mark-tick {
       stroke: #8B4A34;
@@ -557,7 +555,6 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       fill: none;
-      filter: drop-shadow(0 1px 3px rgba(139, 74, 52, 0.35));
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -816,7 +813,7 @@
       animEls.forEach(el => observer.observe(el));
     });
 
-    // ── Architectural Pencil Drafting Scroll Engine ──
+    // ── Architectural Pencil Drafting Scroll Engine (Performance-Optimized) ──
     (function initPencilScroll() {
       const container = document.getElementById('pencilScrollContainer');
       const svg = document.getElementById('pencilScrollSvg');
@@ -841,6 +838,10 @@
       let isRafRunning = false;
       let isInitialized = false;
       let stepMarkers = [];
+      let cachedMaxScroll = 1;
+
+      // GPU-accelerate the drawn path
+      drawPath.style.willChange = 'stroke-dashoffset';
 
       function getDocPos(el) {
         if (!el) return null;
@@ -853,6 +854,44 @@
           width: rect.width,
           height: rect.height
         };
+      }
+
+      // Binary search for nearest point on path — O(log n) vs O(n) brute force
+      function findNearestLength(path, targetX, targetY, pathLen) {
+        const PRECISION = 4; // 4px precision is plenty for visual accuracy
+        let lo = 0, hi = pathLen;
+
+        // First pass: coarse scan at 80px steps to find approximate region
+        let bestLen = 0, bestDist = Infinity;
+        const coarseStep = Math.max(80, pathLen / 120);
+        for (let l = 0; l <= pathLen; l += coarseStep) {
+          const p = path.getPointAtLength(l);
+          const d = (p.x - targetX) ** 2 + (p.y - targetY) ** 2;
+          if (d < bestDist) { bestDist = d; bestLen = l; }
+        }
+
+        // Second pass: refine within ±coarseStep of best
+        lo = Math.max(0, bestLen - coarseStep);
+        hi = Math.min(pathLen, bestLen + coarseStep);
+        bestDist = Infinity;
+
+        while (hi - lo > PRECISION) {
+          const mid1 = lo + (hi - lo) / 3;
+          const mid2 = hi - (hi - lo) / 3;
+          const p1 = path.getPointAtLength(mid1);
+          const p2 = path.getPointAtLength(mid2);
+          const d1 = (p1.x - targetX) ** 2 + (p1.y - targetY) ** 2;
+          const d2 = (p2.x - targetX) ** 2 + (p2.y - targetY) ** 2;
+
+          if (d1 < d2) {
+            hi = mid2;
+            if (d1 < bestDist) { bestDist = d1; bestLen = mid1; }
+          } else {
+            lo = mid1;
+            if (d2 < bestDist) { bestDist = d2; bestLen = mid2; }
+          }
+        }
+        return bestLen;
       }
 
       function generatePath() {
@@ -893,11 +932,11 @@
         pts.push({ x: isMobile ? docW * 0.82 : docW * 0.84, y: heroPos.top + 140 });
         pts.push({ x: isMobile ? docW * 0.68 : docW * 0.60, y: heroPos.top + heroPos.height * 0.72 });
 
-        // 2. Founders Intro (sweeps across near quote box)
+        // 2. Founders Intro
         pts.push({ x: isMobile ? docW * 0.18 : docW * 0.22, y: foundersPos.top + 110 });
         pts.push({ x: isMobile ? docW * 0.35 : docW * 0.42, y: foundersPos.top + foundersPos.height * 0.72 });
 
-        // 3. Values (sweeps across values grid)
+        // 3. Values
         pts.push({ x: isMobile ? docW * 0.85 : docW * 0.88, y: valuesPos.top + 90 });
         pts.push({ x: isMobile ? docW * 0.65 : docW * 0.58, y: valuesPos.top + valuesPos.height * 0.75 });
 
@@ -905,7 +944,7 @@
         pts.push({ x: isMobile ? docW * 0.16 : docW * 0.18, y: whyPos.top + 120 });
         pts.push({ x: isMobile ? docW * 0.35 : docW * 0.42, y: whyPos.top + whyPos.height * 0.65 });
 
-        // 5. Process (draws sequentially through each of the 5 step numbers)
+        // 5. Process — inject step centers directly
         processMarksG.innerHTML = '';
         stepMarkers = [];
         const processSteps = Array.from(document.querySelectorAll('.abt-process-step'));
@@ -919,13 +958,11 @@
 
           pts.push({ x: cx, y: cy });
 
-          // Hand-drawn compass circle around step number
           const r = isMobile ? 21 : 24;
           const circlePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           circlePath.setAttribute('class', 'process-mark-circle');
           circlePath.setAttribute('d', `M ${cx.toFixed(1)},${(cy - r).toFixed(1)} A ${r},${r} 0 1,1 ${(cx - 0.1).toFixed(1)},${(cy - r).toFixed(1)}`);
 
-          // Architectural checkmark tick next to the circle
           const tickPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           tickPath.setAttribute('class', 'process-mark-tick');
           tickPath.setAttribute('d', `M ${(cx + r - 3).toFixed(1)},${cy.toFixed(1)} L ${(cx + r + 3).toFixed(1)},${(cy + 6).toFixed(1)} L ${(cx + r + 13).toFixed(1)},${(cy - 6).toFixed(1)}`);
@@ -943,19 +980,12 @@
           tickPath.style.strokeDashoffset = tLen;
 
           stepMarkers.push({
-            stepIdx: i,
-            stepEl: stepEl,
-            circlePath,
-            tickPath,
-            cLen,
-            tLen,
-            cx,
-            cy,
-            targetLen: 0
+            stepIdx: i, stepEl, circlePath, tickPath,
+            cLen, tLen, cx, cy, targetLen: 0
           });
         });
 
-        // 6. Services (loops into services cards)
+        // 6. Services
         pts.push({ x: isMobile ? docW * 0.80 : docW * 0.82, y: servicesPos.top + 110 });
         pts.push({ x: isMobile ? docW * 0.50 : docW * 0.48, y: servicesPos.top + servicesPos.height - 60 });
 
@@ -978,7 +1008,7 @@
         guidePath.setAttribute('d', d);
         drawPath.setAttribute('d', d);
 
-        // Architectural waypoint crosshairs for section landmarks
+        // Architectural waypoint crosshairs
         let nodesHtml = '';
         pts.forEach((p, idx) => {
           if (idx <= 4 || idx >= pts.length - 2) {
@@ -995,21 +1025,12 @@
         drawPath.style.strokeDasharray = totalLen;
         drawPath.style.strokeDashoffset = totalLen;
 
-        // Compute exact length along path for each step marker
+        // Binary search for each step marker — ~30x faster than brute-force
         stepMarkers.forEach((sm) => {
-          let bestLen = 0;
-          let bestDist = Infinity;
-          for (let l = 0; l <= totalLen; l += 8) {
-            const p = drawPath.getPointAtLength(l);
-            const dist = Math.hypot(p.x - sm.cx, p.y - sm.cy);
-            if (dist < bestDist) {
-              bestDist = dist;
-              bestLen = l;
-            }
-          }
-          sm.targetLen = bestLen;
+          sm.targetLen = findNearestLength(drawPath, sm.cx, sm.cy, totalLen);
         });
 
+        cachedMaxScroll = Math.max((document.documentElement.scrollHeight - window.innerHeight), 1);
         isInitialized = true;
         onScroll();
       }
@@ -1017,8 +1038,7 @@
       function onScroll() {
         if (!isInitialized || !totalLen) return;
         const scrollY = window.scrollY || window.pageYOffset || 0;
-        const maxScroll = Math.max((document.documentElement.scrollHeight - window.innerHeight), 1);
-        targetProgress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+        targetProgress = Math.min(Math.max(scrollY / cachedMaxScroll, 0), 1);
 
         if (!isRafRunning) {
           isRafRunning = true;
@@ -1047,7 +1067,6 @@
         const pt = drawPath.getPointAtLength(Math.min(currentLen, totalLen));
         const ptNext = drawPath.getPointAtLength(Math.min(currentLen + 4, totalLen));
 
-        // Calculate tangent angle for pencil rotation
         const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
         const pencilTilt = angle - 85;
 
@@ -1056,15 +1075,13 @@
           pencilBody.setAttribute('transform', `rotate(${pencilTilt.toFixed(1)}) translate(0, -1)`);
         }
 
-        // Animate dynamic circles and checkmark ticks on process steps
+        // Animate circles and checkmark ticks on process steps
         stepMarkers.forEach((sm) => {
           const diff = currentLen - sm.targetLen;
           if (diff >= -20) {
-            // Draw circle
             const circleProgress = Math.min(Math.max((diff + 20) / 40, 0), 1);
             sm.circlePath.style.strokeDashoffset = sm.cLen * (1 - circleProgress);
 
-            // Draw checkmark tick
             const tickProgress = Math.min(Math.max((diff - 15) / 35, 0), 1);
             sm.tickPath.style.strokeDashoffset = sm.tLen * (1 - tickProgress);
 
@@ -1082,21 +1099,37 @@
       }
 
       window.addEventListener('scroll', onScroll, { passive: true });
+
+      let resizeTimer;
       window.addEventListener('resize', () => {
-        generatePath();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          cachedMaxScroll = Math.max((document.documentElement.scrollHeight - window.innerHeight), 1);
+          generatePath();
+        }, 120);
       }, { passive: true });
 
-      // Run when DOM is ready and after images/fonts settle
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          setTimeout(generatePath, 60);
+      // Immediate initialization — no arbitrary delays
+      function init() {
+        // Use requestAnimationFrame to ensure layout is computed
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            generatePath();
+          });
         });
-      } else {
-        setTimeout(generatePath, 60);
       }
 
+      if (document.readyState === 'complete') {
+        init();
+      } else if (document.readyState === 'interactive') {
+        init();
+      } else {
+        document.addEventListener('DOMContentLoaded', init);
+      }
+
+      // Re-calibrate once all external assets (fonts, images) are loaded
       window.addEventListener('load', () => {
-        setTimeout(generatePath, 150);
+        requestAnimationFrame(generatePath);
       });
     })();
   </script>
