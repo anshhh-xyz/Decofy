@@ -164,30 +164,64 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenu = document.getElementById('mobileMenu');
   const mobileClose = document.getElementById('mobileClose');
 
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.add('open');
-      mobileMenu.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
+  let backdrop = document.getElementById('mobileBackdrop');
+  if (!backdrop && mobileMenu) {
+    backdrop = document.createElement('div');
+    backdrop.id = 'mobileBackdrop';
+    backdrop.className = 'mobile-backdrop';
+    document.body.appendChild(backdrop);
   }
 
-  if (mobileClose && mobileMenu && hamburger) {
-    mobileClose.addEventListener('click', () => {
+  const closeMenu = () => {
+    if (hamburger && mobileMenu) {
       hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
       mobileMenu.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('open');
       document.body.style.overflow = '';
-    });
+      hamburger.focus();
+    }
+  };
+
+  const openMenu = () => {
+    if (hamburger && mobileMenu) {
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileMenu.classList.add('open');
+      if (backdrop) backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (mobileClose) mobileClose.focus();
+    }
+  };
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMenu);
   }
 
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (hamburger && mobileMenu) {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
+  if (hamburger && mobileMenu) {
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-controls', 'mobileMenu');
+    hamburger.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
       }
     });
+  }
+
+  if (mobileClose) {
+    mobileClose.addEventListener('click', closeMenu);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
   });
 
   const revealElements = document.querySelectorAll('.reveal, .reveal-line');
