@@ -163,10 +163,14 @@ h3 {
 
 .nav-logo-svg {
   display: block;
-  height: 38px;
+  height: 52px;
   width: auto;
-  max-width: 140px;
-  transition: transform .3s ease;
+  max-width: 175px;
+  transition: transform .3s ease, height .3s ease;
+}
+
+.navbar.scrolled .nav-logo-svg {
+  height: 44px;
 }
 
 .navbar .logo a:hover .nav-logo-svg {
@@ -718,5 +722,9 @@ footer {
 
   .hamburger {
     display: flex;
+  }
+
+  .nav-logo-svg {
+    height: 46px;
   }
 }
